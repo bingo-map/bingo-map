@@ -11,11 +11,7 @@
         :root {
             --primary-green: #198754;
             --primary-green-light: #e8f5e9;
-            --tag-takoyaki: #e76f51;
-            --tag-yakisoba: #e07a5f;
-            --tag-okonomiyaki: #d97706;
-            --tag-taiyaki: #f59e0b;
-            --tag-karaage: #b45309;
+            --tag-default: #6c757d;
         }
 
         body {
@@ -43,7 +39,7 @@
             border-bottom: 3px solid var(--primary-green);
         }
 
-        /* 2. 상단 히어로 배너: 컨테이너 내부 우측 및 중앙 정렬 */
+        /* 2. 상단 히어로 배너 */
         .hero-banner {
             background-color: #f8fafc;
             border-bottom: 1px solid #edf2f7;
@@ -56,7 +52,7 @@
         .hero-banner-container {
             background-image: url('/images/restaurant-banner.png');
             background-repeat: no-repeat;
-            background-position: 90% center; /* 와이드 화면에서도 오른쪽 끝이 아닌 중앙 쪽에 밀착 */
+            background-position: 90% center;
             background-size: contain;
             min-height: 160px;
         }
@@ -122,13 +118,6 @@
             border-color: var(--primary-green);
             font-weight: 600;
         }
-        .form-range::-webkit-slider-thumb {
-            background: var(--primary-green);
-        }
-        .form-check-input:checked {
-            background-color: var(--primary-green);
-            border-color: var(--primary-green);
-        }
 
         /* 4. 우측 맛집 리스트 카드 */
         .restaurant-list-card {
@@ -155,7 +144,7 @@
             border-radius: 10px;
             object-fit: cover;
             flex-shrink: 0;
-            background-color: #f1f3f5;
+            background-color: #e9ecef;
         }
         .tag-pill {
             font-size: 0.7rem;
@@ -163,63 +152,15 @@
             padding: 3px 8px;
             border-radius: 4px;
             color: #ffffff;
+            background-color: var(--primary-green);
             display: inline-block;
             margin-bottom: 6px;
-        }
-        .tag-pill-takoyaki { background-color: var(--tag-takoyaki); }
-        .tag-pill-yakisoba { background-color: var(--tag-yakisoba); }
-        .tag-pill-okonomiyaki { background-color: var(--tag-okonomiyaki); }
-        .tag-pill-taiyaki { background-color: var(--tag-taiyaki); }
-        .tag-pill-karaage { background-color: var(--tag-karaage); }
-
-        .distance-badge {
-            color: var(--primary-green);
-            font-weight: 600;
-            font-size: 0.85rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-        }
-        .favorite-heart {
-            font-size: 1.25rem;
-            color: #a0aec0;
-            cursor: pointer;
-            transition: color 0.15s;
-        }
-        .favorite-heart:hover, .favorite-heart.active {
-            color: #e53e3e;
-        }
-
-        /* 5. 하단 탭 바 (모바일 지원) */
-        .bottom-nav-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #ffffff;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 0;
-            z-index: 1050;
-        }
-        .bottom-nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.75rem;
-            color: #718096;
-            text-decoration: none;
-        }
-        .bottom-nav-item.active {
-            color: var(--primary-green);
-            font-weight: 600;
         }
     </style>
 </head>
 <body class="pb-5">
 
-<!-- 상단 헤더 네비게이션 -->
+<!-- [상단 헤더 네비게이션] -->
 <header class="bg-white border-bottom py-2 sticky-top">
     <div class="container d-flex align-items-center justify-content-between">
         <a href="/" class="navbar-brand-logo text-decoration-none fs-4">
@@ -244,106 +185,49 @@
     </div>
 </header>
 
-<!-- 히어로 배너 섹션 (일러스트가 중앙 위치로 오도록 container 배경 적용) -->
+<!-- [히어로 배너 섹션] -->
 <section class="hero-banner">
     <div class="container hero-banner-container d-flex align-items-center">
         <div class="row w-100">
             <div class="col-12 col-md-6 col-lg-5">
                 <h2 class="fw-bold mb-2 text-dark" style="letter-spacing: -0.5px;">주변 맛집</h2>
                 <p class="text-secondary mb-3 small" style="line-height: 1.5;">
-                    현재 위치 주변의 테이크아웃 맛집을<br>확인해 보세요!
+                    등록된 테이크아웃 맛집 목록을 확인해 보세요!
                 </p>
                 <div class="d-flex align-items-center gap-2">
                     <div class="location-chip shadow-sm">
                         <i class="bi bi-geo-alt-fill text-success"></i>
-                        <span>오사카, 도톤보리 근처</span>
+                        <span>현재 위치 기준</span>
                     </div>
-                    <button class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-1 bg-white" style="font-size: 0.8rem;">
-                        위치 변경
-                    </button>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- 메인 콘텐츠 영역 -->
+<!-- [메인 콘텐츠 영역] -->
 <main class="container my-4">
     <div class="row g-4">
 
-        <!-- 좌측: 검색 필터 사이드바 -->
+        <!-- 좌측: 카테고리 필터 사이드바 -->
         <div class="col-lg-3">
             <div class="filter-panel">
                 <h5 class="fw-bold mb-3">검색 필터</h5>
 
-                <!-- 카테고리 버튼 그리드 -->
+                <!-- 카테고리 필터 버튼 목록 -->
                 <div class="mb-4">
                     <div class="filter-title">카테고리</div>
                     <div class="filter-grid-2" id="categoryFilterContainer">
-                        <button class="btn-filter-tag active" onclick="selectCategory('전체', this)">전체</button>
-                        <button class="btn-filter-tag" onclick="selectCategory('타코야끼', this)">타코야끼</button>
-                        <button class="btn-filter-tag" onclick="selectCategory('야끼소바', this)">야끼소바</button>
-                        <button class="btn-filter-tag" onclick="selectCategory('오코노미야끼', this)">오코노미야끼</button>
-                        <button class="btn-filter-tag" onclick="selectCategory('붕어빵', this)">붕어빵</button>
-                        <button class="btn-filter-tag" onclick="selectCategory('닭튀김', this)">닭튀김</button>
-                        <button class="btn-filter-tag" onclick="selectCategory('기타', this)">기타</button>
-                    </div>
-                </div>
-
-                <!-- 정렬 기준 -->
-                <div class="mb-4">
-                    <div class="filter-title">정렬 기준</div>
-                    <select class="form-select form-select-sm" id="sortSelect" onchange="applyFilters()">
-                        <option value="distance" selected>거리순</option>
-                        <option value="rating">평점순</option>
-                        <option value="reviews">리뷰 많은순</option>
-                    </select>
-                </div>
-
-                <!-- 반경 선택 -->
-                <div class="mb-4">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <div class="filter-title mb-0">반경 선택</div>
-                        <span class="text-secondary small fw-bold" id="radiusLabel">500m</span>
-                    </div>
-                    <input type="range" class="form-range" min="100" max="2000" step="100" value="500" id="radiusRange" oninput="updateRadius(this.value)">
-                    <div class="d-flex justify-content-between text-muted" style="font-size: 0.7rem;">
-                        <span>100m</span>
-                        <span>500m</span>
-                        <span>1km</span>
-                        <span>2km</span>
-                    </div>
-                </div>
-
-                <!-- 평점 라디오 필터 -->
-                <div class="mb-4">
-                    <div class="filter-title">평점</div>
-                    <div class="form-check mb-2 small">
-                        <input class="form-check-input" type="radio" name="ratingFilter" id="rateAll" value="0" checked onchange="applyFilters()">
-                        <label class="form-check-label" for="rateAll">전체</label>
-                    </div>
-                    <div class="form-check mb-2 small">
-                        <input class="form-check-input" type="radio" name="ratingFilter" id="rate4" value="4.0" onchange="applyFilters()">
-                        <label class="form-check-label text-warning" for="rate4">
-                            ★★★★☆ <span class="text-dark">4.0 이상</span>
-                        </label>
-                    </div>
-                    <div class="form-check mb-2 small">
-                        <input class="form-check-input" type="radio" name="ratingFilter" id="rate35" value="3.5" onchange="applyFilters()">
-                        <label class="form-check-label text-warning" for="rate35">
-                            ★★★☆☆ <span class="text-dark">3.5 이상</span>
-                        </label>
-                    </div>
-                    <div class="form-check mb-2 small">
-                        <input class="form-check-input" type="radio" name="ratingFilter" id="rate3" value="3.0" onchange="applyFilters()">
-                        <label class="form-check-label text-warning" for="rate3">
-                            ★★☆☆☆ <span class="text-dark">3.0 이상</span>
-                        </label>
+                        <button class="btn-filter-tag active" onclick="filterByCategory('전체', this)">전체</button>
+                        <button class="btn-filter-tag" onclick="filterByCategory('타코야끼', this)">타코야끼</button>
+                        <button class="btn-filter-tag" onclick="filterByCategory('야끼소바', this)">야끼소바</button>
+                        <button class="btn-filter-tag" onclick="filterByCategory('오코노미야끼', this)">오코노미야끼</button>
+                        <button class="btn-filter-tag" onclick="filterByCategory('기타', this)">기타</button>
                     </div>
                 </div>
 
                 <!-- 필터 초기화 버튼 -->
-                <button class="btn btn-outline-secondary btn-sm w-100 py-2 rounded-2" onclick="resetFilters()">
+                <button class="btn btn-outline-secondary btn-sm w-100 py-2 rounded-2" onclick="resetFilter()">
                     필터 초기화
                 </button>
             </div>
@@ -351,255 +235,178 @@
 
         <!-- 우측: 맛집 리스트 영역 -->
         <div class="col-lg-9">
-            <!-- 상단 카운트 및 지도보기 버튼 -->
+            <!-- 상단 매장 개수 카운트 -->
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <span class="small text-secondary">
-                    총 <strong class="text-dark" id="totalCount">24</strong>개의 맛집이 있습니다.
+                    총 <strong class="text-dark" id="totalCount">0</strong>개의 맛집이 등록되어 있습니다.
                 </span>
                 <a href="/map/map.html" class="btn btn-outline-secondary btn-sm px-3 rounded-2 text-dark">
                     <i class="bi bi-geo-alt text-success me-1"></i> 지도 보기
                 </a>
             </div>
 
-            <!-- 맛집 리스트 컨테이너 -->
+            <!--
+                =============================================================
+                [DB 맛집 목록이 출력되는 컨테이너]
+                서버 사이드 템플릿(Thymeleaf 등)을 쓸 때는 이 내부에 th:each 루프를 걸고,
+                REST API(JSON) 방식을 쓸 때는 아래 JS fetch에서 내부 HTML을 동적 생성합니다.
+                =============================================================
+            -->
             <div class="d-flex flex-column gap-3" id="restaurantListContainer">
-                <!-- 자바스크립트로 렌더링 -->
+                <!-- 데이터 로딩 전 안내 문구 -->
+                <div class="text-center py-5 bg-white rounded-3 border">
+                    <i class="bi bi-hourglass-split fs-2 text-muted"></i>
+                    <p class="mt-2 text-secondary small">가게 목록을 불러오는 중입니다...</p>
+                </div>
             </div>
 
-            <!-- 페이지네이션 -->
-            <nav class="mt-4 d-flex justify-content-center">
-                <ul class="pagination pagination-sm">
-                    <li class="page-item disabled"><a class="page-link" href="#">&lt;</a></li>
-                    <li class="page-item active"><a class="page-link bg-success border-success" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
-                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                    <li class="page-item"><a class="page-link text-secondary" href="#">6</a></li>
-                    <li class="page-item"><a class="page-link text-secondary" href="#">&gt;</a></li>
-                </ul>
-            </nav>
         </div>
-
     </div>
 </main>
 
-<!-- 하단 모바일 내비게이션 바 -->
-<div class="bottom-nav-bar d-md-none">
-    <a href="/map/map.html" class="bottom-nav-item">
-        <i class="bi bi-geo-alt fs-5"></i>
-        <span>지도</span>
-    </a>
-    <a href="/map/bins.html" class="bottom-nav-item">
-        <i class="bi bi-trash3 fs-5"></i>
-        <span>주변 쓰레기통</span>
-    </a>
-    <a href="/restaurants" class="bottom-nav-item active">
-        <i class="bi bi-shop fs-5"></i>
-        <span>주변 맛집</span>
-    </a>
-    <a href="/favorites/favorites.html" class="bottom-nav-item">
-        <i class="bi bi-heart fs-5"></i>
-        <span>즐겨찾기</span>
-    </a>
-    <a href="/mypage" class="bottom-nav-item">
-        <i class="bi bi-person fs-5"></i>
-        <span>마이페이지</span>
-    </a>
-</div>
-
-<!-- 스크립트: 데이터 렌더링 및 인터랙션 -->
+<!-- ============================================================= -->
+<!-- [DB 데이터 연동 스크립트 영역] -->
+<!-- ============================================================= -->
 <script>
-    // 맛집 데이터 목록
-    const restaurantData = [
-        {
-            id: 1,
-            name: "쿠쿠루 도톤보리 본점",
-            category: "타코야끼",
-            tagClass: "tag-pill-takoyaki",
-            desc: "겉은 바삭, 속은 촉촉! 도톤보리 대표 타코야끼 맛집",
-            rating: 4.6,
-            reviewCount: 1248,
-            hours: "09:00 - 21:00",
-            distanceNum: 120,
-            distance: "120m",
-            image: "/images/food-takoyaki.png"
-        },
-        {
-            id: 2,
-            name: "야끼소바 산페이",
-            category: "야끼소바",
-            tagClass: "tag-pill-yakisoba",
-            desc: "특제 소스의 깊은 감칠맛! 야끼소바 전문점",
-            rating: 4.4,
-            reviewCount: 892,
-            hours: "10:30 - 20:30",
-            distanceNum: 180,
-            distance: "180m",
-            image: "/images/food-yakisoba.png"
-        },
-        {
-            id: 3,
-            name: "오코노미야끼 치보",
-            category: "오코노미야끼",
-            tagClass: "tag-pill-okonomiyaki",
-            desc: "풍미 가득 일본식 부침개의 진수",
-            rating: 4.5,
-            reviewCount: 1102,
-            hours: "11:00 - 21:30",
-            distanceNum: 220,
-            distance: "220m",
-            image: "/images/food-okonomiyaki.png"
-        },
-        {
-            id: 4,
-            name: "도톤보리 타이야끼",
-            category: "붕어빵",
-            tagClass: "tag-pill-taiyaki",
-            desc: "팥이 가득한 따끈한 붕어빵",
-            rating: 4.3,
-            reviewCount: 567,
-            hours: "10:00 - 19:00",
-            distanceNum: 280,
-            distance: "280m",
-            image: "/images/food-taiyaki.png"
-        },
-        {
-            id: 5,
-            name: "카라아게 타로",
-            category: "닭튀김",
-            tagClass: "tag-pill-karaage",
-            desc: "바삭하고 육즙 가득! 일본식 닭튀김",
-            rating: 4.4,
-            reviewCount: 734,
-            hours: "11:00 - 21:00",
-            distanceNum: 320,
-            distance: "320m",
-            image: "/images/food-karaage.png"
-        }
-    ];
+    // DB에서 받아올 맛집 목록을 저장할 배열
+    let storeList = [];
+    let currentCategory = '전체';
 
-    let selectedCategory = '전체';
+    // 1. 페이지 로드 시 백엔드 API로부터 DB 데이터 가져오기
+    document.addEventListener("DOMContentLoaded", () => {
+        loadStoresFromDB();
+    });
 
-    // 카드 목록 그리기
-    function renderList(items) {
+    /**
+     * 백엔드 Controller / API 호출 함수
+     * 실제 백엔드 매핑 주소(예: /api/restaurants)에 맞게 url을 수정하세요.
+     */
+    function loadStoresFromDB() {
+        fetch('/api/restaurants')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('네트워크 응답 오류');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // DB에서 받아온 데이터 배열 저장
+                storeList = data;
+                renderStoreList(storeList);
+            })
+            .catch(error => {
+                console.warn('API 호출 실패 또는 미구현 상태:', error);
+                // 백엔드 API가 아직 연결되지 않은 경우 보여줄 빈 상태 화면
+                displayEmptyMessage("등록된 맛집 정보가 없거나 데이터를 불러오지 못했습니다.");
+            });
+    }
+
+    /**
+     * DB에서 받아온 목록을 기반으로 HTML 카드 동적 렌더링
+     */
+    function renderStoreList(items) {
         const container = document.getElementById('restaurantListContainer');
-        document.getElementById('totalCount').innerText = items.length;
+        const countElement = document.getElementById('totalCount');
 
-        if (items.length === 0) {
-            container.innerHTML = `
-                <div class="text-center py-5 bg-white rounded-3 border">
-                    <i class="bi bi-search fs-2 text-muted"></i>
-                    <p class="mt-2 text-secondary small">선택하신 필터 조건에 일치하는 맛집이 없습니다.</p>
-                </div>`;
+        countElement.innerText = items.length;
+
+        if (!items || items.length === 0) {
+            displayEmptyMessage("조건에 해당하는 맛집이 없습니다.");
             return;
         }
 
+        // DB 컬럼명 매핑 가이드:
+        // item.id          -> 가게 고유 식별자 PK (상세페이지 이동 파라미터)
+        // item.name        -> 가게 이름
+        // item.category    -> 업종 / 음식 카테고리
+        // item.description -> 가게 설명 / 한 줄 소개
+        // item.imageUrl    -> 대표 사진 URL (없을 시 기본 대체 이미지)
+        // item.address      -> 가게 주소
         container.innerHTML = items.map(item => `
+            <!-- 개별 매장 클릭 시 앞서 만든 detail 페이지로 가게 id를 넘김 -->
             <div class="restaurant-list-card" onclick="location.href='/restaurants/detail?id=${item.id}'">
-                <img src="${item.image}" alt="${item.name}" class="card-thumbnail">
+
+                <!-- [매장 썸네일 이미지] -->
+                <img src="${item.imageUrl || 'https://via.placeholder.com/170x120?text=No+Image'}"
+                     alt="${item.name}"
+                     class="card-thumbnail"
+                     onerror="this.src='https://via.placeholder.com/170x120?text=No+Image'">
+
                 <div class="d-flex flex-column justify-content-between flex-grow-1">
                     <div>
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
-                                <span class="tag-pill ${item.tagClass}">${item.category}</span>
+                                <!-- [카테고리] -->
+                                <span class="tag-pill">${item.category || '기타'}</span>
+                                <!-- [가게 이름] -->
                                 <h5 class="fw-bold mb-1 fs-6">${item.name}</h5>
                             </div>
-                            <div class="distance-badge">
-                                <i class="bi bi-geo-alt-fill"></i> ${item.distance}
-                            </div>
                         </div>
+
+                        <!-- [가게 소개글] -->
                         <p class="text-secondary small mb-2 text-truncate" style="max-width: 520px;">
-                            ${item.desc}
+                            ${item.description || '가게 소개글이 없습니다.'}
                         </p>
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-end">
-                        <div class="small text-secondary" style="font-size: 0.8rem;">
-                            <div>
-                                <i class="bi bi-star-fill text-warning"></i>
-                                <strong class="text-dark">${item.rating}</strong>
-                                <span class="text-muted">(${item.reviewCount})</span>
-                            </div>
-                            <div>
-                                <i class="bi bi-clock me-1"></i> ${item.hours}
-                            </div>
-                        </div>
-                        <i class="bi bi-heart favorite-heart" onclick="toggleFavorite(event, this)"></i>
+                    <!-- [가게 주소] -->
+                    <div class="small text-secondary" style="font-size: 0.8rem;">
+                        <i class="bi bi-geo-alt text-success me-1"></i>
+                        <span>${item.address || '주소 미등록'}</span>
                     </div>
                 </div>
             </div>
         `).join('');
     }
 
-    // 카테고리 선택
-    function selectCategory(category, btn) {
-        selectedCategory = category;
-        document.querySelectorAll('#categoryFilterContainer .btn-filter-tag').forEach(b => b.classList.remove('active'));
+    /**
+     * 카테고리 선택 필터링 함수
+     */
+    function filterByCategory(category, btn) {
+        currentCategory = category;
+
+        // 버튼 active 상태 변경
+        document.querySelectorAll('#categoryFilterContainer .btn-filter-tag').forEach(b => {
+            b.classList.remove('active');
+        });
         btn.classList.add('active');
-        applyFilters();
-    }
 
-    // 반경 슬라이더 갱신
-    function updateRadius(val) {
-        document.getElementById('radiusLabel').innerText = val >= 1000 ? (val / 1000) + 'km' : val + 'm';
-        applyFilters();
-    }
-
-    // 필터 종합 적용
-    function applyFilters() {
-        let filtered = [...restaurantData];
-
-        // 카테고리 필터
-        if (selectedCategory !== '전체') {
-            filtered = filtered.filter(item => item.category === selectedCategory);
+        // 필터링 적용
+        if (category === '전체') {
+            renderStoreList(storeList);
+        } else {
+            const filtered = storeList.filter(item => item.category === category);
+            renderStoreList(filtered);
         }
-
-        // 반경 필터
-        const maxRadius = parseInt(document.getElementById('radiusRange').value);
-        filtered = filtered.filter(item => item.distanceNum <= maxRadius);
-
-        // 평점 필터
-        const minRating = parseFloat(document.querySelector('input[name="ratingFilter"]:checked').value);
-        if (minRating > 0) {
-            filtered = filtered.filter(item => item.rating >= minRating);
-        }
-
-        // 정렬
-        const sortBy = document.getElementById('sortSelect').value;
-        if (sortBy === 'distance') {
-            filtered.sort((a, b) => a.distanceNum - b.distanceNum);
-        } else if (sortBy === 'rating') {
-            filtered.sort((a, b) => b.rating - a.rating);
-        } else if (sortBy === 'reviews') {
-            filtered.sort((a, b) => b.reviewCount - a.reviewCount);
-        }
-
-        renderList(filtered);
     }
 
-    // 즐겨찾기 토글
-    function toggleFavorite(e, heartIcon) {
-        e.stopPropagation(); // 상세페이지 이동 방지
-        heartIcon.classList.toggle('bi-heart');
-        heartIcon.classList.toggle('bi-heart-fill');
-        heartIcon.classList.toggle('active');
-    }
-
-    // 필터 초기화
-    function resetFilters() {
-        selectedCategory = '전체';
+    /**
+     * 필터 초기화
+     */
+    function resetFilter() {
+        currentCategory = '전체';
         document.querySelectorAll('#categoryFilterContainer .btn-filter-tag').forEach((b, idx) => {
             b.classList.toggle('active', idx === 0);
         });
-        document.getElementById('sortSelect').value = 'distance';
-        document.getElementById('radiusRange').value = 500;
-        document.getElementById('radiusLabel').innerText = '500m';
-        document.getElementById('rateAll').checked = true;
-        renderList(restaurantData);
+        renderStoreList(storeList);
     }
 
-    // 초기 로드
-    renderList(restaurantData);
+    /**
+     * 데이터가 없거나 로딩 실패 시 출력 메시지
+     */
+    function displayEmptyMessage(msg) {
+        const container = document.getElementById('restaurantListContainer');
+        document.getElementById('totalCount').innerText = "0";
+        container.innerHTML = `
+            <div class="text-center py-5 bg-white rounded-3 border">
+                <i class="bi bi-shop fs-2 text-muted"></i>
+                <p class="mt-2 text-secondary small mb-0">${msg}</p>
+            </div>
+        `;
+    }
 </script>
+
+<!-- 부트스트랩 JS 번들 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

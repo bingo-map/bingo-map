@@ -1,14 +1,14 @@
 drop table RESTAURANT;
 
 
--- 1. ½ÃÄö½º »ý¼º (¿£Æ¼Æ¼ÀÇ SEQ_RESTAURANT¿Í ÀÏÄ¡)
+-- 1. ì‹œí€€ìŠ¤ ìƒì„± (ì—”í‹°í‹°ì˜ SEQ_RESTAURANTì™€ ì¼ì¹˜)
 CREATE SEQUENCE SEQ_RESTAURANT
     START WITH 1
     INCREMENT BY 1
     NOCACHE
     NOCYCLE;
 
--- 2. RESTAURANT Å×ÀÌºí »ý¼º
+-- 2. RESTAURANT í…Œì´ë¸” ìƒì„±
 CREATE TABLE RESTAURANT (
     RESTAURANT_ID    NUMBER(19) PRIMARY KEY,
     NAME             VARCHAR2(100) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE RESTAURANT (
     MAIN_IMAGE_URL   VARCHAR2(500)
 );
 
--- 3. Å×½ºÆ®¿ë »ùÇÃ µ¥ÀÌÅÍ 1°Ç ³Ö±â
+-- 3. í…ŒìŠ¤íŠ¸ìš© ìƒ˜í”Œ ë°ì´í„° 1ê±´ ë„£ê¸°
 INSERT INTO RESTAURANT (
     RESTAURANT_ID, NAME, CATEGORY, TAGS, RATING, REVIEW_COUNT, 
     DESCRIPTION, ADDRESS, LATITUDE, LONGITUDE, OPENING_HOURS, 
@@ -39,12 +39,12 @@ INSERT INTO RESTAURANT (
     PAYMENT_METHODS, LANGUAGES, MAIN_IMAGE_URL
 ) VALUES (
     SEQ_RESTAURANT.NEXTVAL,
-    'ÄíÄí·ç µµÅæº¸¸® º»Á¡',
-    'Å¸ÄÚ¾ß³¢',
-    'µµÅæº¸¸®,Å¸ÄÚ¾ß³¢,¿À»çÄ«¸ÀÁý',
+    'ì¿ ì¿ ë£¨ ë„í†¤ë³´ë¦¬ ë³¸ì ',
+    'íƒ€ì½”ì•¼ë¼',
+    'ë„í†¤ë³´ë¦¬,íƒ€ì½”ì•¼ë¼,ì˜¤ì‚¬ì¹´ë§›ì§‘',
     4.6,
     1248,
-    '°ÑÀº ¹Ù»è, ¼ÓÀº ÃËÃË! µµÅæº¸¸® ´ëÇ¥ Å¸ÄÚ¾ß³¢ ¸ÀÁý',
+    'ê²‰ì€ ë°”ì‚­, ì†ì€ ì´‰ì´‰! ë„í†¤ë³´ë¦¬ ëŒ€í‘œ íƒ€ì½”ì•¼ë¼ ë§›ì§‘',
     '1-10-5 Dotonbori, Chuo-ku, Osaka',
     34.668729,
     135.501294,
@@ -52,14 +52,14 @@ INSERT INTO RESTAURANT (
     '+81-6-6212-7381',
     '?500 - ?1,500',
     'https://www.kukurutei.com',
-    '20¼®',
-    '¿¹¾à ºÒ°¡ (ÇöÀå ´ë±â)',
-    'Çö±Ý, ½Å¿ëÄ«µå, ÀüÀÚÈ­Æó',
-    'ÀÏº»¾î, ÇÑ±¹¾î ¸Þ´ºÆÇ',
+    '20ì„',
+    'ì˜ˆì•½ ë¶ˆê°€ (í˜„ìž¥ ëŒ€ê¸°)',
+    'í˜„ê¸ˆ, ì‹ ìš©ì¹´ë“œ, ì „ìží™”í',
+    'ì¼ë³¸ì–´, í•œêµ­ì–´ ë©”ë‰´íŒ',
     '/images/food-takoyaki.png'
 );
 
--- 4. ¹Ýµå½Ã Ä¿¹Ô(¹Ý¿µ) ¼öÇà!
+-- 4. ë°˜ë“œì‹œ ì»¤ë°‹(ë°˜ì˜) ìˆ˜í–‰!
 COMMIT;
 
 SELECT * FROM RESTAURANT;

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
+<!-- 타임리프(Thymeleaf) 템플릿 엔진을 사용하기 위한 네임스페이스 선언 -->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주변 맛집 - BinGo Map</title>
-    <!-- Bootstrap 5 & Bootstrap Icons -->
+
+    <!-- 화면 UI 디자인용 부트스트랩 5 CSS 및 아이콘 라이브러리 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- [화면 스타일 정의 영역] -->
     <style>
         :root {
-            --primary-green: #198754;
+            --primary-green: #198754;       /* 프로젝트 메인 테마 초록색 */
             --primary-green-light: #e8f5e9;
             --tag-default: #6c757d;
         }
@@ -20,7 +24,7 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
         }
 
-        /* 1. 네비게이션 헤더 */
+        /* 1. 상단 네비게이션 바 스타일 */
         .navbar-brand-logo {
             font-weight: 800;
             color: var(--primary-green) !important;
@@ -39,7 +43,7 @@
             border-bottom: 3px solid var(--primary-green);
         }
 
-        /* 2. 상단 히어로 배너 */
+        /* 2. 상단 배너 영역 스타일 */
         .hero-banner {
             background-color: #f8fafc;
             border-bottom: 1px solid #edf2f7;
@@ -77,7 +81,7 @@
             font-weight: 500;
         }
 
-        /* 3. 좌측 필터 사이드바 */
+        /* 3. 좌측 필터 패널 스타일 */
         .filter-panel {
             background: #ffffff;
             border: 1px solid #edf2f7;
@@ -119,7 +123,7 @@
             font-weight: 600;
         }
 
-        /* 4. 우측 맛집 리스트 카드 */
+        /* 4. 개별 맛집 카드 박스 스타일 */
         .restaurant-list-card {
             background: #ffffff;
             border: 1px solid #edf2f7;
@@ -160,15 +164,20 @@
 </head>
 <body class="pb-5">
 
-<!-- [상단 헤더 네비게이션] -->
+<!-- ================================================================= -->
+<!-- [상단 헤더]: 다른 화면으로 넘어갈 수 있는 기본 메뉴 바 -->
+<!-- ================================================================= -->
 <header class="bg-white border-bottom py-2 sticky-top">
     <div class="container d-flex align-items-center justify-content-between">
-        <a href="/" class="navbar-brand-logo text-decoration-none fs-4">            <i class="bi bi-trash3-fill fs-3"></i>
+        <!-- 서비스 로고 -->
+        <a href="/" class="navbar-brand-logo text-decoration-none fs-4">
+            <i class="bi bi-trash3-fill fs-3"></i>
             <div>
                 <div>BinGo Map</div>
                 <div style="font-size: 0.65rem; color: #718096; font-weight: normal; margin-top: -4px;">Clean & Gourmet</div>
             </div>
         </a>
+        <!-- 메인 메뉴 목록 (현재 페이지인 '주변 맛집'에 active 클래스 적용) -->
         <nav class="d-none d-md-flex gap-4">
             <a href="/" class="nav-link-custom">홈</a>
             <a href="/map/map.html" class="nav-link-custom">지도</a>
@@ -184,7 +193,9 @@
     </div>
 </header>
 
-<!-- [히어로 배너 섹션] -->
+<!-- ================================================================= -->
+<!-- [히어로 배너 섹션]: 페이지 상단 소개 배너 이미지 및 텍스트 -->
+<!-- ================================================================= -->
 <section class="hero-banner">
     <div class="container hero-banner-container d-flex align-items-center">
         <div class="row w-100">
@@ -204,16 +215,21 @@
     </div>
 </section>
 
-<!-- [메인 콘텐츠 영역] -->
+<!-- ================================================================= -->
+<!-- [메인 본문 영역]: 좌측 검색 필터 + 우측 DB 맛집 목록 카드 -->
+<!-- ================================================================= -->
 <main class="container my-4">
     <div class="row g-4">
 
-        <!-- 좌측: 카테고리 필터 사이드바 -->
+        <!-- ============================================================= -->
+        <!-- [좌측: 카테고리 필터 사이드바] -->
+        <!-- ============================================================= -->
         <div class="col-lg-3">
             <div class="filter-panel">
                 <h5 class="fw-bold mb-3">검색 필터</h5>
 
-                <!-- 카테고리 필터 버튼 목록 -->
+                <!-- 음식 카테고리 버튼 목록 -->
+                <!-- 버튼 클릭 시 하단의 filterByCategory() 자바스크립트 함수가 호출됩니다 -->
                 <div class="mb-4">
                     <div class="filter-title">카테고리</div>
                     <div class="filter-grid-2" id="categoryFilterContainer">
@@ -225,17 +241,22 @@
                     </div>
                 </div>
 
-                <!-- 필터 초기화 버튼 -->
+                <!-- 필터 초기화 버튼: '전체' 상태로 되돌립니다 -->
                 <button class="btn btn-outline-secondary btn-sm w-100 py-2 rounded-2" onclick="resetFilter()">
                     필터 초기화
                 </button>
             </div>
         </div>
 
-        <!-- 우측: 맛집 리스트 영역 -->
+        <!-- ============================================================= -->
+        <!-- [우측: 맛집 리스트 영역] -->
+        <!-- ============================================================= -->
         <div class="col-lg-9">
+
+            <!-- 상단 매장 수 카운트 안내 및 지도 링크 -->
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <span class="small text-secondary">
+                    <!-- th:text -> 서버에서 넘어온 restaurantList 배열의 총 개수를 세어 숫자로 꽂아줍니다 -->
                     총 <strong class="text-dark" id="totalCount" th:text="${restaurantList != null ? #lists.size(restaurantList) : 0}">0</strong>개의 맛집이 등록되어 있습니다.
                 </span>
                 <a href="/map/map.html" class="btn btn-outline-secondary btn-sm px-3 rounded-2 text-dark">
@@ -243,30 +264,43 @@
                 </a>
             </div>
 
-            <!-- 맛집 리스트 컨테이너 -->
+            <!-- 맛집 카드들이 담기는 부모 박스 -->
             <div class="d-flex flex-column gap-3" id="restaurantListContainer">
-                <!-- 서버 사이드 렌더링 카드 -->
+
+                <!--
+                    [DB 반복문(Loop) 카드]
+                    - th:each="item : ${restaurantList}" : 백엔드가 보내준 맛집 리스트 개수만큼 카드를 복제해서 출력합니다.
+                    - th:attr="data-category=..." : 자바스크립트 필터링을 위해 식당의 카테고리(타코야끼 등)를 데이터 속성에 저장합니다.
+                    - th:onclick : 카드를 클릭하면 식당의 고유 번호(id)를 파라미터로 붙여서 상세 페이지로 이동합니다.
+                -->
                 <div class="restaurant-list-card"
                      th:each="item : ${restaurantList}"
                      th:attr="data-category=${item.category}"
                      th:onclick="|location.href='/restaurants/detail?id=' + ${item.id}|">
 
+                    <!-- [식당 썸네일 이미지] DB에 사진 주소가 없으면 기본 No Image 회색 대체 이미지를 띄웁니다 -->
                     <img th:src="${item.mainImageUrl != null && !#strings.isEmpty(item.mainImageUrl) ? item.mainImageUrl : 'https://via.placeholder.com/170x120?text=No+Image'}"
                          th:alt="${item.name}"
                          class="card-thumbnail"
                          onerror="this.src='https://via.placeholder.com/170x120?text=No+Image'">
 
+                    <!-- [식당 세부 정보 영역] -->
                     <div class="d-flex flex-column justify-content-between flex-grow-1">
                         <div>
                             <div class="d-flex justify-content-between align-items-start">
                                 <div>
+                                    <!-- [음식 카테고리 뱃지] -->
                                     <span class="tag-pill" th:text="${item.category != null ? item.category : '기타'}">카테고리</span>
+                                    <!-- [식당 이름] -->
                                     <h5 class="fw-bold mb-1 fs-6" th:text="${item.name}">식당 이름</h5>
                                 </div>
                             </div>
+                            <!-- [식당 한 줄 소개글] -->
                             <p class="text-secondary small mb-2 text-truncate" style="max-width: 520px;"
                                th:text="${item.description != null ? item.description : '매장 설명이 없습니다.'}">설명</p>
                         </div>
+
+                        <!-- [식당 위치 주소] -->
                         <div class="small text-secondary" style="font-size: 0.8rem;">
                             <i class="bi bi-geo-alt text-success me-1"></i>
                             <span th:text="${item.address != null ? item.address : '주소 미등록'}">주소</span>
@@ -274,7 +308,7 @@
                     </div>
                 </div>
 
-                <!-- 등록된 맛집이 없을 때 -->
+                <!-- [예외 처리 안내 박스] DB에 등록된 식당이 0건이거나 데이터가 없을 때만 화면에 뜹니다 -->
                 <div class="text-center py-5 bg-white rounded-3 border" th:if="${restaurantList == null || #lists.isEmpty(restaurantList)}" id="emptyNotice">
                     <i class="bi bi-shop fs-2 text-muted"></i>
                     <p class="mt-2 text-secondary small mb-0">등록된 맛집이 없습니다.</p>
@@ -284,32 +318,46 @@
     </div>
 </main>
 
+<!-- ================================================================= -->
+<!-- [자바스크립트 영역]: 카테고리 클릭 시 화면에 보이는 카드를 걸러주는 기능 -->
+<!-- ================================================================= -->
 <script>
     /**
-     * 카테고리 필터링: 서버가 이미 완성해 준 DOM 카드를 숨김/표시 처리하여 중복 Fetch와 깜빡임을 방지합니다.
+     * 카테고리 버튼 필터링 함수
+     * @param {string} category - 선택한 카테고리 이름 ('전체', '타코야끼' 등)
+     * @param {HTMLElement} btn - 현재 클릭된 버튼 요소
      */
     function filterByCategory(category, btn) {
+        // 1. 모든 버튼에서 'active'(초록색 불 들어오는 효과)를 끄고, 클릭한 버튼만 켭니다.
         document.querySelectorAll('#categoryFilterContainer .btn-filter-tag').forEach(b => {
             b.classList.remove('active');
         });
         btn.classList.add('active');
 
+        // 2. 화면에 그려진 식당 카드 목록들을 모두 찾아서 검사합니다.
         const cards = document.querySelectorAll('#restaurantListContainer .restaurant-list-card');
-        let visibleCount = 0;
+        let visibleCount = 0; // 화면에 보이는 매장 수를 셀 변수
 
         cards.forEach(card => {
             const cardCategory = card.getAttribute('data-category');
+
+            // '전체'를 눌렀거나, 카드의 카테고리가 누른 버튼과 일치하면 화면에 보여줍니다.
             if (category === '전체' || cardCategory === category) {
-                card.style.display = 'flex';
+                card.style.display = 'flex'; // 보이기
                 visibleCount++;
             } else {
-                card.style.display = 'none';
+                card.style.display = 'none'; // 숨기기
             }
         });
 
+        // 3. 화면 상단의 "총 N개의 맛집이 등록되어 있습니다" 숫자를 현재 보이는 개수로 바꿉니다.
         document.getElementById('totalCount').innerText = visibleCount;
     }
 
+    /**
+     * 필터 초기화 함수
+     * '필터 초기화' 버튼을 눌렀을 때 '전체' 버튼을 누른 것과 동일하게 화면을 복구합니다.
+     */
     function resetFilter() {
         const allBtn = document.querySelector('#categoryFilterContainer .btn-filter-tag');
         if (allBtn) {
@@ -318,6 +366,7 @@
     }
 </script>
 
+<!-- 부트스트랩 기능(드롭다운, 반응형 네비게이션 등) 동작용 스크립트 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

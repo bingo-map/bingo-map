@@ -1,135 +1,146 @@
 /* =========================================================
-   BinGo Map - Map Page
+   BinGo Map - Map Page (지도 화면 전용 스타일시트)
+   - CSS: 웹페이지의 색상, 크기, 배치 등 겉모습 디자인을 결정하는 스타일 코드
 ========================================================= */
 
+/* 모든 태그 공통 기본 설정 */
 * {
+    /*
+       box-sizing: border-box
+       (테두리와 안쪽 여백을 포함해서 가로/세로 크기를 계산하도록 통일하는 속성.
+        레이아웃이 밖으로 삐져나가는 깨짐 현상을 막아줍니다.)
+    */
     box-sizing: border-box;
 }
 
-
+/* 화면 전체 도화지 설정 */
 html,
 body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    font-family: Arial, "Malgun Gothic", "Noto Sans KR", sans-serif;
-    color: #17202a;
+    margin: 0;                   /* 바깥 기본 여백 제거 */
+    width: 100%;                 /* 화면 가로폭 100% 꽉 채우기 */
+    height: 100%;                /* 화면 세로 높이 100% 꽉 채우기 */
+    font-family: Arial, "Malgun Gothic", "Noto Sans KR", sans-serif; /* 기본 글꼴 */
+    color: #17202a;              /* 기본 글자색 (짙은 먹색) */
     overflow: hidden;
-    background: #f7faf8;
+    /*
+       overflow: hidden
+       (웹페이지 전체에 스크롤바가 생기지 않도록 고정하는 속성.
+        지도 전용 앱처럼 화면을 한 화면에 꽉 맞추기 위해 사용합니다.)
+    */
+    background: #f7faf8;         /* 배경 연한 미색 */
 }
 
-
+/* 입력창과 버튼 기본 글꼴 상속 */
 button,
 input {
-    font: inherit;
+    font: inherit;               /* 부모의 기본 글꼴을 그대로 따라감 */
 }
-
 
 button {
-    cursor: pointer;
+    cursor: pointer;             /* 마우스 커서를 올렸을 때 손가락 모양(👆)으로 변경 */
 }
 
-
 a {
-    color: inherit;
+    color: inherit;              /* 링크(a) 태그 특유의 파란색/밑줄 대신 본래 글자색 유지 */
 }
 
 
 /* =========================================================
-   HEADER
+   HEADER (화면 맨 위 상단 메뉴바 구역)
 ========================================================= */
 
 .header {
-    height: 64px;
-    background: #fff;
-    border-bottom: 1px solid #e6e9e7;
+    height: 64px;                /* 상단바 고정 높이 64픽셀 */
+    background: #fff;            /* 하얀색 배경 */
+    border-bottom: 1px solid #e6e9e7; /* 아래쪽 연한 구분선 */
 
+    /*
+       Flexbox(플렉스박스: 요소들을 가로 또는 세로로 자유롭고 반듯하게 나열해주는 레이아웃 도구)
+    */
     display: flex;
-    align-items: center;
+    align-items: center;         /* 세로 기준 가운데 정렬 */
 
-    padding: 0 28px;
+    padding: 0 28px;             /* 좌우 안쪽 여백 28픽셀 */
 
     position: relative;
     z-index: 1000;
+    /*
+       z-index(화면 겹침 순서): 숫자가 높을수록 지도나 사이드바보다 맨 위(앞쪽)에 떠 있게 됩니다.
+    */
 }
 
 
-/* Logo */
+/* 로고(Logo) 구역 */
 
 .logo {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    align-items: center;         /* 심볼 마크와 글자 세로 가운데 맞춤 */
+    gap: 10px;                   /* 심볼과 글자 사이 간격 10픽셀 */
 
-    text-decoration: none;
+    text-decoration: none;       /* 링크 밑줄 제거 */
     color: #18201c;
 
-    min-width: 315px;
+    min-width: 315px;            /* 최소 가로폭 315픽셀 확보 */
 }
 
-
+/* 로고 심볼 마크 (물방울 모양 아이콘) */
 .logo-mark {
     width: 21px;
     height: 25px;
 
-    background: #2ca642;
+    background: #2ca642;         /* 초록색 배경 */
 
+    /*
+       border-radius: 모서리 둥글기
+       (왼쪽 위, 오른쪽 위, 오른쪽 아래는 둥글게 깎고, 왼쪽 아래는 뾰족하게 둬서 물방울 모양을 만듦)
+    */
     border-radius: 50% 50% 50% 0;
 
-    transform: rotate(-45deg);
+    transform: rotate(-45deg);   /* -45도 회전시켜 똑바로 선 핀 모양으로 만듦 */
 
     display: grid;
-    place-items: center;
+    place-items: center;         /* 아이콘 내부 중앙 정렬 */
 
-    flex: none;
+    flex: none;                  /* 화면 크기가 줄어도 찌그러지지 않게 방지 */
 }
-
 
 .logo-mark span {
-    color: #fff;
-
+    color: #fff;                 /* 흰색 글씨 */
     font-size: 8px;
-    font-weight: 900;
+    font-weight: 900;            /* 매우 두꺼운 글씨체 */
 
-    transform: rotate(45deg);
+    transform: rotate(45deg);    /* 마크가 돌아간 만큼 글씨는 반대로 45도 돌려 똑바로 서게 함 */
 }
 
-
+/* 로고 텍스트 (BinGo Map & Clean Gourmet) */
 .logo-text strong {
     display: block;
-
     font-size: 18px;
-    line-height: 18px;
-
-    letter-spacing: -.3px;
+    line-height: 18px;           /* 줄 간격 */
+    letter-spacing: -.3px;       /* 자간(글자 사이 간격)을 살짝 좁힘 */
 }
-
 
 .logo-text small {
     display: block;
-
-    color: #84908a;
-
+    color: #84908a;              /* 회색 보조 글씨 */
     font-size: 9px;
-
-    margin-top: 3px;
+    margin-top: 3px;             /* 윗 글씨와의 간격 */
 }
 
 
-/* Navigation */
+/* 네비게이션 메뉴 (중앙 메뉴 링크 모음) */
 
 nav {
     height: 100%;
 
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center;         /* 세로 가운데 정렬 */
+    justify-content: center;     /* 가로 가운데 정렬 */
 
-    gap: 38px;
+    gap: 38px;                   /* 메뉴 글자들 사이 간격 38픽셀 */
 
-    margin: auto;
+    margin: auto;                /* 좌우 남는 공간을 균등 배분하여 정중앙에 배치 */
 }
-
 
 nav a {
     height: 100%;
@@ -138,170 +149,141 @@ nav a {
     align-items: center;
 
     text-decoration: none;
-
     color: #505a54;
 
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 700;            /* 두꺼운 글씨 */
 
     position: relative;
-
-    white-space: nowrap;
+    white-space: nowrap;         /* 글자가 줄바꿈되어 밑으로 떨어지지 않게 방지 */
 }
-
 
 nav a:hover {
-    color: #209b3a;
+    color: #209b3a;              /* 마우스를 올렸을 때 초록색으로 변경 */
 }
-
 
 nav a.active {
-    color: #209b3a;
+    color: #209b3a;              /* 현재 보고 있는 메뉴(지도)에 초록색 강조 */
 }
 
-
+/* 현재 페이지 메뉴 아래에 초록색 밑줄 바 표시 */
 nav a.active::after {
-    content: "";
-
+    content: "";                 /* 가상 요소(Pseudo-element: HTML 태그 없이 CSS로 그려내는 장식 막대) */
     position: absolute;
-
-    height: 3px;
-
+    height: 3px;                 /* 막대 두께 3픽셀 */
     background: #209b3a;
-
     left: 0;
     right: 0;
-
-    bottom: 10px;
-
-    border-radius: 3px;
+    bottom: 10px;                /* 바닥에서 10픽셀 띄움 */
+    border-radius: 3px;          /* 둥근 막대 형태 */
 }
 
 
-/* Header right */
+/* 헤더 우측 (언어 선택 & 로그인 버튼) */
 
 .header-right {
     min-width: 210px;
-
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end;   /* 오른쪽 끝으로 정렬 */
     align-items: center;
-
     gap: 10px;
 }
 
-
+/* 언어 선택 버튼 */
 .language {
     height: 36px;
-
     padding: 0 14px;
-
     border: 1px solid #e2e6e4;
-
     background: #fff;
-
-    border-radius: 20px;
-
+    border-radius: 20px;         /* 둥근 타원형 캡슐 모양 */
     color: #26302b;
-
     font-size: 11px;
     font-weight: 700;
 }
 
-
+/* 로그인 버튼 */
 .login {
     height: 36px;
-
     padding: 0 18px;
-
     border: 0;
-
     border-radius: 20px;
-
-    background: #2ca642;
-
+    background: #2ca642;         /* 초록색 채우기 */
     color: #fff;
-
     font-size: 11px;
     font-weight: 700;
 
+    /*
+       transition(애니메이션 전환 효과): 색상이나 위치 변화를 0.15초 동안 부드럽게 보여줌
+    */
     transition:
             background .15s ease,
             transform .15s ease;
 }
 
-
 .login:hover {
-    background: #218f36;
+    background: #218f36;         /* 마우스 올리면 약간 짙은 초록색 */
 }
 
-
 .login:active {
-    transform: translateY(1px);
+    transform: translateY(1px);  /* 클릭하는 순간 1픽셀 아래로 꾹 눌리는 입체 효과 */
 }
 
 
 /* =========================================================
-   PAGE
+   PAGE (헤더를 제외한 전체 지도 화면 컨테이너)
 ========================================================= */
 
 .map-page {
+    /*
+       calc(100vh - 64px)
+       (전체 화면 높이 100vh에서 맨 위 상단 헤더 높이 64px를 뺀 나머지 공간 전체를 정확히 차지함)
+    */
     height: calc(100vh - 64px);
 
-    display: flex;
-
+    display: flex;               /* 좌측 사이드바와 우측 지도를 좌우 가로로 배치 */
     min-height: 0;
 }
 
 
 /* =========================================================
-   SIDEBAR
+   SIDEBAR (좌측 쓰레기통 검색 및 목록 패널)
 ========================================================= */
 
 .sidebar {
-    width: 375px;
+    width: 375px;                /* 고정 가로폭 375픽셀 */
     min-width: 375px;
-
     height: 100%;
 
     background: #fff;
+    border-right: 1px solid #dfe4e1; /* 지도와 구분되는 우측 세로선 */
 
-    border-right: 1px solid #dfe4e1;
-
-    z-index: 800;
+    z-index: 800;                /* 지도 위로 패널이 덮이도록 레이어 순서 지정 */
 
     display: flex;
-    flex-direction: column;
-
+    flex-direction: column;      /* 검색창, 필터, 리스트를 위에서 아래로 세로 배치 */
     overflow: hidden;
 }
 
 
 /* =========================================================
-   SEARCH
+   SEARCH (검색창 영역)
 ========================================================= */
 
 .search-area {
     padding: 20px 18px 13px;
-
     border-bottom: 1px solid #e7ebe8;
-
     background: #fff;
 }
 
-
+/* 검색 입력 캡슐 박스 */
 .search {
     height: 41px;
-
     border: 1px solid #dfe4e1;
-
     background: #fafbfa;
-
     border-radius: 10px;
 
     display: flex;
     align-items: center;
-
     padding: 0 11px;
 
     transition:
@@ -309,78 +291,61 @@ nav a.active::after {
             box-shadow .15s ease;
 }
 
-
+/*
+   :focus-within
+   (검색창 내부의 input 글자칸을 클릭했을 때 바깥 테두리에 초록색 불이 들어오는 포커스 효과)
+*/
 .search:focus-within {
     border-color: #2ca642;
-
     box-shadow:
             0 0 0 3px
             rgba(44, 166, 66, .08);
 }
 
-
+/* 돋보기 아이콘 */
 .search-icon {
     color: #98a2a9;
-
     font-size: 18px;
-
     line-height: 1;
-
     margin-right: 8px;
 }
 
-
+/* 실제 키보드로 타이핑하는 글자 입력 태그 */
 .search input {
     border: 0;
-
-    outline: 0;
-
-    background: transparent;
-
+    outline: 0;                  /* 클릭 시 브라우저 기본 파란 테두리 제거 */
+    background: transparent;     /* 배경 투명화 */
     width: 100%;
-
     min-width: 0;
-
     color: #25302a;
-
     font-size: 12px;
 }
 
-
 .search input::placeholder {
-    color: #9aa5ad;
+    color: #9aa5ad;              /* 안내 문구 연회색 */
 }
 
 
 /* =========================================================
-   FILTER
+   FILTER (카테고리 선택 알약 버튼 모음)
 ========================================================= */
 
 .filters {
     display: flex;
-
     gap: 7px;
-
     margin-top: 14px;
 }
 
-
+/* 개별 필터 버튼 */
 .filter {
     height: 31px;
-
     border: 1px solid #e0e5e2;
-
     border-radius: 17px;
-
     background: #fff;
-
     padding: 0 12px;
-
     color: #68736d;
-
     font-size: 11px;
     font-weight: 700;
-
     white-space: nowrap;
 
     transition:
@@ -389,56 +354,45 @@ nav a.active::after {
             background .15s ease;
 }
 
-
 .filter:hover {
     border-color: #b9c4be;
 }
 
-
+/* 선택된 활성 필터 (초록색 캡슐) */
 .filter.active {
     color: #229b3d;
-
     border-color: #229b3d;
-
     background: #f4fbf5;
 }
 
 
 /* =========================================================
-   LIST TITLE
+   LIST TITLE (목록 상단 제목 및 개수 표기줄)
 ========================================================= */
 
 .list-title {
     height: 47px;
     min-height: 47px;
-
     padding: 0 18px;
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; /* 양 끝 정렬 */
 
     background: #fff;
 }
 
-
 .list-title strong {
     font-size: 14px;
-
     font-weight: 800;
-
     letter-spacing: -.2px;
 }
 
-
 .list-title span {
     font-size: 10px;
-
     color: #9aa39e;
-
     white-space: nowrap;
 }
-
 
 .list-title b {
     color: #7d8881;
@@ -446,61 +400,48 @@ nav a.active::after {
 
 
 /* =========================================================
-   BIN LIST
+   BIN LIST (쓰레기통 항목들이 스크롤되는 목록 영역)
 ========================================================= */
 
 .bin-list {
-    flex: 1;
-
-    overflow-y: auto;
-
-    overscroll-behavior: contain;
-
+    flex: 1;                     /* 남는 세로 공간을 꽉 채움 */
+    overflow-y: auto;            /* 항목이 많아지면 세로 스크롤바 생성 */
+    overscroll-behavior: contain;/* 스크롤 끝에 닿아도 부모 창 전체가 튕기지 않게 방지 */
     padding: 0 14px 18px;
 }
 
-
+/* 웹킷 브라우저 커스텀 스크롤바 디자인 (두께 5px의 얇고 깔끔한 막대) */
 .bin-list::-webkit-scrollbar {
     width: 5px;
 }
 
-
 .bin-list::-webkit-scrollbar-track {
-    background: transparent;
+    background: transparent;     /* 스크롤바 배경 투명 */
 }
 
-
 .bin-list::-webkit-scrollbar-thumb {
-    background: #d8ddd9;
-
+    background: #d8ddd9;         /* 스크롤 손잡이 색상 */
     border-radius: 5px;
 }
 
 
 /* =========================================================
-   BIN ITEM
+   BIN ITEM (쓰레기통 개별 카드 단위)
 ========================================================= */
 
 .bin-item {
     width: 100%;
-
     min-height: 91px;
 
-    border: 1px solid transparent;
-
+    border: 1px solid transparent; /* 기본 투명 테두리 */
     background: #fff;
-
     border-radius: 11px;
-
     padding: 11px;
 
     display: flex;
-    align-items: flex-start;
-
+    align-items: flex-start;     /* 위쪽 정렬 */
     text-align: left;
-
     position: relative;
-
     margin-bottom: 4px;
 
     transition:
@@ -509,294 +450,214 @@ nav a.active::after {
             transform .15s ease;
 }
 
-
 .bin-item:hover {
-    background: #f7fbf8;
-
+    background: #f7fbf8;         /* 마우스 올리면 연한 초록 배경 */
     border-color: #e3eee6;
 }
 
-
+/* 지도에서 마커를 찍거나 클릭해서 선택된 카드 */
 .bin-item.selected {
     background: #eaf8ec;
-
     border-color: #d1ecd7;
 }
 
-
 .bin-item:active {
-    transform: scale(.995);
+    transform: scale(.995);      /* 클릭 시 미세하게 작아지는 누름 피드백 효과 */
 }
 
 
 /* =========================================================
-   BIN ICON
+   BIN ICON (카드 좌측 쓰레기통 종류별 사각 아이콘)
 ========================================================= */
 
 .bin-icon {
     width: 38px;
     height: 38px;
-
     border-radius: 9px;
-
-    background: #edf8ef;
-
+    background: #edf8ef;         /* 일반 쓰레기통: 연초록 배경 */
     display: grid;
     place-items: center;
-
     color: #2ca642;
-
     font-size: 13px;
-
     flex: none;
-
     margin-right: 11px;
 }
 
-
+/* 재활용 쓰레기통: 파란색 아이콘 */
 .bin-icon.recycle {
     background: #eaf1ff;
-
     color: #2f80ed;
 }
 
-
+/* 캔/병 수거함: 주황색 아이콘 */
 .bin-icon.can {
     background: #fff2df;
-
     color: #f0a022;
 }
 
 
 /* =========================================================
-   BIN TEXT
+   BIN TEXT (쓰레기통 상세 텍스트 정보)
 ========================================================= */
 
 .bin-info {
     min-width: 0;
-
-    padding-right: 52px;
+    padding-right: 52px;         /* 우측 거리 표시(예: 120m)와 겹치지 않게 여백 확보 */
 }
 
-
+/* 쓰레기통 명칭 */
 .bin-info strong {
     display: block;
-
     font-size: 12px;
-
     line-height: 17px;
-
     white-space: nowrap;
-
     overflow: hidden;
-
-    text-overflow: ellipsis;
-
+    text-overflow: ellipsis;     /* 글자가 길어지면 말줄임표(...) 처리 */
     color: #17231b;
 }
 
-
+/* 쓰레기통 위치 주소 및 상세 설명 */
 .bin-info small {
     display: block;
-
     color: #909a93;
-
     font-size: 9px;
-
     line-height: 14px;
-
     white-space: nowrap;
-
     overflow: hidden;
-
-    text-overflow: ellipsis;
+    text-overflow: ellipsis;     /* 글자가 길어지면 말줄임표(...) 처리 */
 }
 
-
+/* 쓰레기통 유형 태그 뱃지 */
 .bin-info em {
     display: block;
-
     width: max-content;
-
     max-width: 100%;
-
-    font-style: normal;
-
+    font-style: normal;          /* 기울임 글씨(기본 em) 해제 */
     color: #758079;
-
     font-size: 9px;
-
     line-height: 17px;
-
     margin-top: 3px;
-
     padding: 0 7px;
-
     border-radius: 5px;
-
     background: #f1f4f2;
 }
-
 
 .bin-item.selected .bin-info em {
     background: #eef8f0;
 }
 
-
-/* Distance */
-
+/* 내 위치로부터의 거리 (우측 상단 초록색 텍스트) */
 .bin-item > b {
     position: absolute;
-
     right: 11px;
-
     top: 14px;
-
     color: #14963b;
-
     font-size: 11px;
-
     font-weight: 800;
 }
 
 
 /* =========================================================
-   LOADING / EMPTY / ERROR
+   LOADING / EMPTY / ERROR (데이터 상태 안내창)
 ========================================================= */
 
 .loading,
 .empty,
 .error {
     padding: 40px 20px;
-
     text-align: center;
-
     color: #909a93;
-
     font-size: 12px;
-
     line-height: 1.7;
 }
 
-
 .error {
-    color: #d44553;
+    color: #d44553;              /* 오류 발생 시 붉은 경고색 */
 }
-
 
 .error small {
     display: block;
-
     margin-top: 5px;
-
     color: #909a93;
-
     font-size: 10px;
 }
 
 
 /* =========================================================
-   MAP
+   MAP (우측 실제 지도 렌더링 영역)
 ========================================================= */
 
 .map-wrap {
-    flex: 1;
-
+    flex: 1;                     /* 사이드바를 제외한 우측 전체 영역을 꽉 채움 */
     position: relative;
-
     min-width: 0;
     min-height: 0;
-
     background: #eef5ef;
 }
 
-
+/*
+   Leaflet.js 지도 객체가 주입되는 실제 div 컨테이너
+   (inset: 0 -> 상하좌우를 부모에 꽉 맞추는 절대 좌표 배치)
+*/
 #map {
     position: absolute;
-
     inset: 0;
-
     z-index: 1;
 }
 
-
 .leaflet-container {
     font: inherit;
-
     background: #eef5ef;
 }
 
-
-/*
- * 실제 지도 타일을 사용하지 않음.
- * 따라서 .leaflet-tile 관련 filter는 제거.
- */
-
+/* 실제 지도 이미지 타일 기본 필터 */
 .leaflet-tile {
     filter: none;
 }
 
-
-/*
- * attribution도 사용하지 않지만
- * 혹시 Leaflet에서 생성될 경우 숨김.
- */
-
+/* 리플렛 오픈소스 지도 저작권 표기 박스 숨김 */
 .leaflet-control-attribution {
     display: none !important;
 }
 
-
-/* Leaflet 기본 zoom 숨김 */
-
+/* 리플렛 기본 좌측 상단 줌(+/-) 버튼 숨김 (아래 커스텀 줌 버튼 사용) */
 .leaflet-control-zoom {
     display: none;
 }
 
 
 /* =========================================================
-   MAP TOP LABEL
+   MAP TOP LABEL (지도 상단 중앙 현재 위치 안내 플로팅 바)
 ========================================================= */
 
 .map-label {
     position: absolute;
-
     top: 18px;
     left: 50%;
-
-    transform: translateX(-50%);
-
-    z-index: 700;
+    transform: translateX(-50%); /* 정확히 화면 가로 정중앙에 위치하도록 보정 */
+    z-index: 700;                /* 지도 타일보다 위에 떠 있게 설정 */
 
     background: #34404b;
-
     color: #fff;
-
     padding: 10px 16px;
-
     border-radius: 19px;
-
     font-size: 10px;
-
     font-weight: 700;
-
     white-space: nowrap;
 
+    /* 그림자 효과로 공중에 떠 있는 입체감 부여 */
     box-shadow:
             0 3px 12px
             rgba(0, 0, 0, .12);
 
     display: flex;
     align-items: center;
-
     gap: 5px;
 }
-
 
 .map-label b {
     font-weight: 800;
 }
-
 
 .map-label-icon {
     font-size: 12px;
@@ -804,76 +665,57 @@ nav a.active::after {
 
 
 /* =========================================================
-   ZOOM
+   ZOOM (지도 우측 상단 확대/축소 커스텀 버튼)
 ========================================================= */
 
 .zoom {
     position: absolute;
-
     right: 18px;
     top: 18px;
-
     z-index: 700;
 
     box-shadow:
             0 3px 12px
             rgba(0, 0, 0, .12);
-
     border-radius: 10px;
-
     overflow: hidden;
 }
 
-
 .zoom button {
     display: block;
-
     width: 40px;
     height: 38px;
-
     border: 0;
-
     background: #fff;
-
     font-size: 20px;
-
     color: #283039;
 }
-
 
 .zoom button:hover {
     background: #f6f8f7;
 }
 
-
 .zoom button + button {
-    border-top: 1px solid #e5e8e6;
+    border-top: 1px solid #e5e8e6; /* + 버튼과 - 버튼 사이의 구분선 */
 }
 
 
 /* =========================================================
-   CURRENT LOCATION
+   CURRENT LOCATION (내 위치 찾기 GPS 원형 버튼)
 ========================================================= */
 
 .locate {
     position: absolute;
-
     right: 18px;
     bottom: 20px;
-
     z-index: 700;
 
     width: 44px;
     height: 44px;
-
     border: 0;
-
-    border-radius: 50%;
-
+    border-radius: 50%;          /* 완전한 원형 버튼 */
     background: #fff;
-
     color: #2ca642;
-
     font-size: 22px;
 
     box-shadow:
@@ -881,200 +723,145 @@ nav a.active::after {
             rgba(0, 0, 0, .12);
 }
 
-
 .locate:hover {
     background: #f7fbf8;
 }
 
-
+/* 지도 위에 찍히는 내 현재 위치 파란색 점 마커 */
 .current-location-wrap {
     background: transparent;
-
     border: 0;
 }
-
 
 .current-location {
     width: 14px;
     height: 14px;
-
     border-radius: 50%;
-
-    background: #2f80ed;
-
-    border: 3px solid #fff;
-
+    background: #2f80ed;         /* 파란 점 */
+    border: 3px solid #fff;      /* 흰색 테두리 */
     box-shadow:
             0 0 0 5px
-            rgba(47, 128, 237, .14);
+            rgba(47, 128, 237, .14); /* 파란색 은은한 반경 효과 */
 }
 
 
 /* =========================================================
-   BIN MARKER
+   BIN MARKER (지도 위에 찍히는 쓰레기통 핀 마커)
 ========================================================= */
 
 .bin-marker-wrap {
     background: transparent;
-
     border: 0;
 }
 
-
+/* 쓰레기통 핀 모양 (물방울 거꾸로 세운 핀 형태) */
 .bin-marker {
     width: 34px;
     height: 42px;
-
-    background: var(--c, #2ca642);
-
+    background: var(--c, #2ca642); /* CSS 변수: 종류별 색상이 동적으로 대입됨 */
     border: 3px solid #fff;
-
-    border-radius:
-            50% 50% 50% 0;
-
-    transform: rotate(-45deg);
-
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);   /* 회전시켜 아래쪽이 뾰족한 지도 핀 완성 */
     box-shadow:
             0 3px 7px
             rgba(0, 0, 0, .24);
-
     display: grid;
-
     place-items: center;
 }
 
-
+/* 핀 안쪽의 아이콘 글자 */
 .bin-marker span {
     color: #fff;
-
     font-size: 10px;
-
-    transform: rotate(45deg);
-
+    transform: rotate(45deg);    /* 마커가 돌아간 만큼 글자는 반대로 돌려 똑바로 세움 */
     line-height: 1;
-
     font-weight: 800;
 }
 
-
+/* 쓰레기통 종류별 핀 색상 변수 정의 */
 .bin-marker.green {
-    --c: #2ca642;
+    --c: #2ca642;                /* 일반 쓰레기통: 초록 */
 }
-
 
 .bin-marker.blue {
-    --c: #2f80ed;
+    --c: #2f80ed;                /* 재활용 쓰레기통: 파랑 */
 }
-
 
 .bin-marker.orange {
-    --c: #f0a022;
+    --c: #f0a022;                /* 캔/병 수거함: 주황 */
 }
 
-
 .bin-marker.gray {
-    --c: #59636d;
+    --c: #59636d;                /* 기타 수거함: 회색 */
 }
 
 
 /* =========================================================
-   POPUP
+   POPUP (지도에서 마커를 클릭했을 때 뜨는 말풍선 팝업)
 ========================================================= */
 
 .popup {
     width: 228px;
-
     padding: 15px;
 }
 
-
 .popup small {
     display: block;
-
     color: #8c9790;
-
     font-size: 9px;
-
     margin-bottom: 2px;
 }
 
-
 .popup strong {
     display: block;
-
     font-size: 12px;
-
     line-height: 17px;
-
     margin-bottom: 8px;
 }
 
-
 .popup > b {
     display: block;
-
     color: #18943b;
-
     font-size: 20px;
-
     line-height: 22px;
-
     margin-bottom: 4px;
 }
 
-
 .popup > span {
     display: block;
-
     color: #7b857e;
-
     font-size: 9px;
-
     margin-bottom: 10px;
 }
 
-
+/* 팝업 안의 '길찾기' 실행 버튼 */
 .popup button {
     width: 100%;
-
     height: 38px;
-
     border: 0;
-
     border-radius: 20px;
-
     background: #2ca642;
-
     color: #fff;
-
     font-size: 10px;
-
     font-weight: 700;
 }
-
 
 .popup button:hover {
     background: #218f36;
 }
 
-
-/* Leaflet popup */
-
+/* 리플렛 기본 팝업 둥근 모서리 및 그림자 커스텀 */
 .leaflet-popup-content-wrapper {
     border-radius: 12px;
-
     padding: 0;
-
     box-shadow:
             0 8px 25px
             rgba(0, 0, 0, .14);
 }
 
-
 .leaflet-popup-content {
     margin: 0 !important;
 }
-
 
 .leaflet-popup-tip {
     box-shadow:
@@ -1084,79 +871,58 @@ nav a.active::after {
 
 
 /* =========================================================
-   LEGEND
+   LEGEND (지도 좌측 하단 범례: 색상별 쓰레기통 안내 표기창)
 ========================================================= */
 
 .legend {
     position: absolute;
-
     left: 20px;
     bottom: 20px;
-
     z-index: 700;
 
     display: flex;
-
     align-items: center;
-
     gap: 14px;
-
     min-height: 40px;
-
     padding: 0 13px;
 
     border-radius: 11px;
-
-    background:
-            rgba(255, 255, 255, .94);
-
+    background: rgba(255, 255, 255, .94);
     box-shadow:
             0 3px 12px
             rgba(0, 0, 0, .10);
 
     color: #67726c;
-
     font-size: 9px;
-
     font-weight: 700;
 }
 
-
 .legend-item {
     display: flex;
-
     align-items: center;
-
     gap: 6px;
-
     white-space: nowrap;
 }
 
-
+/* 범례 안내용 작은 색상 사각형 점 */
 .legend-dot {
     width: 9px;
     height: 9px;
-
     border-radius: 3px;
-
     background: #59636d;
 }
-
 
 .legend-dot.gray {
     background: #59636d;
 }
 
-
 .legend-dot.blue {
     background: #2f80ed;
 }
 
-
 .legend-dot.green {
     background: #2ca642;
 }
-
 
 .legend-dot.orange {
     background: #f0a022;
@@ -1164,102 +930,88 @@ nav a.active::after {
 
 
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE (반응형 웹 미디어 쿼리: 기기 화면 크기별 자동 조정)
+   - Media Query: 화면 폭이 좁아지면 모바일/태블릿용 전용 레이아웃으로 변경
 ========================================================= */
 
+/* 1. 화면 폭 1100px 이하 (작은 노트북 화면) */
 @media (max-width: 1100px) {
-
     .logo {
         min-width: 220px;
     }
 
-
     nav {
-        gap: 24px;
+        gap: 24px;               /* 메뉴 사이 간격을 좁힘 */
     }
-
 
     .header-right {
         min-width: 180px;
     }
-
 }
 
-
+/* 2. 화면 폭 900px 이하 (태블릿 가로 모드) */
 @media (max-width: 900px) {
-
     .logo {
         min-width: auto;
     }
 
-
     .logo-text small {
-        display: none;
+        display: none;           /* 로고 아래 영문 슬로건 숨김 */
     }
-
 
     nav {
         gap: 17px;
     }
 
-
     nav a {
         font-size: 12px;
     }
 
-
     .header-right {
         min-width: auto;
-
         margin-left: auto;
     }
 
-
     .sidebar {
-        width: 320px;
+        width: 320px;            /* 사이드바 폭을 375px에서 320px로 축소 */
         min-width: 320px;
     }
-
 }
 
-
+/* 3. 화면 폭 800px 이하 (스마트폰 모바일 화면) */
 @media (max-width: 800px) {
-
     .header {
         padding: 0 16px;
     }
-
 
     .logo-text strong {
         font-size: 16px;
     }
 
-
     nav {
-        display: none;
+        display: none;           /* 모바일에서는 상단 네비게이션 메뉴를 숨김 */
     }
-
 
     .header-right {
         min-width: auto;
     }
 
-
+    /*
+       모바일 화면에서는 사이드바가 좌측이 아니라
+       화면 아래쪽에서 위로 올라오는 '바텀 시트(Bottom Sheet)' 구조로 변경
+    */
     .sidebar {
         position: absolute;
-
         bottom: 0;
         left: 0;
 
-        width: 100%;
+        width: 100%;             /* 가로폭 100% 꽉 채움 */
         min-width: 0;
 
-        height: 42%;
+        height: 42%;             /* 화면 높이의 아래쪽 42%만 차지 */
 
         z-index: 900;
-
         border-right: 0;
-
         border-top: 1px solid #dde4df;
 
         box-shadow:
@@ -1267,34 +1019,27 @@ nav a.active::after {
                 rgba(0, 0, 0, .10);
     }
 
-
     .map-wrap {
-        width: 100%;
+        width: 100%;             /* 지도가 화면 전체 바탕을 차지함 */
     }
-
 
     .map-label {
         top: 12px;
     }
-
 
     .zoom {
         top: 12px;
         right: 12px;
     }
 
-
     .locate {
         right: 12px;
         bottom: 12px;
     }
 
-
     .legend {
         left: 12px;
         bottom: 12px;
-
         gap: 8px;
     }
-
 }

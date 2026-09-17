@@ -1,7 +1,7 @@
 package com.bingomap.bingo_map.service;
 
 import com.bingomap.bingo_map.dto.RestaurantDto;
-import com.bingomap.bingo_map.Entity.Restaurant;
+import com.bingomap.bingo_map.entity.Restaurant;
 import com.bingomap.bingo_map.repository.RestaurantRepository;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +58,6 @@ public class RestaurantService {
         // Entity와 DTO의 실제 필드명에 맞게 매핑 (latitude, longitude)
         dto.setLatitude(r.getLatitude());
         dto.setLongitude(r.getLongitude());
-
         dto.setOpeningHours(r.getOpeningHours());
         dto.setPhone(r.getPhone());
         dto.setPriceRange(r.getPriceRange());
@@ -72,8 +71,6 @@ public class RestaurantService {
         dto.setMenuPrice(r.getMenuPrice());
         dto.setMenuDescription(r.getMenuDescription());
         dto.setMenuImageUrl(r.getMenuImageUrl());
-
-
         return dto;
     }
 }

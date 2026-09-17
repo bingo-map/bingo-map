@@ -2,6 +2,11 @@ spring:
   application:
     name: bingo-map
 
+  thymeleaf:
+    prefix: classpath:/static/
+    suffix: .html
+    cache: false
+
   datasource:
 
       # 수정: 실행 설정의 환경 변수에서 접속 정보를 가져옴

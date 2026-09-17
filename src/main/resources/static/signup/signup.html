@@ -1,25 +1,47 @@
 <!DOCTYPE html>
-<html lang="ko">
+<!-- 타임리프(Thymeleaf: 자바 스프링 서버에서 만든 데이터를 HTML 화면에 동적으로 꽂아주는 도구) 선언 -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <!-- 뷰포트(Viewport: 스마트폰, 태블릿, PC 등 화면 크기에 맞게 크기를 자동으로 조절해주는 반응형 웹 설정) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입 | BinGo Map</title>
+
+    <!-- CSS(Cascading Style Sheets: 글자 색, 버튼 모양, 레이아웃 등 화면 디자인을 꾸미는 스타일 파일) 불러오기 -->
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/auth/auth.css">
+
+    <style>
+        /* 에러 메시지 알림 박스 스타일(사용자가 입력을 잘못했을 때 뜨는 빨간 경고창 디자인) */
+        .error-alert {
+            background-color: #f8d7da;
+            color: #842029;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            border: 1px solid #f5c2c7;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+
+<!-- [상단 헤더]: 웹사이트 로고 및 내비게이션(Navigation: 다른 페이지로 이동하는 메뉴 링크 모음) -->
 <header class="header">
     <div class="header-inner">
+        <!-- 메인 홈 화면으로 이동하는 로고 링크 -->
         <a class="logo" href="/">
             <span class="logo-mark">♜</span>
             <span>
-          <strong>BinGo Map</strong>
-          <small>Clean &amp; Gourmet</small>
-        </span>
+                <strong>BinGo Map</strong>
+                <small>Clean &amp; Gourmet</small>
+            </span>
         </a>
 
+        <!-- 주요 서비스 페이지 이동 메뉴 -->
         <nav class="nav">
-            <a class="active" href="/">홈</a>
+            <a href="/">홈</a>
             <a href="/map">지도</a>
             <a href="/restaurants">주변 맛집</a>
             <a href="/favorites">즐겨찾기</a>
@@ -34,6 +56,7 @@
     </div>
 </header>
 
+<!-- [메인 본문 영역] -->
 <main>
     <section class="auth-wrap">
         <div class="auth-card">
@@ -41,9 +64,28 @@
             <h2>회원가입</h2>
             <p class="auth-sub">BinGo Map 회원이 되어 깨끗한 여행을 시작하세요</p>
 
-            <form action="/signup" method="post">
+            <!--
+                [서버 검증 에러 메시지 표시 구역]
+                - th:if: 타임리프의 조건문 태그 (errorMessage 데이터가 서버로부터 넘어왔을 때만 이 태그를 화면에 띄움)
+                - th:text: 서버가 넘겨준 에러 메시지 글자("이미 사용 중인 이메일입니다" 등)를 화면에 꽂아 넣음
+            -->
+            <div class="error-alert" th:if="${errorMessage != null}" th:text="${errorMessage}">
+                에러 안내 메시지가 들어갑니다.
+            </div>
+
+            <!--
+                [회원가입 전송 폼 (Form: 사용자가 입력한 값들을 한 번에 묶어서 서버로 보내는 서류 봉투)]
+                - action="/signup": 폼 데이터를 보낼 백엔드 서버 주소 (URL 경로)
+                - method="post": POST 방식 (비밀번호 같은 민감한 데이터를 주소창에 노출하지 않고 본문 속에 숨겨서 안전하게 전달하는 전송 방식)
+                - onsubmit: 전송 버튼을 눌렀을 때 실행할 자바스크립트 함수 (비밀번호 일치 여부를 먼저 검사)
+            -->
+            <form action="/signup" method="post" onsubmit="return validatePasswordMatch();">
+
+                <!-- 1. 닉네임 입력 칸 (오라클 DB 테이블의 NAME 컬럼과 1:1로 매핑됨) -->
                 <div class="auth-field">
                     <span class="icon-left">👤</span>
+                    <!-- name 속성: 서버 컨트롤러(DTO)에서 이 이름표를 보고 데이터를 꺼내 씁니다 -->
+                    <!-- required: 빈 칸으로 두고 제출할 수 없도록 강제하는 필수 입력 속성 -->
                     <input type="text" name="name" placeholder="이름을 입력하세요" required>
                 </div>
 
@@ -52,53 +94,50 @@
                     <input type="text" name="nickname" placeholder="닉네임을 입력하세요 (2~12자)" required>
                 </div>
 
+                <!-- 2. 이메일 입력 칸 (오라클 DB 테이블의 EMAIL 컬럼과 1:1로 매핑됨) -->
                 <div class="auth-field">
                     <span class="icon-left">✉</span>
                     <input type="email" name="email" placeholder="이메일을 입력하세요" required>
                 </div>
 
+                <!-- 3. 비밀번호 입력 칸 (오라클 DB 테이블의 PASSWORD 컬럼과 1:1로 매핑됨) -->
                 <div class="auth-field">
                     <span class="icon-left">🔒</span>
-                    <input type="password" name="password" placeholder="비밀번호를 입력하세요" required>
-                    <button type="button" class="icon-right" aria-label="비밀번호 표시">👁</button>
+                    <input type="password" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+                    <!-- 눈동자 아이콘 클릭 시 비밀번호 텍스트 보이기/숨기기 토글(Toggle: 껐다 켰다 하는 스위치 기능) -->
+                    <button type="button" class="icon-right" onclick="togglePasswordVisibility('password', this)" aria-label="비밀번호 표시">👁</button>
                 </div>
 
+                <!-- 4. 비밀번호 확인 입력 칸 (오타 방지용 확인 검사 필드) -->
                 <div class="auth-field">
                     <span class="icon-left">🔒</span>
-                    <input type="password" name="passwordConfirm" placeholder="비밀번호를 다시 입력하세요" required>
-                    <button type="button" class="icon-right" aria-label="비밀번호 표시">👁</button>
-                </div>
-
-                <div class="auth-field">
-                    <span class="icon-left">❓</span>
-                    <select name="securityQuestion" required>
-                        <option value="" disabled selected>비밀번호 재설정용 질문을 선택하세요</option>
-                        <option value="처음으로 키웠던 반려동물의 이름은?">처음으로 키웠던 반려동물의 이름은?</option>
-                        <option value="어머니의 성함은?">어머니의 성함은?</option>
-                        <option value="아버지의 성함은?">아버지의 성함은?</option>
-                        <option value="졸업한 초등학교 이름은?">졸업한 초등학교 이름은?</option>
-                        <option value="가장 좋아하는 음식은?">가장 좋아하는 음식은?</option>
-                    </select>
-                </div>
-
-                <div class="auth-field">
-                    <span class="icon-left">💬</span>
-                    <input type="text" name="securityAnswer" placeholder="질문에 대한 답변을 입력하세요" required>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="비밀번호를 다시 입력하세요" required>
+                    <button type="button" class="icon-right" onclick="togglePasswordVisibility('passwordConfirm', this)" aria-label="비밀번호 표시">👁</button>
                 </div>
 
                 <label class="auth-terms">
-                    <input type="checkbox" name="agreeTerms" required>
+                    <input type="checkbox" name="agreeTerms" value="Y" required>
                     <span>이용약관 및 개인정보처리방침에 동의합니다</span>
                 </label>
 
+                <!-- 회원가입 전송 버튼 (클릭 시 form 태그 안의 모든 input 값들을 서버로 전송) -->
                 <button type="submit" class="auth-submit">회원가입</button>
             </form>
+
+            <div class="auth-divider">또는</div>
+
+            <div class="auth-social">
+                <button type="button">G 구글로 가입</button>
+                <button type="button"> 애플로 가입</button>
+                <button type="button">💬 카카오로 가입</button>
+            </div>
 
             <p class="auth-footer-link">이미 계정이 있으신가요? <a href="/login">로그인하기</a></p>
         </div>
     </section>
 </main>
 
+<!-- [하단 푸터]: 사이트 저작권 정보 및 부가 링크 영역 -->
 <footer class="footer">
     <div class="footer-inner">
         <div class="footer-brand">
@@ -107,14 +146,12 @@
         </div>
         <p>BinGo Map은 깨끗한 일본 여행 문화를 응원합니다.<br>모두가 함께 만들어가는 깨끗하고 즐거운 여행 플랫폼!</p>
         <div class="footer-links">
-            <div>◎　♥　f</div>
-            <small>이용약관　　개인정보처리방침　　문의하기</small>
-            <small>© 2025 BinGo Map. All rights reserved.</small>
+            <div>◎ ♥ f</div>
+            <small>이용약관  개인정보처리방침  문의하기</small>
+            <small>© 2026 BinGo Map. All rights reserved.</small>
         </div>
         <a class="top-btn" href="#">↑<small>TOP</small></a>
     </div>
 </footer>
-<script src="/auth/auth.js"></script>
-<script src="/js/header-auth.js"></script>
 </body>
 </html>

@@ -1,49 +1,63 @@
 package com.bingomap.bingo_map.dto;
 
 import com.bingomap.bingo_map.entity.Restaurant;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class RestaurantDto {
+
     private Long restaurantId;
     private String name;
     private String category;
+    private String tags;
     private Double rating;
+    private Integer reviewCount;
+    private String description;
     private String address;
-    private String mainImageUrl;
-    private java.math.BigDecimal latitude;
-    private java.math.BigDecimal longitude;
+    private Double latitude;
+    private Double longitude;
     private String openingHours;
     private String phone;
     private String priceRange;
     private String websiteUrl;
-    private String description;
+    private String seatInfo;
+    private String reservationInfo;
+    private String paymentMethods;
+    private String languages;
+    private String mainImageUrl;
+    private String notice;
+    private String menuName;
+    private String menuDescription;
+    private String menuPrice;
+    private String menuImageUrl;
 
-    public RestaurantDto(Restaurant r) {
-        this.restaurantId = r.getRestaurantId();
-        this.name = r.getName();
-        this.category = r.getCategory();
-        this.rating = r.getRating();
-        this.address = r.getAddress();
-        this.mainImageUrl = r.getMainImageUrl();
-        this.latitude = r.getLatitude();
-        this.longitude = r.getLongitude();
-        this.openingHours = r.getOpeningHours();
-        this.phone = r.getPhone();
-        this.priceRange = r.getPriceRange();
-        this.websiteUrl = r.getWebsiteUrl();
-        this.description = r.getDescription();
+    public RestaurantDto(Restaurant restaurant) {
+        this.restaurantId = restaurant.getId();
+        this.name = restaurant.getName();
+        this.category = restaurant.getCategory();
+        this.tags = restaurant.getTags();
+        this.rating = restaurant.getRating();
+        this.reviewCount = restaurant.getReviewCount();
+        this.description = restaurant.getDescription();
+        this.address = restaurant.getAddress();
+        this.latitude = restaurant.getLatitude();
+        this.longitude = restaurant.getLongitude();
+        this.openingHours = restaurant.getOpeningHours();
+        this.phone = restaurant.getPhone();
+        this.priceRange = restaurant.getPriceRange();
+        this.websiteUrl = restaurant.getWebsiteUrl();
+        this.seatInfo = restaurant.getSeatInfo();
+        this.reservationInfo = restaurant.getReservationInfo();
+        this.paymentMethods = restaurant.getPaymentMethods();
+        this.languages = restaurant.getLanguages();
+        this.mainImageUrl = restaurant.getMainImageUrl();
+        this.menuName = restaurant.getMenuName();
+        this.menuDescription = restaurant.getMenuDescription();
+        this.menuPrice = restaurant.getMenuPrice();
+        this.menuImageUrl = restaurant.getMenuImageUrl();
     }
-
-    public Long getRestaurantId() { return restaurantId; }
-    public String getName() { return name; }
-    public String getCategory() { return category; }
-    public Double getRating() { return rating; }
-    public String getAddress() { return address; }
-    public String getMainImageUrl() { return mainImageUrl; }
-    public java.math.BigDecimal getLatitude() { return latitude; }
-    public java.math.BigDecimal getLongitude() { return longitude; }
-    public String getOpeningHours() { return openingHours; }
-    public String getPhone() { return phone; }
-    public String getPriceRange() { return priceRange; }
-    public String getWebsiteUrl() { return websiteUrl; }
-    public String getDescription() { return description; }
 }

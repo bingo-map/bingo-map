@@ -1,25 +1,58 @@
 <!DOCTYPE html>
-<html lang="ko">
+<!-- 타임리프(Thymeleaf: 스프링 서버에서 넘겨받은 상태값이나 메시지를 HTML 태그에 자동으로 꽂아주는 화면 렌더링 도구) 선언[cite: 1] -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <!-- 뷰포트(Viewport: 스마트폰, 태블릿, PC 등 접속 기기 화면 크기에 맞게 배율을 맞춰주는 반응형 웹 설정)[cite: 1] -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인 | BinGo Map</title>
+
+    <!-- CSS(Cascading Style Sheets: 화면 글꼴, 색상, 배치 등 겉모습 디자인을 결정하는 스타일 파일) -->
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/auth/auth.css">
+
+    <style>
+        /* 알림 메시지 박스 공통 스타일 (사용자에게 처리 결과를 알려주는 안내창) */
+        .auth-alert {
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        /* 에러 발생 알림창: 아이디나 비밀번호가 틀렸을 때 뜨는 연분홍/빨강 상자 */
+        .alert-error {
+            background-color: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+        }
+        /* 성공 안내 알림창: 방금 회원가입을 마치고 로그인 화면으로 넘어왔을 때 뜨는 연초록 상자 */
+        .alert-success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+        }
+    </style>
 </head>
 <body>
+
+<!-- ================================================================= -->
+<!-- [상단 헤더]: 다른 페이지로 이동하는 내비게이션(Navigation: 메뉴 링크 모음) -->
+<!-- ================================================================= -->
 <header class="header">
     <div class="header-inner">
+        <!-- 홈 화면으로 이동하는 로고 링크 -->
         <a class="logo" href="/">
             <span class="logo-mark">♜</span>
             <span>
-          <strong>BinGo Map</strong>
-          <small>Clean &amp; Gourmet</small>
-        </span>
+                <strong>BinGo Map</strong>
+                <small>Clean &amp; Gourmet</small>
+            </span>
         </a>
 
+        <!-- 주요 서비스 메뉴 목록[cite: 3] -->
         <nav class="nav">
-            <a class="active" href="/">홈</a>
+            <a href="/">홈</a>
             <a href="/map">지도</a>
             <a href="/restaurants">주변 맛집</a>
             <a href="/favorites">즐겨찾기</a>
@@ -34,37 +67,79 @@
     </div>
 </header>
 
+<!-- ================================================================= -->
+<!-- [메인 본문 영역]: 로그인 카드 및 입력 폼(Form)[cite: 3] -->
+<!-- ================================================================= -->
 <main>
     <section class="auth-wrap">
         <div class="auth-card">
+            <!-- 서비스 심볼 아이콘 -->
             <div class="auth-icon">🗑</div>
             <h2>로그인</h2>
             <p class="auth-sub">BinGo Map과 함께 깨끗한 여행을 시작하세요</p>
 
+            <!--
+                [1. 회원가입 완료 직후 안내창]
+                - th:if: 파라미터(URL 쿼리스트링)에 ?registered=true 가 붙어 있을 때만 연초록 환영 상자를 표시합니다.
+            -->
+            <div class="auth-alert alert-success" th:if="${param.registered}">
+                회원가입이 완료되었습니다! 로그인해 주세요.
+            </div>
+
+            <!--
+                [2. 로그인 실패 에러 안내창]
+                - th:if: 비밀번호나 이메일이 틀려 서버에서 errorMessage를 넘겨줬을 때만 빨간 경고창을 표시합니다.
+            -->
+            <div class="auth-alert alert-error" th:if="${errorMessage != null}" th:text="${errorMessage}">
+                이메일 또는 비밀번호가 일치하지 않습니다.
+            </div>
+
+            <!--
+                [로그인 정보 전송 폼 (Form: 입력한 아이디와 비밀번호를 하나로 묶어 서버로 쏘아 올리는 서류 봉투)]
+                - action="/login": 서버의 로그인 처리 URL 주소로 보냅니다.
+                - method="post": POST 방식(비밀번호 같은 민감한 개인정보를 주소창에 띄우지 않고 본문 속에 숨겨 안전하게 전달하는 전송 규격)
+            -->
             <form action="/login" method="post">
+
+                <!-- 이메일 입력 칸 (오라클 USERS 테이블의 EMAIL 컬럼과 대조) -->
                 <div class="auth-field">
                     <span class="icon-left">✉</span>
                     <input type="email" name="email" placeholder="이메일을 입력하세요" required>
                 </div>
 
+                <!-- 비밀번호 입력 칸 (오라클 USERS 테이블의 PASSWORD 컬럼과 대조) -->
                 <div class="auth-field">
                     <span class="icon-left">🔒</span>
-                    <input type="password" name="password" placeholder="비밀번호를 입력하세요" required>
-                    <button type="button" class="icon-right" aria-label="비밀번호 표시">👁</button>
+                    <input type="password" id="loginPassword" name="password" placeholder="비밀번호를 입력하세요" required>
+                    <!-- 눈동자 아이콘 클릭 시 비밀번호 텍스트 보이기/숨기기 토글(Toggle: 스위치처럼 껐다 켜는 기능) -->
+                    <button type="button" class="icon-right" onclick="togglePasswordVisibility('loginPassword', this)" aria-label="비밀번호 표시">👁</button>
                 </div>
 
+                <!-- 비밀번호 분실 시 재설정 링크 -->
                 <div class="auth-forgot">
                     <a href="/password-reset">비밀번호 찾기</a>
                 </div>
 
+                <!-- 폼 전송 버튼 (클릭 시 이메일과 비밀번호를 서버로 전달) -->
                 <button type="submit" class="auth-submit">로그인</button>
             </form>
+
+            <div class="auth-divider">또는</div>
+
+            <div class="auth-social">
+                <button type="button">G 구글로 로그인</button>
+                <button type="button"> 애플로 로그인</button>
+                <button type="button">💬 카카오로 로그인</button>
+            </div>
 
             <p class="auth-footer-link">계정이 없으신가요? <a href="/signup">회원가입하기</a></p>
         </div>
     </section>
 </main>
 
+<!-- ================================================================= -->
+<!-- [하단 푸터]: 사이트 저작권 정보 및 부가 링크 영역[cite: 1, 3] -->
+<!-- ================================================================= -->
 <footer class="footer">
     <div class="footer-inner">
         <div class="footer-brand">
@@ -73,14 +148,12 @@
         </div>
         <p>BinGo Map은 깨끗한 일본 여행 문화를 응원합니다.<br>모두가 함께 만들어가는 깨끗하고 즐거운 여행 플랫폼!</p>
         <div class="footer-links">
-            <div>◎　♥　f</div>
-            <small>이용약관　　개인정보처리방침　　문의하기</small>
-            <small>© 2025 BinGo Map. All rights reserved.</small>
+            <div>◎ ♥ f</div>
+            <small>이용약관  개인정보처리방침  문의하기</small>
+            <small>© 2026 BinGo Map. All rights reserved.</small>
         </div>
         <a class="top-btn" href="#">↑<small>TOP</small></a>
     </div>
 </footer>
-<script src="/auth/auth.js"></script>
-<script src="/js/header-auth.js"></script>
 </body>
 </html>

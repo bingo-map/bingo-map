@@ -1,61 +1,376 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>주변 맛집 | BinGo Map</title>
-    <link rel="stylesheet" href="/css/main.css">
+    <title>주변 맛집 - BinGo Map</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #198754;
+            --primary-green-light: #e8f5e9;
+        }
+
+        body {
+            background-color: #fcfcfc;
+            color: #333333;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+        }
+
+        .navbar-brand-logo {
+            font-weight: 800;
+            color: var(--primary-green) !important;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-link-custom {
+            color: #495057;
+            font-weight: 600;
+            text-decoration: none;
+            padding-bottom: 4px;
+        }
+        .nav-link-custom.active {
+            color: var(--primary-green);
+            border-bottom: 3px solid var(--primary-green);
+        }
+
+        .hero-banner {
+            background-color: #f8fafc;
+            background-image: url('/images/banner_illustration.png');
+            background-repeat: no-repeat;
+            background-position: 62% center;
+            background-size: 1100px auto; /* 👈 일러스트 크기 조절 */
+            border-bottom: 1px solid #edf2f7;
+            padding: 45px 0;
+            position: relative;
+        }
+
+        /* 좌측 검색 필터 패널 */
+        .filter-panel {
+            background: #ffffff;
+            border: 1px solid #edf2f7;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+        .filter-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1a202c;
+        }
+        .filter-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .btn-filter-tag {
+            border: 1px solid #e2e8f0;
+            background-color: #ffffff;
+            color: #4a5568;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 6px 0;
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-filter-tag:hover {
+            border-color: var(--primary-green);
+            color: var(--primary-green);
+        }
+        .btn-filter-tag.active {
+            background-color: var(--primary-green);
+            color: #ffffff;
+            border-color: var(--primary-green);
+            font-weight: 600;
+        }
+
+        /* 맛집 리스트 카드 */
+        .restaurant-list-card {
+            background: #ffffff;
+            border: 1px solid #edf2f7;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            gap: 20px;
+            transition: transform 0.15s, box-shadow 0.15s;
+            cursor: pointer;
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+        }
+        .restaurant-list-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+        }
+        .card-thumbnail {
+            width: 170px;
+            height: 125px;
+            border-radius: 10px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background-color: #e9ecef;
+        }
+        .tag-pill {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #ffffff;
+            background-color: #e67e22;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+        .favorite-btn {
+            background: none;
+            border: none;
+            color: #a0aec0;
+            font-size: 1.25rem;
+            transition: color 0.2s;
+        }
+        .favorite-btn:hover {
+            color: #e53e3e;
+        }
+
+        /* 페이지네이션 스타일 */
+        .pagination .page-link {
+            color: #4a5568;
+            border-color: #e2e8f0;
+            font-size: 0.85rem;
+        }
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+            color: #fff;
+        }
+    </style>
 </head>
 <script src="/js/header-auth.js"></script>
-<body>
-<header class="header">
-    <div class="header-inner">
-        <a class="logo" href="/">
-            <span class="logo-mark">♜</span>
-            <span>
-          <strong>BinGo Map</strong>
-          <small>Clean &amp; Gourmet</small>
-        </span>
+<body class="pb-5">
+
+<!-- 상단 헤더 -->
+<header class="bg-white border-bottom py-2 sticky-top">
+    <div class="container d-flex align-items-center justify-content-between">
+        <a href="/" class="navbar-brand-logo text-decoration-none fs-4">
+            <i class="bi bi-trash3-fill fs-3 text-success"></i>
+            <div>
+                <div>BinGo Map</div>
+                <div style="font-size: 0.65rem; color: #718096; font-weight: normal; margin-top: -4px;">Clean & Gourmet</div>
+            </div>
         </a>
-
-        <nav class="nav">
-            <a href="/">홈</a>
-            <a href="/map">지도</a>
-            <a class="active" href="/restaurants">주변 맛집</a>
-            <a href="/favorites">즐겨찾기</a>
-            <a href="/reviews">리뷰</a>
-            <a href="/notices">공지사항</a>
+        <nav class="d-none d-md-flex gap-4 fw-semibold">
+            <a href="/" class="nav-link-custom">홈</a>
+            <a href="/map/map.html" class="nav-link-custom">지도</a>
+            <a href="/restaurants" class="nav-link-custom active">주변 맛집</a>
+            <a href="/favorites" class="nav-link-custom">즐겨찾기</a>
+            <a href="/reviews" class="nav-link-custom">리뷰</a>
+            <a href="/notices" class="nav-link-custom">공지사항</a>
         </nav>
-
-        <div class="header-actions">
-            <button class="language">🇰🇷 한국어 <span>⌄</span></button>
-            <a class="login" href="/login">로그인</a>
+        <div class="d-flex align-items-center gap-3">
+            <a href="/login/login.html" class="btn btn-success btn-sm px-3 rounded-2">로그인</a>
         </div>
     </div>
 </header>
 
-<main>
-    <section class="section">
-        <h2 class="section-title">주변 맛집</h2>
-        <div class="title-line"></div>
-        <p style="text-align:center;color:#777;">쓰레기통 반경 500m 내 테이크아웃 맛집 목록이 여기에 표시됩니다. (개발 예정)</p>
-    </section>
+<!-- 두 번째 사진 형태의 히어로 배너 -->
+<section class="hero-banner">
+    <div class="container">
+        <div class="col-12 col-md-7 col-lg-6">
+            <h2 class="fw-bold mb-2 text-dark fs-1">주변 맛집</h2>
+            <p class="text-secondary mb-3 small" style="line-height: 1.6;">
+                현재 위치 주변의 테이크아웃 맛집을<br>확인해 보세요!
+            </p>
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-2 bg-white border border-light-subtle px-3 py-2 rounded-3 shadow-sm">
+                    <i class="bi bi-geo-alt-fill text-success fs-5"></i>
+                    <span class="fw-semibold text-dark small">오사카, 도톤보리 근처</span>
+                </div>
+                <button type="button" class="btn btn-outline-secondary btn-sm px-3 py-2 bg-white text-dark border-light shadow-sm fw-medium rounded-3" style="font-size: 0.85rem;">위치 변경</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 메인 본문 -->
+<main class="container my-4">
+    <div class="row g-4">
+
+        <!-- 좌측 검색 필터 패널 -->
+        <div class="col-lg-3">
+            <div class="filter-panel d-flex flex-column gap-3">
+                <h5 class="fw-bold mb-0" style="font-size: 1rem;">검색 필터</h5>
+
+                <!-- 카테고리 -->
+                <div>
+                    <div class="filter-title">카테고리</div>
+                    <div class="filter-grid-2" id="categoryFilterContainer">
+                        <button type="button" class="btn-filter-tag active" onclick="filterByCategory('전체', this)">전체</button>
+                        <button type="button" class="btn-filter-tag" onclick="filterByCategory('타코야끼', this)">타코야끼</button>
+                        <button type="button" class="btn-filter-tag" onclick="filterByCategory('야끼소바', this)">야끼소바</button>
+                        <button type="button" class="btn-filter-tag" onclick="filterByCategory('오코노미야끼', this)">오코노미야끼</button>
+                        <button type="button" class="btn-filter-tag" onclick="filterByCategory('붕어빵', this)">붕어빵</button>
+                        <button type="button" class="btn-filter-tag" onclick="filterByCategory('닭튀김', this)">닭튀김</button>
+                        <button type="button" class="btn-filter-tag" onclick="filterByCategory('기타', this)" style="grid-column: span 2;">기타</button>
+                    </div>
+                </div>
+
+                <!-- 정렬 기준 -->
+                <div>
+                    <div class="filter-title">정렬 기준</div>
+                    <select class="form-select form-select-sm">
+                        <option selected>거리순</option>
+                        <option>평점순</option>
+                        <option>리뷰 많은 순</option>
+                    </select>
+                </div>
+
+                <!-- 반경 선택 -->
+                <div>
+                    <div class="filter-title d-flex justify-content-between">
+                        <span>반경 선택</span>
+                        <span class="text-success fw-bold">500m</span>
+                    </div>
+                    <input type="range" class="form-range" min="100" max="2000" step="100" value="500">
+                    <div class="d-flex justify-content-between text-muted" style="font-size: 0.7rem;">
+                        <span>100m</span>
+                        <span>500m</span>
+                        <span>1km</span>
+                        <span>2km</span>
+                    </div>
+                </div>
+
+                <!-- 평점 필터 -->
+                <div>
+                    <div class="filter-title">평점</div>
+                    <div class="d-flex flex-column gap-1 small text-secondary">
+                        <label><input type="radio" name="ratingFilter" checked class="me-1"> 전체</label>
+                        <label><input type="radio" name="ratingFilter" class="me-1"> ⭐⭐⭐⭐ 4.0 이상</label>
+                        <label><input type="radio" name="ratingFilter" class="me-1"> ⭐⭐⭐⭐ 3.5 이상</label>
+                        <label><input type="radio" name="ratingFilter" class="me-1"> ⭐⭐⭐ 3.0 이상</label>
+                    </div>
+                </div>
+
+                <!-- 필터 초기화 -->
+                <button type="button" class="btn btn-outline-secondary btn-sm w-100 py-2 rounded-2 mt-2" onclick="resetFilter()">
+                    필터 초기화
+                </button>
+            </div>
+        </div>
+
+        <!-- 우측 맛집 리스트 -->
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="small text-secondary">
+                    총 <strong class="text-dark" id="totalCount" th:text="${restaurantList != null ? #lists.size(restaurantList) : 0}">0</strong>개의 맛집이 있습니다.
+                </span>
+                <a href="/map/map.html" class="btn btn-outline-secondary btn-sm px-3 rounded-2 text-dark bg-white shadow-sm">
+                    <i class="bi bi-geo-alt text-success me-1"></i> 지도 보기
+                </a>
+            </div>
+
+            <!-- 카드 리스트 박스 -->
+            <div class="d-flex flex-column gap-3" id="restaurantListContainer">
+
+                <!-- DB 반복문 카드 -->
+                <div class="restaurant-list-card"
+                     th:each="item : ${restaurantList}"
+                     th:attr="data-category=${item.category}"
+                     th:onclick="|location.href='/restaurants/detail?id=' + ${item.restaurantId}|">
+
+                    <!-- 썸네일 이미지 -->
+                    <img th:src="${item.mainImageUrl != null && !#strings.isEmpty(item.mainImageUrl) ? item.mainImageUrl : 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=170&q=80'}"
+                         class="card-thumbnail" alt="식당 이미지">
+
+                    <!-- 정보 영역 -->
+                    <div class="d-flex flex-column justify-content-between flex-grow-1">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="tag-pill" th:text="${item.category != null ? item.category : '타코야끼'}">타코야끼</span>
+                                    <h5 class="fw-bold mb-1 fs-6" th:text="${item.name}">가게 이름</h5>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="text-success fw-semibold small" style="font-size: 0.82rem;">
+                                        <i class="bi bi-geo-alt-fill"></i> <span>120m</span>
+                                    </div>
+                                    <button type="button" class="favorite-btn" onclick="event.stopPropagation();">
+                                        <i class="bi bi-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-secondary small mb-2"
+                               th:text="${item.description != null ? item.description : '설명'}">가게 한 줄 소개</p>
+                        </div>
+
+                        <!-- 하단 평점 및 영업시간 -->
+                        <div class="d-flex justify-content-between align-items-center small text-secondary pt-2 border-top" style="font-size: 0.78rem;">
+                            <div class="text-warning fw-bold d-flex align-items-center gap-1">
+                                <i class="bi bi-star-fill"></i>
+                                <span th:text="${item.rating != null ? item.rating : '4.6'}">4.6</span>
+                                <span class="text-muted fw-normal" th:text="|(${item.reviewCount != null ? item.reviewCount : '1,248'})|">(1,248)</span>
+                            </div>
+                            <div>
+                                <i class="bi bi-clock me-1 text-muted"></i> <span>09:00 - 21:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 데이터 없을 때 방어 화면 -->
+                <div class="text-center py-5 bg-white rounded-3 border" th:if="${restaurantList == null || #lists.isEmpty(restaurantList)}">
+                    <i class="bi bi-shop fs-2 text-muted"></i>
+                    <p class="mt-2 text-secondary small mb-0">등록된 맛집이 없습니다.</p>
+                </div>
+            </div>
+
+            <!-- 하단 페이지네이션 -->
+            <nav class="mt-4" aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">&lt;</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                    <li class="page-item"><a class="page-link" href="#">6</a></li>
+                    <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 </main>
 
-<footer class="footer">
-    <div class="footer-inner">
-        <div class="footer-brand">
-            <span class="logo-mark">♜</span>
-            <span><strong>BinGo Map</strong><small>Clean &amp; Gourmet</small></span>
-        </div>
-        <p>BinGo Map은 깨끗한 일본 여행 문화를 응원합니다.<br>모두가 함께 만들어가는 깨끗하고 즐거운 여행 플랫폼!</p>
-        <div class="footer-links">
-            <div>◎　♥　f</div>
-            <small>이용약관　　개인정보처리방침　　문의하기</small>
-            <small>© 2025 BinGo Map. All rights reserved.</small>
-        </div>
-        <a class="top-btn" href="#">↑<small>TOP</small></a>
-    </div>
-</footer>
+<script>
+    function filterByCategory(category, btn) {
+        document.querySelectorAll('#categoryFilterContainer .btn-filter-tag').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const cards = document.querySelectorAll('#restaurantListContainer .restaurant-list-card');
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const cardCategory = card.getAttribute('data-category');
+            if (category === '전체' || cardCategory === category) {
+                card.style.display = 'flex';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        document.getElementById('totalCount').innerText = visibleCount;
+    }
+
+    function resetFilter() {
+        const allBtn = document.querySelector('#categoryFilterContainer .btn-filter-tag');
+        if (allBtn) filterByCategory('전체', allBtn);
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

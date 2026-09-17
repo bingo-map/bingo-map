@@ -46,7 +46,7 @@ public class RestaurantService {
     // Entity → DTO 변환 함수
     private RestaurantDto toDto(Restaurant r) {
         RestaurantDto dto = new RestaurantDto();
-        dto.setId(r.getId());
+        dto.setRestaurantId(r.getId());
         dto.setName(r.getName());
         dto.setCategory(r.getCategory());
         dto.setTags(r.getTags());
@@ -68,6 +68,11 @@ public class RestaurantService {
         dto.setPaymentMethods(r.getPaymentMethods());
         dto.setLanguages(r.getLanguages());
         dto.setMainImageUrl(r.getMainImageUrl());
+        dto.setMenuName(r.getMenuName());
+        dto.setMenuPrice(r.getMenuPrice());
+        dto.setMenuDescription(r.getMenuDescription());
+        dto.setMenuImageUrl(r.getMenuImageUrl());
+
 
         return dto;
     }

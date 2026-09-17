@@ -617,7 +617,7 @@ nav a.active::after {
 
 /* 리플렛 오픈소스 지도 저작권 표기 박스 숨김 */
 .leaflet-control-attribution {
-    display: none !important;
+    display: block !important;
 }
 
 /* 리플렛 기본 좌측 상단 줌(+/-) 버튼 숨김 (아래 커스텀 줌 버튼 사용) */
@@ -1042,4 +1042,11 @@ nav a.active::after {
         bottom: 12px;
         gap: 8px;
     }
+}
+#map .leaflet-tile-pane {
+    /* 배경색을 회색에 가깝게 하고 대비를 낮춘다. */
+    filter: grayscale(80%) contrast(85%);
+
+    /* 1에 가까우면 진하게, 0에 가까우면 연하게 표시한다. */
+    opacity: 0.65;
 }

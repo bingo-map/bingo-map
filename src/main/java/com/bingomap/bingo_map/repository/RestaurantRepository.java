@@ -1,6 +1,5 @@
 package com.bingomap.bingo_map.repository;
 
-import com.bingomap.bingo_map.Entity.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

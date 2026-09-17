@@ -126,14 +126,12 @@
 
             <div class="auth-divider">또는</div>
 
-            <!-- 소셜 로그인 버튼 (추후 OAuth 2.0: 카카오, 구글 간편 로그인 연동용 UI) -->
             <div class="auth-social">
                 <button type="button">G 구글로 로그인</button>
                 <button type="button"> 애플로 로그인</button>
                 <button type="button">💬 카카오로 로그인</button>
             </div>
 
-            <!-- 계정이 없을 때 이동할 회원가입 링크 -->
             <p class="auth-footer-link">계정이 없으신가요? <a href="/signup">회원가입하기</a></p>
         </div>
     </section>
@@ -157,26 +155,5 @@
         <a class="top-btn" href="#">↑<small>TOP</small></a>
     </div>
 </footer>
-
-<!-- [클라이언트 스크립트: 브라우저 자체에서 실행되는 자바스크립트 코드] -->
-<script>
-    /**
-     * 비밀번호 보이기 / 숨기기 토글 함수
-     * input 태그의 type을 'password'(까만 점) <-> 'text'(글자 노출)로 번갈아 전환합니다.
-     * @param {string} inputId - 조작할 비밀번호 입력칸의 고유 ID ('loginPassword')
-     * @param {HTMLElement} btn - 사용자가 누른 눈동자 버튼 요소 (DOM 객체)
-     */
-    function togglePasswordVisibility(inputId, btn) {
-        const input = document.getElementById(inputId);
-        if (input.type === 'password') {
-            input.type = 'text';
-            btn.style.opacity = '0.5'; // 글자가 보일 때는 눈동자를 살짝 흐리게 처리
-        } else {
-            input.type = 'password';
-            btn.style.opacity = '1.0'; // 까만 점으로 가려졌을 때는 원래 투명도로 복구
-        }
-    }
-</script>
-
 </body>
 </html>

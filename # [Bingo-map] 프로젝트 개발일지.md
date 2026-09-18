@@ -1,6 +1,9 @@
 # [Bingo-map] 프로젝트 개발일지
 
-> 최근 갱신: 09.17 (KDK) — 장준환 팀원 주변맛집 개발 로그 반영
+> 09.18
+> > 프로젝트 MERGE 확인 및 bingo-map ver.2 작업 준비
+
+> 최근 갱신: 09.17 (KDK) — 곽동곤 팀원 09.16 스키마 분석 로그 반영
 
 ---
 
@@ -36,13 +39,13 @@ Claude, GPT, Gemini를 사용한다.
 
 ### ■ 팀원별 담당
 
-| 팀원 | 담당 |
-|---|---|
-| 곽동곤 | *(담당 입력)* |
-| 박주호 | 지도 기능 (쓰레기통 & 지도 API 연동, 길찾기) |
-| 안태건 | 유저 / 로그인 / 회원가입 |
-| 유해성 | 리뷰 |
-| 장준환 | 주변 맛집 (목록/상세 페이지, RESTAURANT 테이블 설계) |
+| 팀원 | 담당                                                   |
+|---|--------------------------------------------------------|
+| 곽동곤 | 메인페이지, 프론트엔드, 프로젝트 구조설계, GitHub 관리 |
+| 박주호 | 지도 기능 (쓰레기통 & 지도 API 연동, 길찾기)           |
+| 안태건 | 유저 / 로그인 / 회원가입                               |
+| 유해성 | 리뷰                                                   |
+| 장준환 | 주변 맛집 (목록/상세 페이지, RESTAURANT 테이블 설계)   |
 
 ### ■ 과제 (전체 팀원 뼈대 만들기)
 - 주변맛집
@@ -128,14 +131,23 @@ src
 ### 👤 곽동곤
 ### ══════════════════════════
 
-*(여기에 날짜별로 기록을 추가하세요. 예시 형식)*
+**09.16**
+1. DB ERD 테이블 만들기, 공유하기
+2. 깃허브 팀원들 포크 머지 진행
 
-```
-### MM.DD
-1. 오늘 한 작업
-2. 발생한 문제
-3. 해결 방법
-```
+Claude 세션 — 실제 스키마 분석 및 폴더구조 논의
+- (주의) Claude가 지시 없이 실제 쿼리문 확인 전에 service/dto 스켈레톤을 먼저 만들어버린 일이 있었음. 실제 ERD/쿼리문과 안 맞아 전량 폐기 → 이후 "분석"과 "실제 코드 작성"을 분리해서 요청하기로 함.
+- 실제 테이블 쿼리문(users/restaurants/favorites/reviews/notices, Oracle) 공유 후 기존 코드와 비교 분석:
+  - `users`: 컬럼이 `id`, `name`인데 기존 `User.java`는 `user_id`, `nickname`으로 매핑되어 있어 불일치. `language`, `status` 컬럼도 실제 테이블엔 없어서 회원가입/탈퇴 로직에 영향.
+  - `restaurants`: `description`, `open_hours` 컬럼 없음 (컬럼은 `id, name, category, address, latitude, longitude, image_url`뿐).
+  - `favorites`/`reviews`: `restaurant_id` FK 방식이 아니라 `target_type`(`WASTE_BIN`/`RESTAURANT`) + `target_id`를 쓰는 폴리모픽 구조. `favorites`는 `target_name` 포함, `(user_id, target_type, target_id)` unique 제약.
+  - `notices`: 작성자 컬럼명이 `writer_id`가 아니라 `author_id`, `content`는 `VARCHAR2`가 아니라 `CLOB`.
+  - → 결론: 이전에 만든 service/dto 스켈레톤은 실제 스키마와 안 맞아 폐기. **머지 끝난 뒤 리팩토링 때 실제 스키마 기준으로 다시 작업 예정.**
+- 현재 MVC 폴더 구조(계층형: `controller/`, `service/`, `entity/`, `repository/`, `dto/`가 최상위에 있고 그 안에 전체 도메인이 섞여 있는 방식)에 대한 논의:
+  - 기능 하나(예: 리뷰) 고치려 해도 5개 폴더를 오가야 해서 복잡하다는 의견.
+  - 대안으로 **도메인/기능별 패키지 구조(package-by-feature)** 검토 (`com.bingomap.restaurant`, `com.bingomap.review` 처럼 기능별로 한 패키지에 묶는 방식). 소규모 팀·기능별 담당제에 더 적합하다는 의견.
+  - View 컨트롤러(forward만)와 API 컨트롤러(JSON 응답) 분리 자체는 나쁜 패턴은 아님. 다만 지금 팀 규모에서 부담스러우면 초반엔 합쳐뒀다가 나중에 분리해도 무방.
+  - → **머지 후 리팩토링 시, 계층형 → 기능별 패키지 구조 전환을 검토하기로 함.**
 
 ---
 

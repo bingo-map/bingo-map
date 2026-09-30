@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 public class BingoMapApplication {
 
+	//0930 장준환
 	public static void main(String[] args) {
 
 		System.out.println();

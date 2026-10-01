@@ -29,8 +29,11 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     });
 
-    // 제보 제출
-    document.getElementById("report-submit-btn").addEventListener("click", function () {
+    // 제보 제출: 요청 처리 중 연속 클릭으로 중복 저장되지 않게 막습니다.
+    const submitButton = document.getElementById("report-submit-btn");
+    let submitting = false;
+    submitButton.addEventListener("click", async function () {
+        if (submitting) return;
         errorEl.textContent = "";
         successEl.textContent = "";
 
@@ -50,28 +53,32 @@ document.addEventListener("DOMContentLoaded", function () {
             description: descriptionInput.value.trim() || null,
         };
 
-        fetch("/api/reports", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-        })
-            .then(async (res) => {
-                const data = await res.json();
-                if (!res.ok) {
-                    errorEl.textContent = data.message || "제보 접수에 실패했습니다.";
-                    return;
-                }
-                successEl.textContent = data.status === "APPROVED"
-                    ? "제보가 지도에 바로 반영되었습니다. (관리자 제보)"
-                    : "제보가 접수되었습니다. 관리자 검수 후 반영됩니다.";
-                nameInput.value = "";
-                addressInput.value = "";
-                descriptionInput.value = "";
-                loadMyReports();
-            })
-            .catch(() => {
-                errorEl.textContent = "제보 접수 중 오류가 발생했습니다.";
+        submitting = true;
+        submitButton.disabled = true;
+        try {
+            const res = await fetch("/api/reports", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
             });
+            const data = await res.json();
+            if (!res.ok) {
+                errorEl.textContent = data.message || "제보 접수에 실패했습니다.";
+                return;
+            }
+            successEl.textContent = data.status === "APPROVED"
+                ? "제보가 지도에 바로 반영되었습니다. (관리자 제보)"
+                : "제보가 접수되었습니다. 관리자 검수 후 반영됩니다.";
+            nameInput.value = "";
+            addressInput.value = "";
+            descriptionInput.value = "";
+            loadMyReports();
+        } catch (error) {
+            errorEl.textContent = "제보 접수 중 오류가 발생했습니다.";
+        } finally {
+            submitting = false;
+            submitButton.disabled = false;
+        }
     });
 
     // 내가 제출한 제보 목록

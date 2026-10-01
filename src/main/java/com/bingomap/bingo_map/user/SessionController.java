@@ -22,13 +22,14 @@ public class SessionController {
         if (session == null || session.getAttribute(LoginController.SESSION_USER_ID) == null) {
             return ResponseEntity.ok()
                     .cacheControl(CacheControl.noStore())
-                    .body(new SessionResponseDto(false, null, null));
+                    .body(new SessionResponseDto(false, null, null, null));
         }
 
+        Long userId = (Long) session.getAttribute(LoginController.SESSION_USER_ID);
         String name = (String) session.getAttribute(LoginController.SESSION_USER_NAME);
         String role = (String) session.getAttribute(LoginController.SESSION_USER_ROLE);
         return ResponseEntity.ok()
                 .cacheControl(CacheControl.noStore())
-                .body(new SessionResponseDto(true, name, role));
+                .body(new SessionResponseDto(true, userId, name, role));
     }
 }

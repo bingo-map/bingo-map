@@ -62,7 +62,8 @@
     function init(actions, session) {
         if (initialized || !actions || actions.querySelector(".notif-wrap")) return;
         initialized = true;
-        lastSeenKey = "bingomap-notif-last-" + ((session && session.name) || "");
+        var identity = session && session.userId != null ? session.userId : ((session && session.name) || "");
+        lastSeenKey = "bingomap-notif-last-" + identity;
         lastSeenId = readLastSeen();
 
         ensureCss(function () {
@@ -87,8 +88,8 @@
             '<div class="notif-list"></div>' +
             '<a class="notif-more" href="/mypage?tab=notifications">전체 알림 보기</a>' +
             "</div>";
-        // "{이름}님" 오른쪽, "로그아웃" 왼쪽에 놓는다. (이름 링크를 못 찾으면 맨 앞에 둠)
-        var nameLink = actions.querySelector("a.login");
+        // 이름 링크 바로 뒤에 놓아 이름과 로그아웃 사이에 종을 배치합니다.
+        var nameLink = actions.querySelector("a.site-header__login, a.login");
         if (nameLink) {
             nameLink.after(wrap);
         } else {

@@ -133,7 +133,7 @@ public class NotificationService {
         try {
             isolatedTx.executeWithoutResult(status -> job.run());
         } catch (Exception e) {
-            log.warn("알림 생성 실패 ({}): {}", name, e.getMessage());
+            log.warn("알림 생성 실패 ({})", name, e);
         }
     }
 

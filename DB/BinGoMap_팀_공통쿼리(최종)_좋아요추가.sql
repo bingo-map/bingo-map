@@ -14,6 +14,7 @@
 -- 기존 10개 테이블, 시퀀스 시작값, 트리거, 공통 계정 5개의 BCrypt 저장값 유지.
 -- SYSTEM_SETTINGS 테이블 + 기본 설정 1행 추가.
 -- BIN_REPORTS 테이블 + BIN_REPORTS_SEQ + BIN_REPORTS_BI 추가.
+-- NOTIFICATIONS 테이블 + NOTIFICATIONS_SEQ 추가 (인앱 알림 저장).
 -- [10/01 유해성] COMMUNITY_POST_LIKE 테이블 + SEQ_COMMUNITY_POST_LIKE + COMMUNITY_POST_LIKE_BI 추가 (커뮤니티 좋아요).
 -- 공통 공지 5개 / 커뮤니티 글 5개는 1번 그대로 유지.
 -- 식당 / 리뷰 / 메뉴 예시 INSERT 없음. RESTAURANTS.IS_PUBLISHED 기본값 N 유지.
@@ -96,6 +97,7 @@ BEGIN
                 'SYSTEM_SETTINGS',
                 'BIN_REPORTS',
                 'COMMUNITY_POST_LIKE',
+                'NOTIFICATIONS',
 
                 -- 레거시
                 'RESTAURANT',
@@ -131,6 +133,7 @@ BEGIN
                 'SEQ_RESTAURANT_MENU',
                 'BIN_REPORTS_SEQ',
                 'SEQ_COMMUNITY_POST_LIKE',
+                'NOTIFICATIONS_SEQ',
 
                 -- 레거시
                 'RESTAURANTS_SEQ',
@@ -765,6 +768,29 @@ BEGIN
             END;
         ]';
 
+        EXECUTE IMMEDIATE q'[
+            CREATE SEQUENCE NOTIFICATIONS_SEQ
+                START WITH 1
+                INCREMENT BY 1
+                NOCACHE
+                NOCYCLE
+        ]';
+
+        EXECUTE IMMEDIATE q'[
+            CREATE TABLE NOTIFICATIONS (
+                ID          NUMBER(19)      NOT NULL,
+                USER_ID     NUMBER(19)      NOT NULL,
+                NOTI_TYPE   VARCHAR2(20)    NOT NULL,
+                MESSAGE     VARCHAR2(300)   NOT NULL,
+                LINK_URL    VARCHAR2(300),
+                IS_READ     CHAR(1)         DEFAULT 'N' NOT NULL,
+                CREATED_AT  TIMESTAMP       DEFAULT SYSTIMESTAMP NOT NULL,
+                CONSTRAINT PK_NOTIFICATIONS PRIMARY KEY (ID),
+                CONSTRAINT FK_NOTIFICATIONS_USER FOREIGN KEY (USER_ID) REFERENCES USERS (ID),
+                CONSTRAINT CK_NOTIFICATIONS_READ CHECK (IS_READ IN ('Y', 'N'))
+            )
+        ]';
+
         -- 관리자 기본 설정: 회원가입 허용, 점검 모드 해제
         EXECUTE IMMEDIATE q'[
             INSERT INTO SYSTEM_SETTINGS (
@@ -1036,6 +1062,8 @@ UNION ALL
 SELECT 'SYSTEM_SETTINGS', COUNT(*) FROM SYSTEM_SETTINGS
 UNION ALL
 SELECT 'BIN_REPORTS', COUNT(*) FROM BIN_REPORTS
+UNION ALL
+SELECT 'NOTIFICATIONS', COUNT(*) FROM NOTIFICATIONS
 ORDER BY 1;
 
 PROMPT ============================================================
@@ -1478,6 +1506,8 @@ UNION ALL
 SELECT 'SYSTEM_SETTINGS', COUNT(*) FROM SYSTEM_SETTINGS
 UNION ALL
 SELECT 'BIN_REPORTS', COUNT(*) FROM BIN_REPORTS
+UNION ALL
+SELECT 'NOTIFICATIONS', COUNT(*) FROM NOTIFICATIONS
 ORDER BY 1;
 
 SELECT COUNT(*) AS RESTAURANT_TOTAL,

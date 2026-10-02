@@ -150,7 +150,7 @@ function renderSharedFooter() {
     const footerBrand = document.querySelector("footer .footer-brand");
     if (!footerBrand) return;
 
-    const oldIcon = footerBrand.querySelector(".logo-mark, .site-header__trash, .site-brand__trash");
+    const oldIcon = footerBrand.querySelector(".logo-mark, .footer-trash-icon, .site-header__trash, .site-brand__trash");
     if (!oldIcon) return;
 
     const icon = document.createElement("i");

@@ -77,8 +77,7 @@
         </div>
         <p>BinGo Map은 깨끗한 일본 여행 문화를 응원합니다.<br>모두가 함께 만들어가는 깨끗하고 즐거운 여행 플랫폼!</p>
         <div class="footer-links">
-            <div>◎ ♥ f</div>
-            <small>이용약관  개인정보처리방침  문의하기</small>
+            <small>이용약관　　개인정보처리방침　　문의하기</small>
             <small>© 2026 BinGo Map. All rights reserved.</small>
         </div>
         <a class="top-btn" href="#">↑<small>TOP</small></a>
@@ -139,7 +138,7 @@ function render() {
             <div class="rv-sub-row">${D.escape(r.address||'주소 정보 없음')}${distance!==null?` · ${distance<1000?Math.round(distance)+'m':(distance/1000).toFixed(1)+'km'}`:''}</div>
             <p class="rv-preview">${D.escape(summaryReady ? (s?.previewContent || '첫 리뷰를 남겨주세요.') : '리뷰 정보를 확인할 수 없습니다.')}</p>
             ${r.menuName ? `<div class="rv-sub-row">🍴 ${D.escape(r.menuName)} ${D.escape(r.menuPrice||'')}</div>` : ''}
-          </a><div class="rv-actions"><a href="/reviews/restaurant/${r.restaurantId}">리뷰 보기</a><a href="/reviews/write?restaurantId=${r.restaurantId}">리뷰 쓰기</a></div></article>`;
+          </a><div class="rv-actions"><a href="/reviews/write?restaurantId=${r.restaurantId}">리뷰 쓰기</a></div></article>`;
     }).join('') || '<p class="rv-empty">조건에 맞는 공개 식당이 없습니다.</p>';
     $('rv-grid').querySelectorAll('img').forEach(img => img.addEventListener('error',() => { const placeholder=document.createElement('div');placeholder.className='rv-placeholder';placeholder.textContent='🍽️';img.replaceWith(placeholder); },{once:true}));
 }

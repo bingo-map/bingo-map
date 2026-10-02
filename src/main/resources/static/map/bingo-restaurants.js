@@ -172,7 +172,17 @@
             const route = button('brm-route', '식당 · 쓰레기통 길찾기 ›', function () {
                 startRoute(p);
             });
-            box.append(route); return box;
+            box.append(route);
+
+      // 거리 표시와 길찾기 버튼의 위치를 맞바꿉니다.
+            const distanceInfo = box.querySelector('.brm-popup-distance');
+
+            if (distanceInfo) {
+                distanceInfo.replaceWith(route);
+                box.append(distanceInfo);
+            }
+
+            return box;
         }
         function drawMarkers(rows) {
             layer.clearLayers(); markers.clear();

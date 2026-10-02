@@ -1,0 +1,110 @@
+/* map.html: load AFTER map.css, bingo-routing.css and bingo-restaurants.css. */
+/* Keep routing DOM intact: its JS still references these buttons. */
+/*지도에서 식당사진이 나오도록   */
+.bingo-route-ui .br-bottom .br-actions {
+    display: none !important;
+}
+.bingo-route-ui .br-bottom {
+    border-radius: 24px;
+    padding: 18px 20px 14px;
+    height: auto;
+    box-shadow: 0 8px 28px rgba(30, 60, 42, .12);
+}
+.bingo-route-ui .br-bottom .br-steps {
+    margin-bottom: 0;
+}
+.bingo-route-ui .br-bottom .br-credit {
+    margin-top: 10px;
+}
+
+/* Only restaurant popups: leave waste-bin/report popups unchanged. */
+.brm-leaflet-popup .leaflet-popup-content-wrapper {
+    padding: 0 !important;
+    border: 1px solid #e3ebe5;
+    border-radius: 26px !important;
+    overflow: hidden;
+    box-shadow: 0 10px 32px rgba(28, 54, 38, .18);
+}
+.brm-leaflet-popup .leaflet-popup-content {
+    width: min(360px, calc(100vw - 48px)) !important;
+    max-width: none !important;
+    max-height: min(500px, calc(100dvh - 220px)) !important;
+    margin: 0 !important;
+    padding: 26px 22px 20px !important;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #c5d2c9 transparent;
+    line-height: 1.65;
+}
+.brm-leaflet-popup .leaflet-popup-content::-webkit-scrollbar { width: 6px; }
+.brm-leaflet-popup .leaflet-popup-content::-webkit-scrollbar-thumb {
+    background: #c5d2c9;
+    border-radius: 20px;
+}
+.brm-leaflet-popup .brm-popup { padding: 0; }
+.brm-leaflet-popup .brm-popup h3 {
+    margin: 6px 24px 14px 0;
+    font-size: 19px;
+    line-height: 1.45;
+}
+.brm-leaflet-popup .brm-kicker { font-size: 11px; }
+.brm-leaflet-popup .brm-photo {
+    height: 160px;
+    margin: 12px 0 14px;
+    border-radius: 18px;
+}
+.brm-leaflet-popup .brm-tag { padding: 5px 10px; border-radius: 20px; }
+.brm-leaflet-popup .brm-popup-distance {
+    margin: 14px 0 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #fff5ed;
+}
+.brm-leaflet-popup .brm-popup .brm-detail {
+    font-size: 12px;
+    line-height: 1.75;
+    margin: 9px 0;
+    color: #596c60;
+}
+.brm-leaflet-popup .brm-popup .brm-menu-title {
+    margin: 18px 0 12px;
+    padding-top: 16px;
+    font-size: 14px;
+}
+.brm-leaflet-popup .brm-menu-name { font-size: 13px; line-height: 1.7; }
+.brm-leaflet-popup .brm-route {
+    min-height: 46px;
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 24px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.brm-leaflet-popup a.leaflet-popup-close-button {
+    top: 8px !important;
+    right: 8px !important;
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 50%;
+    background: #f0f5f1;
+    color: #506158;
+    font-size: 20px;
+    line-height: 28px !important;
+    z-index: 2;
+}
+@media (max-width: 600px) {
+    .bingo-route-ui .br-bottom { padding: 14px 16px 12px; border-radius: 20px; }
+    .brm-leaflet-popup .leaflet-popup-content { padding: 24px 18px 18px !important; }
+}
+/* 식당 사진이 있으면 기본 포크·나이프 아이콘 숨기기 */
+.brm-photo:has(img) .brm-photo-fallback {
+    display: none !important;
+}
+
+/* 팝업을 보고 있을 때 상단 식당·쓰레기통 개수 배너 숨기기 */
+.map-wrap:has(.leaflet-popup) .brm-map-badge,
+.map-wrap:has(.leaflet-popup) .map-label {
+    display: none !important;
+}

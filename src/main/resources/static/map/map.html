@@ -279,6 +279,7 @@
 <!-- 6. Oracle DB 식당 표시 기능 -->
 <script src="/map/bingo-restaurants.js?v=spots-1"></script>
 <script src="/map/bingo-bin-report.js?v=20261001-1"></script>
+<script src="/map/bingo-bin-favorites.js?v=20261002-1"></script>
 <script src="/map/bingo-restaurant-entry.js?v=20261001-1"></script>
 <!-- 7. 이 아래부터 기존 지도 JavaScript -->
 <script>
@@ -316,6 +317,7 @@
 
     map.setView(MAP_CENTER, 15);
     BinGoBinReport.attach(map);
+    BinGoBinFavorites.attach(map);
 
 
     /* ---------------------------------------------------------
@@ -620,6 +622,7 @@
         return `
 
         <div class="popup">
+            ${BinGoBinFavorites.buttonHtml(bin)}
 
             <small>
                 ${escapeHtml(spotOrigin.getReference().label)} 기준${bin.isReport ? ' · 회원 제보(실제와 다를 수 있어요)' : ''}
@@ -1169,6 +1172,7 @@
                         return {
 
                             id: bin.id,
+                            osmId: bin.osmId,
 
                             lat: Number(
                                 bin.lat
@@ -1472,7 +1476,29 @@
     }
 
     // 기존 쓰레기통 조회 → (관리자 여부 확인과 함께) 끝나면 제보를 합쳐서 한 번에 다시 그립니다.
-    Promise.all([loadSessionRole(), loadWasteBins()]).then(loadReportBins);
+    function openFavoriteBin() {
+        const osmId = new URLSearchParams(window.location.search).get('favoriteBin');
+        if (!osmId || !/^\d+$/.test(osmId)) return;
+
+        const bin = allBins.find(item => String(item.osmId) === osmId);
+        if (!bin) {
+            window.alert('저장한 쓰레기통을 현재 지도 데이터에서 찾지 못했어요. 데이터 조회 상태를 확인해주세요.');
+            return;
+        }
+
+        // 즐겨찾기 진입일 때만 검색/필터를 초기화하고 해당 마커를 엽니다.
+        currentCategory = 'all';
+        searchInput.value = '';
+        document.querySelectorAll('.filter[data-category]').forEach(button => {
+            button.classList.toggle('active', button.dataset.category === 'all');
+        });
+        render();
+        selectBin(bin.id, true);
+    }
+
+    Promise.all([loadSessionRole(), loadWasteBins()])
+        .then(loadReportBins)
+        .then(openFavoriteBin);
 
 </script>
 

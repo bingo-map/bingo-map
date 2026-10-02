@@ -1,5 +1,6 @@
 /* map.html: load AFTER map.css, bingo-routing.css and bingo-restaurants.css. */
 /* Keep routing DOM intact: its JS still references these buttons. */
+/*지도에서 식당사진이 나오도록   */
 .bingo-route-ui .br-bottom .br-actions {
     display: none !important;
 }
@@ -96,4 +97,14 @@
 @media (max-width: 600px) {
     .bingo-route-ui .br-bottom { padding: 14px 16px 12px; border-radius: 20px; }
     .brm-leaflet-popup .leaflet-popup-content { padding: 24px 18px 18px !important; }
+}
+/* 식당 사진이 있으면 기본 포크·나이프 아이콘 숨기기 */
+.brm-photo:has(img) .brm-photo-fallback {
+    display: none !important;
+}
+
+/* 팝업을 보고 있을 때 상단 식당·쓰레기통 개수 배너 숨기기 */
+.map-wrap:has(.leaflet-popup) .brm-map-badge,
+.map-wrap:has(.leaflet-popup) .map-label {
+    display: none !important;
 }

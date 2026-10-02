@@ -112,7 +112,7 @@ SET
     RATING = NULL,
     REVIEW_COUNT = NULL,
     MAIN_IMAGE_URL = '/images/store-img/dotonbori/本宮的茶 大阪｜タピオカミルクティー専門店｜BEN GONG’S TEA Osaka｜Boba & Chinese Style Tea shop.jpg',
-    MENU_NAME = '흑당 버블 밀크티 (黑糖波波)',
+    MENU_NAME = '흑당 버블 밀크티',
     MENU_DESCRIPTION = '진한 흑당 시럽의 달콤함과 부드러운 우유에 쫀득한 타피오카 펄을 더한 대표 버블 밀크티',
     MENU_PRICE = '¥690',
     MENU_IMAGE_URL = '/images/food-img/dotonbori/本宮的茶 大阪｜タピオカミルクティー専門店｜BEN GONG’S TEA Osaka｜Boba & Chinese Style Tea menu.jpg',
@@ -140,7 +140,7 @@ SET
     RATING = NULL,
     REVIEW_COUNT = NULL,
     MAIN_IMAGE_URL = '/images/store-img/dotonbori/癒ロイド 마사히코 shop.jpg',
-    MENU_NAME = '자부통 몽블랑 (Zabuton Mont Blanc)',
+    MENU_NAME = '자부통 몽블랑',
     MENU_DESCRIPTION = '털실 모양으로 섬세하게 짠 진한 밤 크림과 부드러운 무스의 시그니처 디저트',
     MENU_PRICE = '¥950',
     MENU_IMAGE_URL = '/images/food-img/dotonbori/癒ロイド 마사히코 menu.jpg',
@@ -357,7 +357,7 @@ SET
     OPENING_HOURS = '11:00 - 18:00',
     PHONE = '+81 6-4706-3788',
     WEBSITE_URL = 'http://shelf-keybridge.com/',
-    SEAT_INFO = '매장 내 식사 및 테라스석, 테이크아웃 가능, 배달 서비스 불가',
+    SEAT_INFO = '매장 내 식사 및 테라스석, 테이크아웃 가능',
     RESERVATION_INFO = '현장 대기 접수표 작성',
     PAYMENT_METHODS = '현금 전용 / 카드 확인 요망',
     LANGUAGES = '일본어, 영어 메뉴',
@@ -711,7 +711,7 @@ WHERE OSM_ID = 7477432357;
 -- 킷사 아오이
 UPDATE RESTAURANTS
 SET
-    NAME = 'Aoi (킷사 아오이 / 喫茶あおい)',
+    NAME = '킷사 아오이',
     CATEGORY = '카페',
     TAGS = '니시아와지,킷사텐,핸드드립,레트로카페,히가시요도가와,모닝세트',
     DESCRIPTION = '히가시요도가와구 니시아와지 주택가에서 차분하고 레트로한 무드로 커피를 음미할 수 있는 클래식 킷사텐',
@@ -853,33 +853,6 @@ SET
     UPDATED_AT = SYSTIMESTAMP
 WHERE OSM_ID = 7477484852;
 
--- 27. 시키슌사이 무라타
-UPDATE RESTAURANTS
-SET
-    NAME = '시키슌사이 무라타',
-    CATEGORY = '일식',
-    TAGS = '주소맛집,제철요리,사케,일식주점,계절생선회,모임장소',
-    DESCRIPTION = '사계절 제철 생선회와 엄선된 신선한 채소 요리를 정갈하게 선보이는 주소역 인근 일식 주점',
-    ADDRESS = '1 Chome-1-17 Jusohigashi, Yodogawa Ward, Osaka, 532-0023',
-    LATITUDE = 34.7188120,
-    LONGITUDE = 135.4851240,
-    OPENING_HOURS = '17:00 - 23:00',
-    PHONE = '+81 6-6770-9777',
-    WEBSITE_URL = 'https://www.instagram.com/',
-    SEAT_INFO = '매장 내 식사 가능 (배달 서비스 불가)',
-    RESERVATION_INFO = '전화 예약 권장',
-    PAYMENT_METHODS = '현금, 신용카드',
-    LANGUAGES = '일본어 메뉴',
-    RATING = NULL,
-    REVIEW_COUNT = NULL,
-    MAIN_IMAGE_URL = '/images/store-img/dotonbori/四季旬菜 むら田.jpg',
-    MENU_NAME = '제철 모둠 사시미 5종',
-    MENU_DESCRIPTION = '산지 직송 제철 생선 본연의 신선함과 기름진 맛을 담아낸 모둠 생선회',
-    MENU_PRICE = '¥2,800',
-    MENU_IMAGE_URL = '/images/food-img/dotonbori/四季旬菜 むら田 menu.jpg',
-    IS_PUBLISHED = 'Y',
-    UPDATED_AT = SYSTIMESTAMP
-WHERE OSM_ID = 2000000061;
 
 -- 29. 스시 키노스케
 UPDATE RESTAURANTS
@@ -940,7 +913,7 @@ WHERE OSM_ID = 5423722642;
 -- 시키슌사이 무라타 (중복 등록 건 처리)
 UPDATE RESTAURANTS
 SET
-    NAME = '시키슌사이 무라타 (四季旬菜 むら田)',
+    NAME = '시키슌사이 무라타',
     CATEGORY = '일식',
     TAGS = '주소맛집,제철요리,일식주점,사케,계절생선회,모임장소',
     DESCRIPTION = '사계절 제철 생선회와 엄선된 신선한 채소 요리를 정갈하게 선보이는 주소역 인근 일식 주점',
@@ -1057,7 +1030,7 @@ WHERE OSM_ID = 5025047984;
 -- 34. 삼십사 키친 (34 Kitchen)
 UPDATE RESTAURANTS
 SET
-    NAME = '삼십사 키친',
+    NAME = '34 키친',
     CATEGORY = '양식',
     TAGS = '나카츠카페,브런치맛집,다이닝카페,수제디저트,내추럴와인',
     DESCRIPTION = '모던하고 감각적인 인테리어 속에서 정성 가득한 브런치 플레이트와 디저트, 커피를 즐길 수 있는 카페',
@@ -1074,8 +1047,8 @@ SET
     RATING = NULL,
     REVIEW_COUNT = NULL,
     MAIN_IMAGE_URL = '/images/store-img/osaka castle/34 kitchen.jpg',
-    MENU_NAME = '34 시그니처 브런치 플레이트',
-    MENU_DESCRIPTION = '바삭한 토스트와 육즙 가득한 소시지, 신선한 샐러드를 담은 올데이 브런치',
+    MENU_NAME = '34 시그니처 브런치 파스타',
+   MENU_DESCRIPTION = '향긋한 바질 페스토에 부드러운 감자와 치즈를 듬뿍 얹고 바삭한 바게트를 곁들인 파스타',
     MENU_PRICE = '¥1,600',
     MENU_IMAGE_URL = '/images/food-img/osaka castle/34 kitchen menu.jpg',
     IS_PUBLISHED = 'Y',
@@ -1113,7 +1086,7 @@ WHERE OSM_ID = 6984112024;
 -- 36. 일파운드 스테이크 앤 함바그 타케루 히가시미쿠니점
 UPDATE RESTAURANTS
 SET
-    NAME = '일파운드 스테이크 앤 함바그 타케루 히가시미쿠니점',
+    NAME = '1파운드 스테이크 앤 함바그 타케루 히가시미쿠니점',
     CATEGORY = '양식',
     TAGS = '히가시미쿠니,1파운드스테이크,수제함바그,가성비스테이크,육즙폭발',
     DESCRIPTION = '뜨거운 철판에 푸짐한 1파운드 스테이크와 육즙 가득한 수제 함바그를 든든하게 즐길 수 있는 고기 전문점',
@@ -1461,16 +1434,11 @@ SET
     UPDATED_AT = SYSTIMESTAMP
 WHERE OSM_ID = 7456881887;
 
-
--- ============================================================
--- 7. 다이닝
--- ============================================================
-
 -- 48. 우츠보혼마치 가쿠
 UPDATE RESTAURANTS
 SET
     NAME = '우츠보혼마치 가쿠',
-    CATEGORY = '다이닝',
+    CATEGORY = '주점',
     TAGS = '파인다이닝,오마카세,가이세키,미식,우츠보공원맛집',
     DESCRIPTION = '제철 식재료 본연의 맛을 정갈하고 섬세하게 선보이는 우츠보공원 인근의 정통 일식 파인다이닝',
     ADDRESS = 'Honmachi Kuiba Bldg, 1 Chome-14-15 Utsubohonmachi, Nishi Ward, Osaka, 550-0004',
@@ -1479,7 +1447,7 @@ SET
     OPENING_HOURS = '17:00 - 23:00',
     PHONE = '+81 6-6479-3459',
     WEBSITE_URL = 'http://utsubo-gaku.com/',
-    SEAT_INFO = '카운터석, 테이블석 (매장 내 식사만 가능, 테이크아웃/배달 불가)',
+    SEAT_INFO = '매장 내 식사 가능, 테이크아웃/배달 불가',
     RESERVATION_INFO = '사전 예약 필수 (온라인 예약 가능)',
     PAYMENT_METHODS = '신용카드, 전자화폐',
     LANGUAGES = '일본어',
@@ -1494,6 +1462,13 @@ SET
     UPDATED_AT = SYSTIMESTAMP
 WHERE OSM_ID = 5623231721;
 
+
+
+-- ============================================================
+-- OSM_ID 2000000061 삭제
+-- ============================================================
+DELETE FROM RESTAURANTS
+WHERE OSM_ID = 2000000061;
 
 -- ============================================================
 -- 최종 COMMIT

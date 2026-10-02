@@ -276,7 +276,7 @@
 <script src="/map/bingo-routing.js?v=spots-1"></script>
 
 <!-- 6. Oracle DB 식당 표시 기능 -->
-<script src="/map/bingo-restaurants.js?v=spots-1"></script>
+<script src="/map/bingo-restaurants.js?v=restaurant-entry-20261002"></script>
 <script src="/map/bingo-bin-report.js?v=20261001-1"></script>
 <script src="/map/bingo-restaurant-entry.js?v=20261001-1"></script>
 <!-- 7. 이 아래부터 기존 지도 JavaScript -->
@@ -1358,9 +1358,10 @@
 
     // 추가: Oracle DB에서 식당을 조회하고 지도에 표시하는 기능 연결
     window.restaurantMap = BinGoRestaurants.create(map, {
-        // 추가: 메인 '최적 경로 안내'는 /map?mode=route로 들어옵니다.
-        // 이때 식당 선택 화면을 먼저 열고, 일반 /map은 쓰레기통 탭으로 시작합니다.
+        // 주변 맛집의 지도 보기와 경로 안내 진입은 식당 탭으로 시작합니다.
+        // 일반 /map 진입은 기존처럼 쓰레기통 탭으로 시작합니다.
         routeEntry: new URLSearchParams(window.location.search).get('mode') === 'route',
+        restaurantEntry: new URLSearchParams(window.location.search).get('mode') === 'restaurants',
         getReference: spotOrigin.getReference,
 
         onRoute: function (restaurant) {

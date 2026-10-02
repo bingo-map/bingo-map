@@ -5,6 +5,7 @@
     const PAGE_SIZE = 10;
     const API_URL = '/api/map/restaurants';
     const SPOT_STORAGE_KEY = 'bingo.origin.spot.v1';
+    const CATEGORY_STORAGE_KEY = 'bingo.restaurants.category.v1';
 
     const CATEGORIES = {
         '카페': [
@@ -60,6 +61,7 @@
     let filteredItems = [];
     let favoriteIdsByRestaurant = new Map();
     let currentPage = 0;
+    let pageToRestore = null;
 
     let state = 'loading';
     let failureMessage = '';
@@ -102,8 +104,49 @@
 
     function currentSpot() {
         return window.BinGoSpots.find(
-            $('regionSelect').value
+            $('regionFilter').value
         ) || window.BinGoSpots.find('dotonbori');
+    }
+
+    function setCategory(category) {
+        const buttons = [...document.querySelectorAll(
+            '#categoryFilterContainer button'
+        )];
+        const selected = buttons.some(
+            button => button.dataset.category === category
+        ) ? category : '전체';
+
+        buttons.forEach(button => {
+            const active = button.dataset.category === selected;
+            button.classList.toggle('active', active);
+            button.setAttribute('aria-pressed', String(active));
+        });
+
+        try {
+            sessionStorage.setItem(CATEGORY_STORAGE_KEY, selected);
+        } catch (_) {
+            // 저장이 차단된 브라우저에서도 URL과 현재 화면은 동작합니다.
+        }
+
+        const url = new URL(location.href);
+        if (selected === '전체') {
+            url.searchParams.delete('category');
+        } else {
+            url.searchParams.set('category', selected);
+        }
+        history.replaceState(null, '', url.pathname + url.search + url.hash);
+
+        return selected;
+    }
+
+    function rememberPage() {
+        const url = new URL(location.href);
+        if (currentPage === 0) {
+            url.searchParams.delete('page');
+        } else {
+            url.searchParams.set('page', String(currentPage + 1));
+        }
+        history.replaceState(null, '', url.pathname + url.search + url.hash);
     }
 
     function categoryMatches(selected, category) {
@@ -688,6 +731,10 @@
                 ).value
             );
 
+        const searchQuery = $('restaurantSearchInput').value
+            .trim()
+            .toLocaleLowerCase();
+
         const sort =
             $('sortSelect').value;
 
@@ -746,6 +793,8 @@
                             item.category
                         )
 
+                        && (!searchQuery || String(item.name || '').toLocaleLowerCase().includes(searchQuery))
+
                         && (
                             minRating === 0
 
@@ -803,32 +852,20 @@
             );
         });
 
-        currentPage = 0;
+        currentPage = pageToRestore ?? 0;
+        pageToRestore = null;
 
         renderPage();
+        rememberPage();
     }
 
     function resetFilter() {
+        setCategory('전체');
+        $('restaurantSearchInput').value = '';
 
-        document
-            .querySelectorAll(
-                '#categoryFilterContainer button'
-            )
-            .forEach(button => {
-
-                const active =
-                    button.dataset.category === '전체';
-
-                button.classList.toggle(
-                    'active',
-                    active
-                );
-
-                button.setAttribute(
-                    'aria-pressed',
-                    String(active)
-                );
-            });
+        const url = new URL(location.href);
+        url.searchParams.delete('q');
+        history.replaceState(null, '', url.pathname + url.search + url.hash);
 
         $('sortSelect').value =
             'distance';
@@ -1076,6 +1113,13 @@
                     location.search
                 ).get('region');
 
+            const requestedPage = Number(
+                new URLSearchParams(location.search).get('page')
+            );
+            if (Number.isInteger(requestedPage) && requestedPage > 1) {
+                pageToRestore = requestedPage - 1;
+            }
+
             // 이전 URL도 새 스팟 선택으로 연결합니다.
             const aliases = {
                 umeda: 'usj',
@@ -1096,19 +1140,44 @@
                     'dotonbori'
                 );
 
-            $('regionSelect').value =
-                initial.id;
+            $('regionFilter').value = initial.id;
+            $('heroRegionSelect').value = initial.id;
 
             rememberSpot();
 
-            $('regionSelect')
-                .addEventListener(
-                    'change',
-                    () => {
-                        rememberSpot();
-                        applyFilters();
-                    }
-                );
+            const categoryFromUrl = new URLSearchParams(
+                location.search
+            ).get('category');
+            let savedCategory = null;
+            try {
+                savedCategory = sessionStorage.getItem(CATEGORY_STORAGE_KEY);
+            } catch (_) {
+                // URL 또는 전체 보기로 초기화합니다.
+            }
+            setCategory(categoryFromUrl || savedCategory || '전체');
+
+            const searchInput = $('restaurantSearchInput');
+            searchInput.value = new URLSearchParams(location.search).get('q') || '';
+            searchInput.addEventListener('input', () => {
+                const url = new URL(location.href);
+                const query = searchInput.value.trim();
+                if (query) url.searchParams.set('q', query);
+                else url.searchParams.delete('q');
+                history.replaceState(null, '', url.pathname + url.search + url.hash);
+                applyFilters();
+            });
+
+            $('regionFilter').addEventListener('change', () => {
+                $('heroRegionSelect').value = $('regionFilter').value;
+                rememberSpot();
+                applyFilters();
+            });
+
+            $('heroRegionSelect').addEventListener('change', () => {
+                $('regionFilter').value = $('heroRegionSelect').value;
+                rememberSpot();
+                applyFilters();
+            });
 
             $('sortSelect')
                 .addEventListener(
@@ -1155,32 +1224,7 @@
                         button.addEventListener(
                             'click',
                             () => {
-
-                                document
-                                    .querySelectorAll(
-                                        '#categoryFilterContainer button'
-                                    )
-                                    .forEach(
-                                        other => {
-
-                                            const active =
-                                                other ===
-                                                button;
-
-                                            other.classList.toggle(
-                                                'active',
-                                                active
-                                            );
-
-                                            other.setAttribute(
-                                                'aria-pressed',
-                                                String(
-                                                    active
-                                                )
-                                            );
-                                        }
-                                    );
-
+                                setCategory(button.dataset.category);
                                 applyFilters();
                             }
                         )
@@ -1239,6 +1283,7 @@
                             );
 
                         renderPage();
+                        rememberPage();
 
                         $('resultsTop')
                             .scrollIntoView({
@@ -1261,7 +1306,6 @@
                 }
             );
 
-            applyFilters();
             load();
         }
     );

@@ -161,7 +161,6 @@
                     <div><i class="bi bi-geo-alt me-2 text-success"></i><span id="address">주소</span></div>
                     <div><i class="bi bi-clock me-2 text-success"></i><span id="openingHours">영업시간</span></div>
                     <div><i class="bi bi-telephone me-2 text-success"></i><span id="phoneText">전화번호</span></div>
-                    <div><i class="bi bi-currency-yen me-2 text-success"></i><span id="priceRange">가격대</span></div>
                     <div id="websiteRow" style="display:none;"><i class="bi bi-globe me-2 text-success"></i><a id="websiteLink" href="#" target="_blank" class="text-decoration-none text-success">웹사이트</a></div>
                 </div>
             </div>
@@ -275,7 +274,6 @@
         document.getElementById('address').innerText = r.address || '주소 정보 없음';
         document.getElementById('openingHours').innerText = r.openingHours || '09:00 - 21:00';
         document.getElementById('phoneText').innerText = r.phone || '+81 6-6211-5512';
-        document.getElementById('priceRange').innerText = r.priceRange || '1인당 ¥600 ~ ¥1,000';
 
         if (r.websiteUrl) {
             document.getElementById('websiteRow').style.display = '';

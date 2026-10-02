@@ -66,8 +66,9 @@
 
     function create(map, options) {
         options = options || {};
-        // 추가: 메인 경로 안내 버튼으로 들어온 경우에만 식당 선택부터 시작합니다.
+        // 경로 안내 또는 주변 맛집 페이지에서 진입하면 식당 탭을 먼저 엽니다.
         const routeEntry = options.routeEntry === true;
+        const restaurantEntry = options.restaurantEntry === true;
         const sidebar = document.querySelector('.sidebar');
         if (!sidebar) throw new Error('지도 HTML에 .sidebar가 없습니다.');
         if (sidebar.querySelector('.brm-tabs, .bt-tabs'))
@@ -273,7 +274,7 @@
         });
         render(false);
         // 추가: 식당 선택 전에는 위치 권한이나 외부 경로 조회를 요청하지 않습니다.
-        if (routeEntry) setActive(true);
+        if (routeEntry || restaurantEntry) setActive(true);
         return {
             refreshDistances:function () { if (!destroyed) render(false); },
             refresh:function () { load(); },

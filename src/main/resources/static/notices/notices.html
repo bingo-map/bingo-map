@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항 | BinGo Map</title>
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/notices/notices.css">
+    <link rel="stylesheet" href="/notices/Notices.css">
     <link rel="stylesheet" href="/css/site-header.css">
 </head>
 <body class="page-with-bottom-footer">
@@ -40,8 +40,17 @@
     <section class="section">
         <h2 class="section-title">공지사항</h2>
         <div class="title-line"></div>
+        <div class="notice-toolbar" id="notice-admin-toolbar" hidden><p id="notice-message" role="status"></p><button id="notice-new-btn" type="button">+ 공지 작성</button></div>
+        <form id="notice-form" class="notice-form" hidden>
+            <input id="notice-form-id" type="hidden">
+            <label>제목<input id="notice-title" type="text" maxlength="200" required></label>
+            <label>내용<textarea id="notice-content" rows="7" required></textarea></label>
+            <label class="notice-pin-option"><input id="notice-pinned" type="checkbox"> 상단 고정</label>
+            <p id="notice-form-message" role="alert"></p>
+            <div><button type="submit" class="notice-save">저장</button><button type="button" id="notice-cancel">취소</button></div>
+        </form>
         <div id="notice-list" class="notice-list"></div>
-        <p id="notice-empty" style="text-align:center;color:#777;padding: 40px 0;" hidden>등록된 공지사항이 없습니다.</p>
+        <p id="notice-empty" class="notice-empty" hidden>등록된 공지사항이 없습니다.</p>
     </section>
 </main>
 
@@ -59,7 +68,7 @@
         <a class="top-btn" href="#">↑<small>TOP</small></a>
     </div>
 </footer>
-<script src="/notices/notices.js"></script>
+<script src="/notices/Notices.js"></script>
 <script src="/js/header-auth.js"></script>
 </body>
 </html>

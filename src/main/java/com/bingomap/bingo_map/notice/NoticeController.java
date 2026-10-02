@@ -35,6 +35,11 @@ public class NoticeController {
         return "forward:/notices/notices.html";
     }
 
+    @GetMapping("/notices/view/{id}")
+    public String noticeDetail() {
+        return "forward:/notices/detail.html";
+    }
+
     // =========================
     // 공개 API
     // =========================
@@ -42,7 +47,7 @@ public class NoticeController {
     @GetMapping("/api/notices")
     @ResponseBody
     public List<NoticeResponseDto> list() {
-        return noticeRepository.findAllByOrderByCreatedAtDesc()
+        return noticeRepository.findAllByOrderByPinnedDescCreatedAtDesc()
                 .stream()
                 .map(this::toDto)
                 .toList();
@@ -105,6 +110,7 @@ public class NoticeController {
                 dto.getTitle(),
                 dto.getContent()
         );
+        if (dto.getPinned() != null) notice.setPinned(dto.getPinned() ? 1 : 0);
 
         noticeRepository.save(notice);
         notificationService.onNoticeCreated(authorId, dto.getTitle());
@@ -145,10 +151,23 @@ public class NoticeController {
 
         notice.setTitle(dto.getTitle());
         notice.setContent(dto.getContent());
+        notice.setPinned(Boolean.TRUE.equals(dto.getPinned()) ? 1 : 0);
 
         noticeRepository.save(notice);
 
         return ResponseEntity.ok(toDto(notice));
+    }
+
+    @PatchMapping("/api/admin/notices/{id}/pin")
+    @ResponseBody
+    public ResponseEntity<?> setPinned(@PathVariable Long id, @RequestBody Map<String, Boolean> body, HttpServletRequest request) {
+        if (!canManageConsole(request)) {
+            return ResponseEntity.status(403).body(Map.of("message", "관리자만 접근할 수 있습니다."));
+        }
+        Notice notice = noticeRepository.findById(id).orElse(null);
+        if (notice == null) return ResponseEntity.status(404).body(Map.of("message", "존재하지 않는 공지사항입니다."));
+        notice.setPinned(Boolean.TRUE.equals(body.get("pinned")) ? 1 : 0);
+        return ResponseEntity.ok(toDto(noticeRepository.save(notice)));
     }
 
     @DeleteMapping("/api/admin/notices/{id}")
@@ -184,7 +203,7 @@ public class NoticeController {
         HttpSession session = request.getSession(false);
         if (session == null) return false;
         Object role = session.getAttribute(LoginController.SESSION_USER_ROLE);
-        return "ADMIN".equals(role) || "MANAGER".equals(role);
+        return "ADMIN".equals(role);
     }
 
     private Long getLoginUserId(HttpServletRequest request) {
@@ -229,6 +248,7 @@ public class NoticeController {
                 notice.getTitle(),
                 notice.getContent(),
                 notice.getViewCount(),
+                notice.getPinned(),
                 createdAt,
                 updatedAt
         );

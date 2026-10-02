@@ -44,7 +44,6 @@
                 <a href="#" class="active" data-tab="dashboard">대시보드</a>
                 <a href="#" data-tab="reports">쓰레기통 제보 관리</a>
                 <a href="#" data-tab="users">유저 관리</a>
-                <a href="#" data-tab="notices">공지사항 관리</a>
                 <a href="#" data-tab="settings">시스템 설정</a>
             </nav>
         </aside>
@@ -154,51 +153,6 @@
                         <tbody id="admin-user-table-body"></tbody>
                     </table>
                     <p class="admin-empty" id="admin-user-empty" hidden>회원이 없습니다.</p>
-                </div>
-            </section>
-
-            <section id="tab-notices" class="admin-tab-content" hidden>
-                <h2>공지사항 관리</h2>
-
-                <div class="admin-panel">
-                    <div class="admin-panel-head">
-                        <b>공지사항 목록</b>
-                        <button type="button" id="notice-new-btn" class="admin-new-btn">+ 새 공지 작성</button>
-                    </div>
-                    <p class="admin-message" id="notice-message"></p>
-                    <table class="admin-table">
-                        <thead>
-                        <tr>
-                            <th>제목</th>
-                            <th>작성일</th>
-                            <th>수정일</th>
-                            <th>관리</th>
-                        </tr>
-                        </thead>
-                        <tbody id="notice-table-body"></tbody>
-                    </table>
-                    <p class="admin-empty" id="notice-empty" hidden>등록된 공지사항이 없습니다.</p>
-                </div>
-
-                <div id="notice-form-panel" class="admin-panel" hidden>
-                    <h3 id="notice-form-heading">새 공지 작성</h3>
-                    <input type="hidden" id="notice-form-id">
-
-                    <div class="admin-form-row">
-                        <label for="notice-title-input">제목</label>
-                        <input type="text" id="notice-title-input" placeholder="공지 제목을 입력하세요">
-                    </div>
-                    <div class="admin-form-row">
-                        <label for="notice-content-input">내용</label>
-                        <textarea id="notice-content-input" rows="6" placeholder="공지 내용을 입력하세요"></textarea>
-                    </div>
-
-                    <p class="admin-message" id="notice-form-error"></p>
-
-                    <div class="admin-form-actions">
-                        <button type="button" id="notice-save-btn" class="save">저장</button>
-                        <button type="button" id="notice-cancel-btn">취소</button>
-                    </div>
                 </div>
             </section>
 

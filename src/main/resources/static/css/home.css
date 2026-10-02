@@ -1,0 +1,182 @@
+/* Homepage: the artwork is decorative; translated copy and destinations are HTML. */
+.home-hero { width: 100%; overflow: hidden; background: #fff; }
+.home-hero__artwork {
+  position: relative;
+  width: min(100vw, 160vh);
+  margin: 0 auto;
+  aspect-ratio: 1673 / 940;
+  overflow: hidden;
+  line-height: 1.35;
+}
+.home-hero__artwork > img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+.home-hero__left-mask {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 48%;
+  height: 43%;
+  background: linear-gradient(90deg, #fffefa 0%, #fffefa 78%, rgba(255, 254, 250, .94) 88%, rgba(255, 254, 250, 0) 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 83%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 83%, transparent 100%);
+  pointer-events: none;
+}
+.home-hero__feature-text-mask {
+  position: absolute;
+  z-index: 1;
+  top: 46.5%;
+  left: 0;
+  width: 41%;
+  height: 12.5%;
+  /* Fully hide the source image's baked-in captions while leaving its icons exposed. */
+  background: linear-gradient(90deg, #fffefa 0%, #fffefa 92%, rgba(255, 254, 250, .82) 97%, rgba(255, 254, 250, 0) 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 12%, #000 91%, transparent 100%);
+  pointer-events: none;
+}
+.home-hero__copy {
+  position: absolute;
+  z-index: 2;
+  top: 8%;
+  left: 5%;
+  width: 36%;
+  color: #154e3b;
+}
+.home-hero__copy-toprow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-right: clamp(10px, 1.2vw, 16px);
+  gap: 8px;
+}
+.home-hero__brand-group { min-width: 0; flex: 1 1 0; }
+.home-hero__brand { margin: 0; color: #075942; font-size: clamp(22px, 2.1vw, 36px); font-weight: 900; letter-spacing: -1px; line-height: 1.1; }
+.home-hero__brand-subtitle { margin: 5px 0 0; color: #3d8159; font-size: clamp(10px, .95vw, 16px); font-weight: 600; }
+.home-hero__copy h1 { margin: clamp(10px, 1.3vw, 20px) 0 7px; color: #07865e; font-size: clamp(24px, 2.1vw, 38px); font-weight: 900; letter-spacing: -.07em; line-height: 1.18; }
+.home-hero__copy h1 span { color: #ef7418; }
+.home-hero__lead { margin: 0; color: #07865e; font-size: clamp(15px, 1.45vw, 24px); font-weight: 800; letter-spacing: -.04em; }
+
+/* The source illustration's four icon circles remain visible above these text links. */
+.home-hero__features {
+  position: absolute;
+  z-index: 3;
+  top: 37%;
+  left: 3.57%;
+  display: grid;
+  width: 33.42%;
+  height: 21%;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+}
+.home-feature {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 2px 2px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  color: #16583f;
+  text-align: center;
+  text-decoration: none;
+  transition: border-color .16s ease, background-color .16s ease, transform .16s ease;
+}
+.home-feature:hover, .home-feature:focus-visible {
+  border-color: #14895c;
+  background: transparent;
+  color: #16583f;
+}
+.home-feature:focus-visible { outline: 3px solid rgba(20, 137, 92, .28); outline-offset: 2px; }
+.home-feature__trash-icon {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  top: 11%;
+  left: 50%;
+  width: clamp(38px, 5.1vw, 68px);
+  aspect-ratio: 1;
+  place-items: center;
+  border-radius: 50%;
+  background: #0b985d;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.home-feature__trash-icon svg { display: block; width: 64%; height: 64%; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.home-feature b { display: block; width: 100%; min-height: 1.35em; font-size: clamp(8px, .88vw, 15px); font-weight: 850; line-height: 1.35; text-align: center; white-space: normal; overflow-wrap: anywhere; }
+.home-feature small { display: block; width: 100%; min-height: 2.8em; margin-top: 4px; color: #65766d; font-size: clamp(6px, .68vw, 11px); line-height: 1.35; text-align: center; }
+.home-feature:first-child b, .home-feature:first-child small { position: relative; z-index: 1; }
+
+/* Align the translation note with the marked spot above the introduction copy. */
+.home-hero__translation {
+  display: flex;
+  min-width: 0;
+  flex: 0 1 50%;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 0;
+  color: #435b4d;
+  font-size: clamp(8px, .72vw, 12px);
+  line-height: 1.4;
+  text-align: right;
+}
+.home-hero__translation b { color: #168b42; font-size: inherit; }
+.home-hero__translation > * { display: block; width: 100%; min-width: 0; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+.home-hero__mobile-links { display: none; }
+.home-hero__translation--mobile { display: none; }
+.restaurants-section { padding-top: 42px; }
+.how-section { padding-top: 34px; }
+.how-section .steps { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.how-section .steps::before { top: 30px; left: 10%; right: 10%; border-top-width: 2px; }
+.how-section .step-icon { width: 60px; height: 60px; margin-bottom: 22px; border: 0; font-size: 25px; }
+.how-section .step-icon svg { width: 22px; height: 22px; fill: none; stroke: #555; stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; }
+.how-section .step b { margin-bottom: 7px; font-size: 13px; white-space: nowrap; }
+.how-section .step p { font-size: 10px; line-height: 1.6; }
+
+@media (max-width: 900px) and (min-width: 701px) {
+  .home-hero__artwork { width: min(100vw, 160vh); }
+  .home-hero__copy { top: 7%; left: 4%; width: 37%; }
+  .home-hero__brand { font-size: clamp(20px, 2.3vw, 29px); }
+  .home-hero__brand-subtitle { font-size: clamp(7px, 1.3vw, 10px); }
+  .home-hero__copy h1 { font-size: clamp(21px, 2.7vw, 30px); }
+  .home-hero__lead { font-size: clamp(13px, 1.8vw, 17px); }
+  .home-hero__features { left: 3.57%; width: 33.42%; }
+  .home-feature { padding-inline: 1px; }
+  .home-feature b { font-size: 9px; }
+  .home-feature small { font-size: 7px; }
+  .home-hero__translation { font-size: clamp(6px, .9vw, 9px); }
+}
+
+@media (max-width: 700px) {
+  .home-hero__artwork { width: 100%; aspect-ratio: 1673 / 940; overflow: hidden; }
+  .home-hero__left-mask { width: 58%; height: 43%; }
+  .home-hero__feature-text-mask, .home-hero__features { display: none; }
+  .home-hero__copy { top: 6%; left: 4%; width: 53%; }
+  .home-hero__brand { font-size: clamp(18px, 5vw, 27px); }
+  .home-hero__brand-subtitle { margin: 3px 0 8px; font-size: clamp(8px, 2.1vw, 11px); }
+  .home-hero__copy h1 { margin-bottom: 5px; font-size: clamp(15px, 4.2vw, 23px); letter-spacing: -.06em; }
+  .home-hero__lead { font-size: clamp(10px, 2.8vw, 15px); }
+  .home-hero__translation--desktop { display: none; }
+  .home-hero__translation--mobile { position: static; display: flex; width: auto; flex: initial; align-items: flex-start; margin: 10px 16px 0; padding: 9px 11px; font-size: 11px; text-align: left; }
+  .home-hero__mobile-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; padding: 12px 16px 2px; }
+  .home-hero__mobile-links a { display: flex; min-height: 56px; align-items: center; justify-content: center; gap: 8px; padding: 8px; border: 2px solid transparent; border-radius: 11px; background: #f4f8f2; color: #17634b; text-align: center; text-decoration: none; }
+  .home-hero__mobile-links a:hover, .home-hero__mobile-links a:focus-visible { border-color: #14895c; }
+  .home-hero__mobile-links svg { width: 23px; height: 23px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .home-hero__mobile-links .home-feature__trash-icon { position: static; width: 28px; height: 28px; flex: 0 0 auto; transform: none; }
+  .home-hero__mobile-links .home-feature__trash-icon svg { width: 64%; height: 64%; color: #fff; stroke: #fff; }
+  .home-hero__mobile-links a:nth-child(2) svg { color: #e87918; }
+  .home-hero__mobile-links a b { font-size: 12px; }
+  .restaurants-section { padding-top: 28px; }
+  .how-section .steps { grid-template-columns: repeat(2, 1fr); row-gap: 22px; }
+  .how-section .steps::before { display: none; }
+}

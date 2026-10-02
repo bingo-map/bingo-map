@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BinGo Map | Clean & Gourmet</title>
   <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/site-header.css">
 </head>
 <script src="/js/header-auth.js"></script>
@@ -43,70 +44,52 @@
 
 <main>
   <!-- ============================================================= -->
-  <!-- [히어로 섹션]: 메인 홍보 문구 및 바로가기 버튼 -->
+  <!-- [히어로 섹션]: 원본 이미지는 장식으로, 안내 문구와 버튼은 HTML로 구성 -->
   <!-- ============================================================= -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="eyebrow">BIN GO MAP</p>
-      <h1>깨끗한 여행,<br>더 맛있는 경험</h1>
-      <h2>쓰레기통도 찾고, 맛집도 즐기고!</h2>
-      <p class="hero-desc">
-        BinGo Map은 일본 여행 중<br>
-        쓰레기통 위치와 주변 테이크아웃 맛집을<br>
-        한 번에 찾을 수 있는 필수 여행 앱입니다.
-      </p>
-      <div class="hero-buttons">
-        <a class="btn btn-green" href="/map">📍 지도부터 시작하기</a>
-        <a class="btn btn-white" href="/restaurants">🍴 주변 맛집 보기</a>
+  <section class="home-hero" aria-label="BinGo Map 메인 소개">
+    <figure class="home-hero__artwork">
+      <img src="/images/home-hero-reference.png" alt="" aria-hidden="true">
+      <div class="home-hero__left-mask" aria-hidden="true"></div>
+      <div class="home-hero__feature-text-mask" aria-hidden="true"></div>
+
+      <div class="home-hero__copy">
+        <div class="home-hero__copy-toprow">
+          <div class="home-hero__brand-group">
+            <p class="home-hero__brand">BinGo Map</p>
+            <p class="home-hero__brand-subtitle">Clean &amp; Gourmet Travel in Osaka</p>
+          </div>
+          <aside class="home-hero__translation home-hero__translation--desktop" aria-label="Chrome 번역 안내">
+            <b>영어·일본어: Chrome 메뉴에서 번역</b>
+            <span lang="en">English: Chrome menu → Translate</span>
+            <span lang="ja">日本語：Chrome メニュー → 翻訳</span>
+          </aside>
+        </div>
+        <h1>깨끗한 여행, <span>더 맛있는 경험</span></h1>
+        <p class="home-hero__lead">쓰레기통도 찾고, 맛집도 즐기고!</p>
+
       </div>
-    </div>
+
+      <nav class="home-hero__features" aria-label="주요 기능 바로가기">
+        <a class="home-feature" href="/map"><b>쓰레기통 찾기</b><small>지도에서 가까운<br>쓰레기통 확인</small></a>
+        <a class="home-feature" href="/restaurants"><b>테이크아웃 맛집</b><small>오사카 주변 맛집<br>둘러보기</small></a>
+        <a class="home-feature" href="/map?mode=route"><b>경로 안내</b><small>식당에서 쓰레기통까지<br>길찾기</small></a>
+        <a class="home-feature" href="/community"><b>커뮤니티</b><small>여행 정보와 리뷰<br>나누기</small></a>
+      </nav>
+    </figure>
+    <aside class="home-hero__translation home-hero__translation--mobile" aria-label="Chrome 번역 안내">
+      <b>영어·일본어로 보시려면 Chrome 메뉴에서 ‘번역’을 선택해 주세요.</b>
+      <span lang="en">English: Choose “Translate” in Chrome.</span>
+      <span lang="ja">日本語：Chrome のメニューから「翻訳」を選択してください。</span>
+    </aside>
+    <nav class="home-hero__mobile-links" aria-label="주요 기능 바로가기">
+      <a href="/map"><span class="home-feature__trash-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 7h10l-.8 13H7.8L7 7ZM5.5 5h13M9 5V3.5h6V5M10 9v8M14 9v8"/></svg></span><b>쓰레기통 찾기</b></a>
+      <a href="/restaurants"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3v6M9 3v6M6 6h3M7.5 9v12M16 3v18M16 3c3 2 3 6 0 8"/></svg><b>테이크아웃 맛집</b></a>
+      <a href="/map?mode=route"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18c4-9 7 5 11-3s4-7 5-9M17 6h3v3"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="6" r="2"/></svg><b>경로 안내</b></a>
+      <a href="/community"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3.5 20v-1.5a5.5 5.5 0 0 1 11 0V20ZM14 15a4.5 4.5 0 0 1 6.5 4v1"/></svg><b>커뮤니티</b></a>
+    </nav>
   </section>
 
-  <!-- [퀵 메뉴 바로가기 아이콘 모음] -->
-  <section class="quick-menu">
-    <a href="/map"><span class="quick-icon">🗑</span><b>쓰레기통 찾기</b><small>실시간 위치 검색</small></a>
-    <a href="/restaurants"><span class="quick-icon">🍴</span><b>테이크아웃 맛집</b><small>인기 맛집을 한눈에</small></a>
-    <a href="/map?mode=route">
-        <span class="quick-icon">〽</span>
-        <b>최적 경로 안내</b>
-        <small>식당부터 가까운 쓰레기통까지</small>
-      </a>
-    <a href="/community"><span class="quick-icon">👥</span><b>커뮤니티</b><small>리뷰·정보를 함께 나누기</small></a>
-  </section>
-
-  <!-- [주요 기능 소개 4개 카드] -->
-  <section class="section features-section">
-    <h2 class="section-title">BinGo Map의 주요 기능</h2>
-    <div class="title-line"></div>
-
-    <div class="feature-grid">
-      <article class="feature-card green-card">
-        <img src="/images/feature-map.png" alt="지도와 쓰레기통 위치">
-        <h3><span>1.</span> 쓰레기통 스마트 맵</h3>
-        <p>현재 위치 주변의 공공 쓰레기통,<br>편의점, 자판기 수거함 위치를<br>실시간으로 확인할 수 있습니다.</p>
-      </article>
-
-      <article class="feature-card orange-card">
-        <img src="/images/feature-food.png" alt="테이크아웃 음식">
-        <h3><span>2.</span> 테이크아웃 맛집 추천</h3>
-        <p>쓰레기통 반경 500m 내<br>길거리 음식 맛집을 검색하고,<br>상세 정보와 리뷰를 확인하세요.</p>
-      </article>
-
-      <article class="feature-card blue-card">
-        <img src="/images/feature-route.png" alt="최적 경로">
-        <h3><span>3.</span> 최적 루트 안내</h3>
-        <p>맛집에서 쓰레기통까지의<br>최단 경로를 안내하여<br>더 편리한 여행을 도와드립니다.</p>
-      </article>
-
-      <article class="feature-card purple-card">
-        <img src="/images/feature-community.png" alt="커뮤니티">
-        <h3><span>4.</span> 커뮤니티</h3>
-        <p>쓰레기통 제보, 리뷰 작성,<br>댓글로 소통을 통해<br>정보를 함께 나눠요.</p>
-      </article>
-    </div>
-  </section>
+  <!-- 이미지 안내와 기능 바로가기는 분리해, 그림 자체는 클릭되지 않습니다. -->
 
   <!-- ============================================================= -->
   <!-- [★ DB 연동 영역: 인기 테이크아웃 맛집 카드 목록] -->
@@ -136,11 +119,11 @@
     <div class="title-line"></div>
 
     <div class="steps">
-      <div class="step"><div class="step-icon">📍</div><b>1. 현재 위치 확인</b><p>지도를 통해 내 위치를<br>확인합니다.</p></div>
-      <div class="step"><div class="step-icon">🍢</div><b>2. 맛집을 즐기기</b><p>원하는 테이크아웃 음식을<br>구매하여 즐겨요.</p></div>
-      <div class="step"><div class="step-icon">🗑</div><b>3. 쓰레기통 찾기</b><p>BinGo Map으로 가까운<br>쓰레기통을 검색합니다.</p></div>
-      <div class="step"><div class="step-icon">🚶</div><b>4. 경로 따라 이동</b><p>최적 루트를 따라<br>쉽고 빠르게 이동합니다.</p></div>
-      <div class="step"><div class="step-icon">☺</div><b>5. 깨끗하게 &amp; 공유하기</b><p>깨끗하게 버리고,<br>리뷰와 정보를 공유해요!</p></div>
+      <div class="step"><div class="step-icon" aria-hidden="true">📍</div><b>1. 현재 위치 확인</b><p>지도를 통해 내 위치를<br>확인합니다.</p></div>
+      <div class="step"><div class="step-icon" aria-hidden="true">🍡</div><b>2. 맛집을 즐기기</b><p>원하는 테이크아웃 음식을<br>구매하여 즐겨요.</p></div>
+      <div class="step"><div class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M7 7h10l-.8 13H7.8L7 7ZM5.5 5h13M9 5V3.5h6V5M10 9v8M14 9v8"/></svg></div><b>3. 쓰레기통 찾기</b><p>BinGo Map으로 가까운<br>쓰레기통을 검색합니다.</p></div>
+      <div class="step"><div class="step-icon" aria-hidden="true">🚶</div><b>4. 경로 따라 이동</b><p>최적 루트를 따라<br>쉽고 빠르게 이동합니다.</p></div>
+      <div class="step"><div class="step-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5c.9 1.2 2.1 1.8 3.5 1.8s2.6-.6 3.5-1.8M9 9.5h.01M15 9.5h.01"/></svg></div><b>5. 깨끗하게 &amp; 공유하기</b><p>깨끗하게 버리고,<br>리뷰와 정보를 공유해요!</p></div>
     </div>
   </section>
 </main>

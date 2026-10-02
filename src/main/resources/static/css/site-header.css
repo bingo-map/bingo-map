@@ -115,38 +115,6 @@
     white-space: nowrap;
 }
 
-.site-header__inner--with-translation {
-    grid-template-columns: minmax(190px, 1fr) auto auto minmax(250px, .8fr);
-    column-gap: 20px;
-}
-
-.site-header__translation-note {
-    min-width: 0;
-    padding-left: 16px;
-    border-left: 1px solid #e4ece6;
-    color: #344139;
-    font-size: 12px;
-    line-height: 1.25;
-}
-
-.site-header__translation-note span {
-    display: block;
-}
-
-.site-header__translation-note span:first-child {
-    margin-bottom: 2px;
-    color: #168b42;
-    font-weight: 700;
-}
-
-@media (max-width: 1700px) {
-    .site-header__inner--with-translation {
-        grid-template-columns: minmax(190px, 1fr) auto minmax(210px, 1fr);
-    }
-
-    .site-header__translation-note { display: none; }
-}
-
 .site-header__aux {
     min-height: 40px;
     display: inline-flex;

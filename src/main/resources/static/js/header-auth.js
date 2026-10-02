@@ -105,7 +105,6 @@ function renderSharedHeader() {
 
     const inner = document.createElement("div");
     inner.className = "site-header__inner";
-    if (path === "/") inner.classList.add("site-header__inner--with-translation");
 
     const brand = document.createElement("a");
     brand.className = "site-header__brand";
@@ -133,14 +132,6 @@ function renderSharedHeader() {
     actions.appendChild(login);
 
     inner.append(brand, nav, actions);
-    if (path === "/") {
-        const translationNote = document.createElement("div");
-        translationNote.className = "site-header__translation-note";
-        translationNote.setAttribute("aria-label", "Chrome 번역 안내");
-        translationNote.innerHTML = '<span>영어·일본어는 Chrome 메뉴에서 ‘번역’을 선택해 주세요.</span><span lang="en">English: Choose “Translate” in Chrome.</span><span lang="ja">日本語：Chromeのメニューから「翻訳」を選択してください。</span>';
-        inner.appendChild(translationNote);
-    }
-
     header.appendChild(inner);
     previousHeader.replaceWith(header);
 }

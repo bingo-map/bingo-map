@@ -932,55 +932,6 @@ BEGIN
             )
         ]';
 
-        -- 커뮤니티 게시글 5개
-        EXECUTE IMMEDIATE q'[
-            INSERT INTO COMMUNITY_POST (
-                ID, USER_ID, TITLE, CONTENT, TAGS, VIEW_COUNT
-            ) VALUES (
-                1, 2,
-                '도톤보리 쓰레기통 어디에 있나요?',
-                '글리코 간판 근처에서 먹고 나서 쓰레기 버릴 곳을 못 찾겠어요. 아시는 분 계신가요?',
-                '도톤보리,쓰레기통',
-                25
-            )
-        ]';
-
-        EXECUTE IMMEDIATE q'[
-            INSERT INTO COMMUNITY_POST (
-                ID, USER_ID, TITLE, CONTENT, TAGS, VIEW_COUNT
-            ) VALUES (
-                2, 3,
-                '타코야끼 웨이팅 팁',
-                '점심시간 전인 11시 전에 가면 대기 없이 먹을 수 있었어요.',
-                '타코야끼,팁',
-                18
-            )
-        ]';
-
-        EXECUTE IMMEDIATE q'[
-            INSERT INTO COMMUNITY_POST (
-                ID, USER_ID, TITLE, CONTENT, TAGS, VIEW_COUNT
-            ) VALUES (
-                3, 4,
-                '일본은 왜 길에 쓰레기통이 없을까요',
-                '여행 중에 계속 궁금했는데 편의점 앞 분리수거함을 이용하면 된다고 하네요.',
-                '일본여행,문화',
-                40
-            )
-        ]';
-
-        EXECUTE IMMEDIATE q'[
-            INSERT INTO COMMUNITY_POST (
-                ID, USER_ID, TITLE, CONTENT, TAGS, VIEW_COUNT
-            ) VALUES (
-                4, 5,
-                '오사카 2박 3일 맛집 코스 공유',
-                '타코야끼 - 오코노미야끼 - 카라아게 순으로 돌았는데 동선이 좋았어요.',
-                '코스,오사카맛집',
-                33
-            )
-        ]';
-
         EXECUTE IMMEDIATE q'[
             INSERT INTO COMMUNITY_POST (
                 ID, USER_ID, TITLE, CONTENT, TAGS, VIEW_COUNT

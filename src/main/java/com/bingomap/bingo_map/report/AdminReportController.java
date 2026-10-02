@@ -59,7 +59,7 @@ public class AdminReportController {
         return ResponseEntity.ok(result);
     }
 
-    // 관리자 알림용: 검수 대기(PENDING) 제보 수 (헤더 배지/알림 토스트가 주기적으로 호출)
+    // 관리자 알림용: 종 알림창에 검수 대기(PENDING) 제보 수를 표시
     @GetMapping("/api/admin/reports/pending-count")
     @ResponseBody
     public ResponseEntity<?> pendingCount(HttpServletRequest request) {

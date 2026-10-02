@@ -87,6 +87,18 @@ public class NotificationService {
                 "/mypage?tab=reports"));
     }
 
+    /** 커뮤니티의 관리자 요청 게시글은 관리자와 매니저에게 알립니다. */
+    public void onCommunityRequest(Long postId, Long requesterId, String title) {
+        run("커뮤니티 요청", () -> {
+            List<Long> targets = repository.findAdminAndManagerUserIds().stream()
+                    .filter(id -> !Objects.equals(id, requesterId))
+                    .toList();
+            save(targets, Notification.TYPE_REQUEST,
+                    "새 커뮤니티 요청: " + shorten(title, 100),
+                    "/community/" + postId);
+        });
+    }
+
     /** 관리자가 상태를 바꿨을 때: 승인 / 반려(사유 포함) / 보류. 상태가 그대로면 알림 없음 */
     public void onReportReviewed(Long reporterId, String reportName, String previousStatus,
                                  String newStatus, String rejectReason) {

@@ -89,6 +89,18 @@
                     <input type="text" name="nickname" placeholder="닉네임을 입력하세요 (2~12자)" required>
                 </div>
 
+                <div class="auth-field">
+                    <span class="icon-left">🌐</span>
+                    <select name="nationality" aria-label="국적 선택" required>
+                        <option value="" selected disabled>국적을 선택하세요</option>
+                        <option value="한국">대한민국</option>
+                        <option value="일본">일본</option>
+                        <option value="미국">미국</option>
+                        <option value="중국">중국</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+
                 <!-- 2. 이메일 입력 칸 (오라클 DB 테이블의 EMAIL 컬럼과 1:1로 매핑됨) -->
                 <div class="auth-field">
                     <span class="icon-left">✉</span>

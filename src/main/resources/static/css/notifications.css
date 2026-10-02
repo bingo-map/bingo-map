@@ -3,11 +3,15 @@
 .notif-bell:hover{background:#f5f8f5;}
 .notif-badge{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#e5484d;color:#fff;font-size:11px;font-weight:800;line-height:18px;text-align:center;}
 .notif-badge[hidden]{display:none;}
-.notif-panel{position:absolute;top:calc(100% + 10px);right:0;width:340px;max-width:calc(100vw - 24px);background:#fff;border:1px solid #e6e6e6;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:60;overflow:hidden;}
+.notif-panel{position:absolute;top:calc(100% + 10px);right:0;width:340px;max-width:calc(100vw - 24px);max-height:calc(100vh - 84px);max-height:calc(100dvh - 84px);display:flex;flex-direction:column;background:#fff;border:1px solid #e6e6e6;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:1060;overflow:hidden;}
 .notif-panel[hidden]{display:none;}
 .notif-panel-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #f0f0f0;font-size:14px;}
+.notif-panel-head,.notif-more{flex:0 0 auto;}
 .notif-readall{border:0;background:none;color:#159b35;font-size:12px;font-weight:700;cursor:pointer;padding:2px 4px;}
-.notif-list{max-height:380px;overflow-y:auto;}
+.notif-list{min-height:0;max-height:380px;overflow-y:auto;overscroll-behavior:contain;}
+.notif-admin-reports{display:flex;align-items:center;gap:10px;width:100%;padding:12px 14px;border:0;border-bottom:1px solid #f0f0f0;background:#fff7e8;color:#704c0b;text-align:left;font:inherit;font-size:13px;cursor:pointer;}
+.notif-admin-reports[hidden]{display:none;}
+.notif-admin-reports-text{flex:1;min-width:0;overflow-wrap:anywhere;}
 .notif-empty{margin:0;padding:34px 14px;text-align:center;font-size:13px;color:#999;}
 .notif-item{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;border:0;border-bottom:1px solid #f3f3f3;background:#fff;padding:12px 14px;cursor:pointer;font:inherit;color:inherit;}
 .notif-item:hover{background:#f7faf7;}

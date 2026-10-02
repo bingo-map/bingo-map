@@ -1,0 +1,61 @@
+해당 파일은 DB 연결을 위해 bigo-map폴더에 따로 데이터를 연결하기 위해 저장한 sql파일를 저장하기 위해 만들어서 넣어둔 것 뿐
+bigo-map을 다운 받은 뒤 폴더를 복사 후 다른 곳에 붙여넣기 하신 후 이 폴더는 삭제하셔도 무관합니다. 
+
+TB_RESTAURANT 실행 및 연결 방법
+
+---
+
+**0. SQL 실행 및 저장**
+
+*Oracle SQL Developer 프로그램을 실행합니다.
+* 그 후 맨위에 오른쪽에 있는 "파일 - 열기 - DBfile/TB_RESTAURANT"을 열어줍니다.
+
+
+**1. SQL 실행 및 저장**
+
+* SQL Developer나 DBeaver에서 작성한 **CREATE SEQUENCE, CREATE TABLE, INSERT INTO**를 차례로 실행합니다.
+* 반드시 **`COMMIT;`** 명령어를 실행합니다 (안 하면 스프링에서 조회가 안 됩니다).
+
+
+**2. DB 접속 정보 맞추기**
+
+* IntelliJ 프로그램에 열어둔 bigo-map 프로젝트 안에 있는 
+* `src/main/resources/application.yml` 파일에서 계정명과 비밀번호를 밑에 써져있는 오라클 정보로 수정합니다.
+
+```spring:
+  application:
+    name: bingo-map
+
+  datasource:
+    url: jdbc:oracle:thin:@//localhost:1521/orcl
+    username: scott <- 중요!!(프로그램이 멈추거나 DB 데이터를 단 하나도 가져오지 못함)
+    password: tiger <- 중요!!(프로그램이 멈추거나 DB 데이터를 단 하나도 가져오지 못함)
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+```
+
+**3. 프로젝트 실행**
+
+* 다시 IntelliJ에서 `src/main/java/com/bingomap/bingo_map/BingoMapApplication.java` 파일을 열고 맨 오른쪽 위의 초록색 재생 버튼(Run)을 클릭
+
+
+* 콘솔창 맨 밑에 `Started BingoMapApplication...` 문구가 뜨면 서버가 정상 가동되는거 확인 가능
+
+
+**4. 브라우저에서 화면 확인**
+
+* 크롬 주소창에 아래 주소를 입력하고 접속하여 DB 데이터가 뜨는지 확인
+
+
+* 주변 맛집 화면: http://localhost:8080/restaurants
+* 주변 맛집 상세 화면: http://localhost:8080/restaurants/detail

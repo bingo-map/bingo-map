@@ -95,7 +95,7 @@
     </style>
     <link rel="stylesheet" href="/css/site-header.css">
 </head>
-<body>
+<body id="top" class="page-with-bottom-footer">
 
 <header class="bg-white border-bottom py-2 sticky-top">
     <div class="container d-flex align-items-center justify-content-between">
@@ -161,7 +161,6 @@
                     <div><i class="bi bi-geo-alt me-2 text-success"></i><span id="address">주소</span></div>
                     <div><i class="bi bi-clock me-2 text-success"></i><span id="openingHours">영업시간</span></div>
                     <div><i class="bi bi-telephone me-2 text-success"></i><span id="phoneText">전화번호</span></div>
-                    <div><i class="bi bi-currency-yen me-2 text-success"></i><span id="priceRange">가격대</span></div>
                     <div id="websiteRow" style="display:none;"><i class="bi bi-globe me-2 text-success"></i><a id="websiteLink" href="#" target="_blank" class="text-decoration-none text-success">웹사이트</a></div>
                 </div>
             </div>
@@ -245,6 +244,21 @@
     </div>
 </main>
 
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <span class="logo-mark">♜</span>
+            <span><strong>BinGo Map</strong><small>Clean &amp; Gourmet</small></span>
+        </div>
+        <p>BinGo Map은 깨끗한 일본 여행 문화를 응원합니다.<br>모두가 함께 만들어가는 깨끗하고 즐거운 여행 플랫폼!</p>
+        <div class="footer-links">
+            <small>이용약관　　개인정보처리방침　　문의하기</small>
+            <small>© 2026 BinGo Map. All rights reserved.</small>
+        </div>
+        <a class="top-btn" href="#top" aria-label="페이지 맨 위로">↑<small>TOP</small></a>
+    </div>
+</footer>
+
 <script>
     function escapeHtml(text) {
         const div = document.createElement('div');
@@ -275,7 +289,6 @@
         document.getElementById('address').innerText = r.address || '주소 정보 없음';
         document.getElementById('openingHours').innerText = r.openingHours || '09:00 - 21:00';
         document.getElementById('phoneText').innerText = r.phone || '+81 6-6211-5512';
-        document.getElementById('priceRange').innerText = r.priceRange || '1인당 ¥600 ~ ¥1,000';
 
         if (r.websiteUrl) {
             document.getElementById('websiteRow').style.display = '';

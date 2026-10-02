@@ -85,8 +85,7 @@
         </div>
         <p>BinGo Map은 깨끗한 일본 여행 문화를 응원합니다.<br>모두가 함께 만들어가는 깨끗하고 즐거운 여행 플랫폼!</p>
         <div class="footer-links">
-            <div>◎ ♥ f</div>
-            <small>이용약관 개인정보처리방침 문의하기</small>
+            <small>이용약관　　개인정보처리방침　　문의하기</small>
             <small>© 2026 BinGo Map. All rights reserved.</small>
         </div>
         <a class="top-btn" href="#favoritesTitle">↑<small>TOP</small></a>
@@ -101,16 +100,16 @@
         // DB 카테고리 7종에 맞춘 테마 스타일 매핑
         const categoryTheme = {
             '카페': {
-                color: '#b45309', bg: '#fef3c7',
-                illustration: '<path d="M7 9h10v7a4 4 0 0 1-4 4h-2a4 4 0 0 1-4-4V9Z"/><path d="M17 11h2a2.5 2.5 0 0 1 0 5h-2M9 5c0 1 1 1 1 2M13 4c0 1 1 1 1 2"/>'
+                color: '#8b5e34', bg: '#fff2df',
+                illustration: '<ellipse cx="8" cy="12" rx="4" ry="6" transform="rotate(28 8 12)" fill="#a66a35" stroke="#70451f"/><path d="M6.2 7.2c2.2 2.1 1.1 6.1 3.5 8" stroke="#f0c38f"/><ellipse cx="16" cy="12" rx="4" ry="6" transform="rotate(28 16 12)" fill="#a66a35" stroke="#70451f"/><path d="M14.2 7.2c2.2 2.1 1.1 6.1 3.5 8" stroke="#f0c38f"/>'
             },
             '일식': {
                 color: '#dc2626', bg: '#fee2e2',
-                illustration: '<g fill="currentColor" stroke="none"><ellipse cx="12" cy="6.2" rx="2.5" ry="4"/><ellipse cx="17.5" cy="10.2" rx="2.5" ry="4" transform="rotate(72 17.5 10.2)"/><ellipse cx="15.4" cy="17" rx="2.5" ry="4" transform="rotate(144 15.4 17)"/><ellipse cx="8.6" cy="17" rx="2.5" ry="4" transform="rotate(216 8.6 17)"/><ellipse cx="6.5" cy="10.2" rx="2.5" ry="4" transform="rotate(288 6.5 10.2)"/><circle cx="12" cy="12" r="2.1" fill="#f59e0b"/></g>'
+                illustration: '<ellipse cx="12" cy="18.2" rx="8.2" ry="2.2" fill="#e9e9df"/><path d="M4.2 15.3c1.9-1.8 5-2.7 7.8-2.7s5.9.9 7.8 2.7l-.5 2.1c-.3 1-1.2 1.5-2.4 1.5H7.1c-1.2 0-2.1-.5-2.4-1.5l-.5-2.1Z" fill="#fffdf7"/><path d="M4.1 13.9c0-3.8 3.3-7.2 7.9-7.2s7.9 3.4 7.9 7.2c0 1-.7 1.6-1.8 1.6-2.4 0-4.2-1.5-6.1-1.5s-3.7 1.5-6.1 1.5c-1.1 0-1.8-.6-1.8-1.6Z" fill="#f5823e"/><path d="M6 9.2c-.7 1.8-.8 3.7-.4 5.6m3.5-7.8c-.6 2.4-.5 4.4-.2 6.7m3.5-6.9c-.4 2.4-.3 4.5 0 6.9m3.5-6c-.6 2.1-.5 4-.2 6.1m2.7-4.6c-.4 1.5-.3 2.8 0 4.1" fill="none" stroke="#ffc19a" stroke-width=".75"/>'
             },
             '양식': {
-                color: '#2563eb', bg: '#dbeafe',
-                illustration: '<path d="M5 4v7M8 4v7M5 8h3M6.5 11v9M15 4c-2 3-2 6 0 8v8M15 12c3-1 4-4 4-8v16"/><path d="M11 6c-1 1-1 3 0 4s1 3 0 4" stroke="#f59e0b"/>'
+                color: '#c2410c', bg: '#fff4d8',
+                illustration: '<path d="M4 5.5 20 4l-8 16.5L4 5.5Z" fill="#fbbf24" stroke="#c2410c" stroke-width="1.3" stroke-linejoin="round"/><path d="M4.7 6.2 18.7 4.9" stroke="#fff7d6" stroke-width="1.5"/><path d="M6 8.5 16 7.5M7.3 11l7.7-.7M8.5 13.5l5.2-.5" stroke="#fef3c7" stroke-width="1" stroke-linecap="round"/><circle cx="10" cy="7.7" r="1.25" fill="#dc2626" stroke="#991b1b" stroke-width=".45"/><circle cx="15" cy="9.2" r="1.25" fill="#dc2626" stroke="#991b1b" stroke-width=".45"/><circle cx="11.1" cy="12.1" r="1.25" fill="#dc2626" stroke="#991b1b" stroke-width=".45"/><circle cx="13.2" cy="7.2" r=".38" fill="#166534" stroke="none"/><circle cx="9" cy="10.1" r=".38" fill="#166534" stroke="none"/>'
             },
             '주점': {
                 color: '#0891b2', bg: '#cffafe',
@@ -118,11 +117,11 @@
             },
             '분식': {
                 color: '#ea580c', bg: '#ffedd5',
-                illustration: '<path d="M4 17h16l-2 3H6l-2-3Z"/><circle cx="8" cy="13" r="2.5" fill="#fbbf24"/><circle cx="14" cy="13" r="2.5" fill="#fbbf24"/><circle cx="11" cy="9" r="2.5" fill="#fbbf24"/><path d="M7.2 12.5h1.6M13.2 12.5h1.6M10.2 8.5h1.6" stroke="#7c2d12"/><path d="M17 5v5M16 5v2M18 5v2"/>'
+                illustration: '<path d="M4 15h16l-2 5H6l-2-5Z" fill="#d78b43" stroke="#9a4f24"/><circle cx="7.5" cy="12" r="3" fill="#f6b84b" stroke="#c8752b"/><circle cx="12" cy="10.5" r="3" fill="#f6b84b" stroke="#c8752b"/><circle cx="16.5" cy="12" r="3" fill="#f6b84b" stroke="#c8752b"/><path d="M6 11c1 1 2 1 3 0M10.5 9.5c1 1 2 1 3 0M15 11c1 1 2 1 3 0" stroke="#8b4525" stroke-width="1.2"/><path d="m8 8 1-1m3 0 1-1m3 2 1-1" stroke="#4d7c37" stroke-width="1.2"/>'
             },
             '카레': {
-                color: '#ca8a04', bg: '#fef9c3',
-                illustration: '<path d="M4 13h16l-2 5a3 3 0 0 1-3 2H9a3 3 0 0 1-3-2l-2-5Z"/><path d="M6 11c2-2 3 2 5 0s3 2 7 0M9 8c-1-1 1-2 0-3M14 8c-1-1 1-2 0-3"/><circle cx="9" cy="15" r="1" fill="#65a30d" stroke="none"/><circle cx="15" cy="16" r="1" fill="#65a30d" stroke="none"/>'
+                color: '#a16207', bg: '#fff0d6',
+                illustration: '<ellipse cx="12" cy="15" rx="9" ry="5.5" fill="#fffaf0" stroke="#a16207" stroke-width="1.2"/><ellipse cx="12" cy="14.2" rx="7" ry="3.8" fill="#f3c96b"/><path d="M6 13.5c1.3-2 3.2-2.5 5.3-1.2 1.4.9 2.6 1 4.7-.1v3.6c-2.3 1.3-4.2 1.1-5.8.1-1.4-.9-2.6-.8-4.2.3v-2.7Z" fill="#fff7df" stroke="#d6a64a" stroke-width=".6"/><path d="M13.4 13.2c1.5-1.6 3.7-1.1 4 1 .2 1.8-1.6 2.7-3.3 2.2-1.8-.5-2.1-2-.7-3.2Z" fill="#a9521e"/><circle cx="15.8" cy="14" r=".65" fill="#6b8e23" stroke="none"/><circle cx="14.8" cy="15.7" r=".55" fill="#d97706" stroke="none"/>'
             },
             '다이닝': {
                 color: '#7c3aed', bg: '#ede9fe',

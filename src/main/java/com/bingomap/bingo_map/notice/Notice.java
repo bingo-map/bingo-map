@@ -40,6 +40,9 @@ public class Notice {
     @Column(name = "view_count")
     private Integer viewCount = 0;
 
+    @Column(name = "is_pinned", nullable = false)
+    private Integer pinned = 0;
+
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

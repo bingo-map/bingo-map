@@ -10,6 +10,7 @@ public class NoticeResponseDto {
     private final String title;
     private final String content;
     private final Integer viewCount;
+    private final boolean pinned;
     private final String createdAt;
     private final String updatedAt;
 
@@ -19,6 +20,7 @@ public class NoticeResponseDto {
             String title,
             String content,
             Integer viewCount,
+            Integer pinned,
             String createdAt,
             String updatedAt
     ) {
@@ -27,6 +29,7 @@ public class NoticeResponseDto {
         this.title = title;
         this.content = content;
         this.viewCount = viewCount;
+        this.pinned = pinned != null && pinned == 1;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

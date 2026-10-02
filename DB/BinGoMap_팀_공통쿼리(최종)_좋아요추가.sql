@@ -582,6 +582,7 @@ BEGIN
                 TITLE       VARCHAR2(200)   NOT NULL,
                 CONTENT     CLOB            NOT NULL,
                 VIEW_COUNT  NUMBER(10)      DEFAULT 0 NOT NULL,
+                IS_PINNED   NUMBER(1)       DEFAULT 0 NOT NULL,
                 CREATED_AT  TIMESTAMP       DEFAULT SYSTIMESTAMP NOT NULL,
                 UPDATED_AT  TIMESTAMP       DEFAULT SYSTIMESTAMP NOT NULL,
 

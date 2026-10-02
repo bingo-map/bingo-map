@@ -83,13 +83,32 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
-    function renderAllReviews(reviews) {
-        const el = document.getElementById("reviews-tab-panel");
-        if (!reviews.length) {
-            el.innerHTML = '<p class="mypage-empty">아직 작성한 리뷰가 없습니다.<br>맛집 페이지에서 첫 리뷰를 남겨보세요.</p>';
+    const mypagePages = { reviews: 1, posts: 1, comments: 1 };
+    const MYPAGE_PAGE_SIZE = 5;
+
+    function renderPagedItems(el, type, items, cardRenderer, emptyHtml) {
+        if (!items.length) {
+            el.innerHTML = emptyHtml;
             return;
         }
-        el.innerHTML = reviews.map(reviewCardHtml).join("");
+        const pageCount = Math.ceil(items.length / MYPAGE_PAGE_SIZE);
+        mypagePages[type] = Math.min(mypagePages[type], pageCount);
+        const page = mypagePages[type];
+        const start = (page - 1) * MYPAGE_PAGE_SIZE;
+        const cards = items.slice(start, start + MYPAGE_PAGE_SIZE).map(cardRenderer).join("");
+        const pageButtons = Array.from({ length: pageCount }, (_, index) => {
+            const pageNumber = index + 1;
+            return '<button type="button" class="mypage-page-btn' + (pageNumber === page ? ' active' : '') + '" data-page="' + pageNumber + '" aria-current="' + (pageNumber === page ? 'page' : 'false') + '">' + pageNumber + '</button>';
+        }).join("");
+        const pagination = pageCount > 1
+            ? '<nav class="mypage-pagination" aria-label="목록 페이지 이동"><button type="button" class="mypage-page-btn" data-page="' + Math.max(1, page - 1) + '" aria-label="이전 페이지" ' + (page === 1 ? 'disabled' : '') + '>‹</button>' + pageButtons + '<button type="button" class="mypage-page-btn" data-page="' + Math.min(pageCount, page + 1) + '" aria-label="다음 페이지" ' + (page === pageCount ? 'disabled' : '') + '>›</button></nav>'
+            : '';
+        el.innerHTML = cards + pagination;
+    }
+
+    function renderAllReviews(reviews) {
+        renderPagedItems(document.getElementById("reviews-tab-panel"), "reviews", reviews, reviewCardHtml,
+            '<p class="mypage-empty">아직 작성한 리뷰가 없습니다.<br>맛집 페이지에서 첫 리뷰를 남겨보세요.</p>');
     }
 
     function loadMyReviews() {
@@ -170,12 +189,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function renderPosts(posts) {
-        const el = document.getElementById("posts-tab-panel");
-        if (!posts.length) {
-            el.innerHTML = '<p class="mypage-empty">아직 작성한 게시글이 없습니다.<br><a href="/community/write">커뮤니티에 글 쓰러 가기</a></p>';
-            return;
-        }
-        el.innerHTML = posts.map(postCardHtml).join("");
+        renderPagedItems(document.getElementById("posts-tab-panel"), "posts", posts, postCardHtml,
+            '<p class="mypage-empty">아직 작성한 게시글이 없습니다.<br><a href="/community/write">커뮤니티에 글 쓰러 가기</a></p>');
     }
 
     function loadMyPosts() {
@@ -210,12 +225,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function renderComments(comments) {
-        const el = document.getElementById("comments-tab-panel");
-        if (!comments.length) {
-            el.innerHTML = '<p class="mypage-empty">아직 작성한 댓글이 없습니다.</p>';
-            return;
-        }
-        el.innerHTML = comments.map(commentCardHtml).join("");
+        renderPagedItems(document.getElementById("comments-tab-panel"), "comments", comments, commentCardHtml,
+            '<p class="mypage-empty">아직 작성한 댓글이 없습니다.</p>');
     }
 
     function loadMyComments() {
@@ -239,6 +250,13 @@ document.addEventListener("DOMContentLoaded", function () {
     ].forEach((config) => {
         const panel = document.getElementById(config.panelId);
         panel.addEventListener("click", function (event) {
+            const pageButton = event.target.closest("[data-page]");
+            if (pageButton && !pageButton.disabled) {
+                const pageType = config.type === "review" ? "reviews" : config.type === "post" ? "posts" : "comments";
+                mypagePages[pageType] = Number(pageButton.dataset.page);
+                config.render(config.getCache() || []);
+                return;
+            }
             const button = event.target.closest("[data-delete-type]");
             if (!button || button.dataset.deleteType !== config.type) return;
             event.preventDefault();

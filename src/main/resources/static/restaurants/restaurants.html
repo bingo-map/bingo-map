@@ -71,10 +71,10 @@
             z-index: 1;
             pointer-events: none;
             background: linear-gradient(90deg,
-                rgba(248, 250, 252, .92) 0%,
-                rgba(248, 250, 252, .88) 18%,
-                rgba(248, 250, 252, .62) 29%,
-                rgba(248, 250, 252, 0) 43%);
+            rgba(248, 250, 252, .92) 0%,
+            rgba(248, 250, 252, .88) 18%,
+            rgba(248, 250, 252, .62) 29%,
+            rgba(248, 250, 252, 0) 43%);
         }
 
         .hero-banner-image {
@@ -362,55 +362,56 @@
             gap: .75rem;
         }
 
+        /* ===== 검색 필터 패널 크기 - 모바일 (전체적으로 확대) ===== */
         @media (max-width: 699.98px) {
             .filter-panel.d-flex {
-                gap: .4rem !important;
-                padding: 12px;
+                gap: .6rem !important;
+                padding: 16px;
             }
 
             .mobile-filter-selects {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 8px;
+                gap: 10px;
             }
 
             .filter-title {
-                margin-bottom: 4px;
-                font-size: .8rem;
+                margin-bottom: 6px;
+                font-size: .9rem;
             }
 
             .filter-panel .form-control-sm,
             .filter-panel .form-select-sm {
-                padding-top: .25rem;
-                padding-bottom: .25rem;
-                font-size: .75rem;
+                padding-top: .4rem;
+                padding-bottom: .4rem;
+                font-size: .85rem;
             }
 
             .filter-grid-2,
             .rating-options {
-                gap: 5px;
+                gap: 8px;
             }
 
             .btn-filter-tag {
-                padding: 4px 0;
-                font-size: .72rem;
-                line-height: 1.15;
+                padding: 8px 0;
+                font-size: .85rem;
+                line-height: 1.25;
             }
 
             .radius-all {
-                gap: 6px;
-                margin-bottom: 4px;
-                font-size: .72rem;
+                gap: 8px;
+                margin-bottom: 6px;
+                font-size: .82rem;
             }
 
             .filter-panel #radiusRange {
-                margin: .1rem 0 .25rem;
+                margin: .2rem 0 .3rem;
             }
 
             .filter-help {
-                margin-top: 3px;
-                font-size: .68rem;
-                line-height: 1.25;
+                margin-top: 6px;
+                font-size: .76rem;
+                line-height: 1.35;
             }
 
             .rating-options {
@@ -418,25 +419,26 @@
             }
 
             .rating-tile {
-                min-height: 48px;
-                padding: 4px 2px;
-                gap: 2px;
+                min-height: 60px;
+                padding: 8px 4px;
+                gap: 4px;
             }
 
             .rating-stars {
-                font-size: .75rem;
+                font-size: .86rem;
             }
 
             .rating-label {
-                font-size: .68rem;
+                font-size: .78rem;
             }
 
             .filter-panel #resetFilters {
-                padding-top: .3rem !important;
-                padding-bottom: .3rem !important;
+                padding-top: .5rem !important;
+                padding-bottom: .5rem !important;
             }
         }
 
+        /* ===== 검색 필터 패널 크기 - PC/태블릿 (전체적으로 확대) ===== */
         @media (min-width: 700px) {
             .filter-panel {
                 position: sticky;
@@ -449,24 +451,24 @@
             }
 
             .filter-panel.d-flex {
-                gap: .35rem !important;
-                padding: 10px;
+                gap: .55rem !important;
+                padding: 18px;
             }
 
             .mobile-filter-selects {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 6px;
+                gap: 8px;
             }
 
             .filter-title {
-                margin-bottom: 3px;
-                font-size: .76rem;
+                margin-bottom: 6px;
+                font-size: .88rem;
             }
 
             .filter-grid-2,
             .rating-options {
-                gap: 4px;
+                gap: 6px;
             }
 
             .filter-grid-2 {
@@ -482,63 +484,63 @@
             }
 
             .btn-filter-tag {
-                padding: 3px 0;
-                font-size: .69rem;
-                line-height: 1.15;
+                padding: 7px 0;
+                font-size: .8rem;
+                line-height: 1.25;
             }
 
             .rating-tile {
-                min-height: 44px;
-                padding: 4px 2px;
-                gap: 1px;
+                min-height: 54px;
+                padding: 6px 4px;
+                gap: 3px;
             }
 
             .rating-stars {
-                font-size: .72rem;
+                font-size: .82rem;
             }
 
             .rating-label {
-                font-size: .7rem;
+                font-size: .78rem;
             }
 
             .filter-panel .form-control-sm,
             .filter-panel .form-select-sm {
-                padding-top: .25rem;
-                padding-bottom: .25rem;
-                font-size: .75rem;
+                padding-top: .4rem;
+                padding-bottom: .4rem;
+                font-size: .85rem;
             }
 
             .radius-all {
-                gap: 5px;
-                margin-bottom: 4px;
-                font-size: .7rem;
+                gap: 6px;
+                margin-bottom: 6px;
+                font-size: .78rem;
             }
 
             .filter-panel #radiusRange {
-                margin: .15rem 0 .25rem;
+                margin: .2rem 0 .3rem;
             }
 
             .filter-help {
-                margin-top: 4px;
-                font-size: .64rem;
-                line-height: 1.3;
+                margin-top: 5px;
+                font-size: .7rem;
+                line-height: 1.35;
             }
 
             .filter-panel #resetFilters {
-                padding-top: .25rem !important;
-                padding-bottom: .25rem !important;
+                padding-top: .4rem !important;
+                padding-bottom: .4rem !important;
             }
 
             #restaurantSearchInput {
-                min-height: 30px;
-                padding-top: .2rem;
-                padding-bottom: .2rem;
-                font-size: .75rem;
+                min-height: 38px;
+                padding-top: .35rem;
+                padding-bottom: .35rem;
+                font-size: .85rem;
             }
 
             #radiusHint,
             fieldset .filter-help {
-                line-height: 1.2;
+                line-height: 1.25;
             }
         }
 
@@ -552,13 +554,13 @@
             }
 
             .filter-panel.d-flex {
-                gap: .25rem !important;
-                padding: 8px;
+                gap: .4rem !important;
+                padding: 12px;
             }
 
             .rating-tile {
-                min-height: 40px;
-                padding: 3px 2px;
+                min-height: 46px;
+                padding: 4px 3px;
             }
         }
 
@@ -572,24 +574,24 @@
             }
 
             .filter-panel.d-flex {
-                gap: .28rem !important;
-                padding: 9px;
+                gap: .45rem !important;
+                padding: 14px;
             }
 
             .mobile-filter-selects {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 6px;
+                gap: 8px;
             }
 
             .filter-title {
-                margin-bottom: 3px;
-                font-size: .76rem;
+                margin-bottom: 5px;
+                font-size: .85rem;
             }
 
             .filter-grid-2,
             .rating-options {
-                gap: 4px;
+                gap: 6px;
             }
 
             .rating-options {
@@ -597,51 +599,51 @@
             }
 
             .btn-filter-tag {
-                padding: 3px 0;
-                font-size: .69rem;
-                line-height: 1.15;
+                padding: 6px 0;
+                font-size: .78rem;
+                line-height: 1.2;
             }
 
             .rating-tile {
-                min-height: 44px;
-                padding: 4px 2px;
-                gap: 1px;
+                min-height: 50px;
+                padding: 5px 3px;
+                gap: 2px;
             }
 
             .rating-stars {
-                font-size: .68rem;
+                font-size: .78rem;
             }
 
             .rating-label {
-                font-size: .68rem;
+                font-size: .75rem;
             }
 
             .filter-panel .form-control-sm,
             .filter-panel .form-select-sm {
-                padding-top: .25rem;
-                padding-bottom: .25rem;
-                font-size: .75rem;
+                padding-top: .35rem;
+                padding-bottom: .35rem;
+                font-size: .82rem;
             }
 
             .radius-all {
-                gap: 5px;
-                margin-bottom: 4px;
-                font-size: .7rem;
+                gap: 6px;
+                margin-bottom: 5px;
+                font-size: .76rem;
             }
 
             .filter-panel #radiusRange {
-                margin: .15rem 0 .25rem;
+                margin: .18rem 0 .3rem;
             }
 
             .filter-help {
-                margin-top: 4px;
-                font-size: .64rem;
-                line-height: 1.3;
+                margin-top: 5px;
+                font-size: .68rem;
+                line-height: 1.35;
             }
 
             .filter-panel #resetFilters {
-                padding-top: .25rem !important;
-                padding-bottom: .25rem !important;
+                padding-top: .35rem !important;
+                padding-bottom: .35rem !important;
             }
         }
 
@@ -1062,89 +1064,89 @@
             }
 
             .filter-panel.d-flex {
-                gap: .3rem !important;
-                padding: 10px;
+                gap: .5rem !important;
+                padding: 16px;
             }
 
             .mobile-filter-selects {
                 display: grid !important;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
-                gap: 8px;
+                gap: 10px;
             }
 
             .rating-options {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 4px;
+                gap: 8px;
             }
 
             .rating-tile {
-                min-height: 42px;
-                padding: 3px 2px;
-                gap: 2px;
+                min-height: 58px;
+                padding: 6px 4px;
+                gap: 3px;
             }
 
             .rating-stars {
-                font-size: .72rem;
+                font-size: .84rem;
                 letter-spacing: 0;
             }
 
             .rating-label {
-                font-size: .7rem;
+                font-size: .78rem;
             }
 
             .radius-all {
-                gap: 6px;
-                margin-bottom: 4px;
-                font-size: .72rem;
+                gap: 8px;
+                margin-bottom: 6px;
+                font-size: .8rem;
             }
 
             .filter-panel #radiusRange {
-                margin: .1rem 0 .2rem;
+                margin: .2rem 0 .3rem;
             }
 
             .filter-help {
-                margin: 3px 0 0;
-                font-size: .68rem;
-                line-height: 1.2;
+                margin: 6px 0 0;
+                font-size: .76rem;
+                line-height: 1.3;
             }
 
             .filter-panel #resetFilters {
-                padding-top: .25rem !important;
-                padding-bottom: .25rem !important;
+                padding-top: .4rem !important;
+                padding-bottom: .4rem !important;
             }
         }
 
         @media (min-width: 700px) {
             .rating-options {
                 grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 4px;
+                gap: 6px;
             }
 
             .rating-tile {
-                min-height: 42px;
-                padding: 3px 2px;
-                gap: 2px;
+                min-height: 54px;
+                padding: 5px 3px;
+                gap: 3px;
             }
 
             .rating-stars {
-                font-size: .72rem;
+                font-size: .8rem;
                 letter-spacing: 0;
             }
 
             .rating-label {
-                font-size: .7rem;
+                font-size: .76rem;
             }
 
             .radius-all {
-                gap: 5px;
-                margin-bottom: 4px;
-                font-size: .7rem;
+                gap: 6px;
+                margin-bottom: 5px;
+                font-size: .76rem;
             }
 
             .filter-help {
-                margin: 3px 0 0;
-                font-size: .64rem;
-                line-height: 1.2;
+                margin: 5px 0 0;
+                font-size: .7rem;
+                line-height: 1.3;
             }
         }
 
@@ -1223,22 +1225,40 @@
         }
 
         .top-btn {
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: 0;
+            padding: 0;
             border-radius: 50%;
             background: #1da23b;
             color: #fff;
             font-weight: 900;
+            font-size: 18px;
+            line-height: 1;
             text-decoration: none;
+            box-sizing: border-box;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         }
 
         .top-btn small {
             font-size: 7px;
+            line-height: 1;
+        }
+
+        .footer .top-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 15px;
+            line-height: 1;
+        }
+
+        .footer .top-btn-arrow {
+            font-size: 18px;
+            line-height: 1;
         }
 
         @media (max-width: 700px) {
@@ -1887,7 +1907,7 @@
             <small>이용약관　　개인정보처리방침　　문의하기</small>
             <small>© 2026 BinGo Map. All rights reserved.</small>
         </div>
-        <a class="top-btn" href="#top" aria-label="페이지 맨 위로">↑<small>TOP</small></a>
+        <a class="top-btn" href="#top" aria-label="페이지 맨 위로"><span class="top-btn-arrow" aria-hidden="true">↑</span><small>TOP</small></a>
     </div>
 </footer>
 

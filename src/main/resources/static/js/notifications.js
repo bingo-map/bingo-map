@@ -9,7 +9,7 @@
     var POLL_MS = 30000;
     var TOAST_MS = 6000;
     var MAX_TOASTS = 3;
-    var ICONS = { NOTICE: "📢", COMMENT: "💬", REVIEW: "⭐", REPORT: "🗑️" };
+    var ICONS = { NOTICE: "📢", COMMENT: "💬", REVIEW: "⭐", REPORT: "🗑️", REQUEST: "📨" };
 
     var els = {};
     var initialized = false;
@@ -17,6 +17,8 @@
     var pollTimer = null;
     var lastSeenKey = "";
     var lastSeenId = null;
+    var isAdmin = false;
+    var pendingReports = 0;
 
     function icon(type) { return ICONS[type] || "🔔"; }
 
@@ -62,6 +64,7 @@
     function init(actions, session) {
         if (initialized || !actions || actions.querySelector(".notif-wrap")) return;
         initialized = true;
+        isAdmin = !!(session && (session.role === "ADMIN" || session.role === "MANAGER"));
         var identity = session && session.userId != null ? session.userId : ((session && session.name) || "");
         lastSeenKey = "bingomap-notif-last-" + identity;
         lastSeenId = readLastSeen();
@@ -85,10 +88,11 @@
             '<button type="button" class="notif-bell" aria-label="알림">🔔<span class="notif-badge" hidden>0</span></button>' +
             '<div class="notif-panel" hidden>' +
             '<div class="notif-panel-head"><b>알림</b><button type="button" class="notif-readall">모두 읽음</button></div>' +
+            '<button type="button" class="notif-admin-reports" hidden><span>🗑️</span><span class="notif-admin-reports-text"></span><span aria-hidden="true">›</span></button>' +
             '<div class="notif-list"></div>' +
             '<a class="notif-more" href="/mypage?tab=notifications">전체 알림 보기</a>' +
             "</div>";
-        // 이름 링크 바로 뒤에 놓아 이름과 로그아웃 사이에 종을 배치합니다.
+        // 이름 링크 바로 뒤에 종 알림을 배치합니다.
         var nameLink = actions.querySelector("a.site-header__login, a.login");
         if (nameLink) {
             nameLink.after(wrap);
@@ -101,6 +105,7 @@
         els.badge = wrap.querySelector(".notif-badge");
         els.panel = wrap.querySelector(".notif-panel");
         els.list = wrap.querySelector(".notif-list");
+        els.adminReports = wrap.querySelector(".notif-admin-reports");
 
         els.bell.addEventListener("click", function (e) {
             e.stopPropagation();
@@ -109,6 +114,9 @@
             if (willOpen) refresh(false);
         });
         els.panel.addEventListener("click", function (e) { e.stopPropagation(); });
+        els.adminReports.addEventListener("click", function () {
+            window.location.href = "/admin?tab=reports";
+        });
         document.addEventListener("click", closePanel);
         document.addEventListener("keydown", function (e) { if (e.key === "Escape") closePanel(); });
 
@@ -133,9 +141,15 @@
     }
 
     function render(data) {
-        var count = data.unreadCount || 0;
+        var count = (data.unreadCount || 0) + pendingReports;
         els.badge.textContent = count > 99 ? "99+" : String(count);
         els.badge.hidden = count === 0;
+
+        if (els.adminReports) {
+            els.adminReports.hidden = !isAdmin || pendingReports === 0;
+            els.adminReports.querySelector(".notif-admin-reports-text").textContent =
+                "검수 대기 중인 쓰레기통 제보 " + pendingReports + "건";
+        }
 
         els.list.innerHTML = "";
         if (!data.items.length) {
@@ -181,10 +195,19 @@
 
     function refresh(allowToast) {
         if (stopped) return Promise.resolve();
-        return fetch("/api/notifications/summary")
+        var adminReportRequest = isAdmin
+            ? fetch("/api/admin/reports/pending-count")
+                .then(function (res) { return res.ok ? res.json() : null; })
+                .then(function (result) {
+                    if (result && typeof result.count === "number") pendingReports = result.count;
+                })
+                .catch(function () {})
+            : Promise.resolve();
+        return Promise.all([fetch("/api/notifications/summary"), adminReportRequest])
             .then(function (res) {
-                if (res.status === 401) { stop(); return null; }
-                return res.ok ? res.json() : null;
+                var response = res[0];
+                if (response.status === 401) { stop(); return null; }
+                return response.ok ? response.json() : null;
             })
             .then(function (data) {
                 if (!data) return;

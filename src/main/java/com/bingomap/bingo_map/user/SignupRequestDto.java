@@ -37,7 +37,7 @@ public class SignupRequestDto {
     @NotBlank(message = "비밀번호 확인을 입력해주세요.")
     private String passwordConfirm;
 
-    private String nationality;   // 선택 입력 (화면에는 아직 없음)
+    private String nationality;   // 회원가입 화면의 국적 선택 항목
     private boolean agreeTerms;
 
     // 본인확인 질문/답변은 회원가입 화면에서 제거되어 선택 항목이다 (없으면 null)

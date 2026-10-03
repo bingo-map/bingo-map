@@ -428,4 +428,9 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(() => showSettingsMessage("저장 중 오류가 발생했습니다.", true));
     });
+
+    const requestedTab = new URLSearchParams(window.location.search).get("tab");
+    if (requestedTab && [...navLinks].some((link) => link.dataset.tab === requestedTab)) {
+        activateTab(requestedTab);
+    }
 });

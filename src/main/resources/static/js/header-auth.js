@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 adminLink.className = "site-header__aux";
                 adminLink.textContent = data.role === "ADMIN" ? "관리자 페이지" : "매니저 페이지";
                 loginLink.after(adminLink);
-                if (data.role === "ADMIN") startAdminReportAlert(adminLink);
             }
 
             // 메뉴 바(nav)에도 "마이페이지"를 추가 (비회원에게는 애초에 추가하지 않음)
@@ -165,64 +164,4 @@ function loadNotifications(actions, session) {
         if (window.BingoNotifications) window.BingoNotifications.init(actions, session);
     };
     document.head.appendChild(script);
-}
-
-/**
- * 관리자 알림: 검수 대기(PENDING) 쓰레기통 제보 수를
- *  - "관리자 페이지" 링크 옆 빨간 배지로 항상 보여주고
- *  - 로그인 후 처음 확인했을 때 / 새 제보가 늘었을 때 화면 구석에 알림 토스트로 알려준다.
- * 30초마다 확인한다. (서버: GET /api/admin/reports/pending-count, 관리자만 호출 가능)
- */
-function startAdminReportAlert(adminLink) {
-    const SEEN_KEY = "bingomap-admin-pending-seen";
-
-    const badge = document.createElement("span");
-    badge.style.cssText = "display:none;margin-left:6px;min-width:18px;padding:1px 6px;border-radius:10px;" +
-        "background:#e0392b;color:#fff;font-size:11px;font-weight:800;line-height:16px;text-align:center;";
-    adminLink.appendChild(badge);
-
-    function showToast(message) {
-        const old = document.getElementById("admin-report-toast");
-        if (old) old.remove();
-
-        const toast = document.createElement("div");
-        toast.id = "admin-report-toast";
-        toast.textContent = message;
-        toast.style.cssText = "position:fixed;right:24px;bottom:24px;z-index:99999;max-width:300px;padding:14px 18px;" +
-            "border-radius:12px;background:#1b1e24;color:#fff;font-size:13px;font-weight:700;line-height:1.5;" +
-            "box-shadow:0 8px 25px rgba(0,0,0,.3);cursor:pointer;";
-        toast.addEventListener("click", function () {
-            window.location.href = "/admin";
-        });
-        document.body.appendChild(toast);
-        setTimeout(function () { toast.remove(); }, 8000);
-    }
-
-    function check() {
-        if (document.hidden) return;
-
-        fetch("/api/admin/reports/pending-count")
-            .then(function (res) { return res.ok ? res.json() : null; })
-            .then(function (data) {
-                if (!data || typeof data.count !== "number") return;
-
-                badge.textContent = data.count;
-                badge.style.display = data.count > 0 ? "inline-block" : "none";
-
-                let seen = null;
-                try { seen = sessionStorage.getItem(SEEN_KEY); } catch (e) { /* 저장소 차단 시 무시 */ }
-
-                if (data.count > 0 && (seen === null || data.count > Number(seen))) {
-                    showToast(seen === null
-                        ? "검수 대기 중인 쓰레기통 제보가 " + data.count + "건 있습니다. (클릭하면 관리자 페이지)"
-                        : "새 쓰레기통 제보가 들어왔습니다. 대기 " + data.count + "건 (클릭하면 관리자 페이지)");
-                }
-
-                try { sessionStorage.setItem(SEEN_KEY, String(data.count)); } catch (e) { /* 무시 */ }
-            })
-            .catch(function () { /* 알림 확인 실패는 조용히 무시 */ });
-    }
-
-    check();
-    setInterval(check, 30000);
 }

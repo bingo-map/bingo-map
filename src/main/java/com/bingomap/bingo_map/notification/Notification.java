@@ -12,6 +12,7 @@ public class Notification {
     public static final String TYPE_COMMENT = "COMMENT";
     public static final String TYPE_REVIEW = "REVIEW";
     public static final String TYPE_REPORT = "REPORT";
+    public static final String TYPE_REQUEST = "REQUEST";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_notification")

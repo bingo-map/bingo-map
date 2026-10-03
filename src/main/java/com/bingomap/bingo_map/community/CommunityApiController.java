@@ -2,6 +2,7 @@ package com.bingomap.bingo_map.community;
 
 import com.bingomap.bingo_map.user.LoginController;
 import com.bingomap.bingo_map.user.UserRepository;
+import com.bingomap.bingo_map.notification.NotificationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
@@ -22,15 +23,18 @@ public class CommunityApiController {
     private final CommunityPostService service;
     private final CommunityCommentService commentService;
     private final UserRepository userRepository;
+    private final NotificationService notificationService;
 
     public CommunityApiController(
             CommunityPostService service,
             CommunityCommentService commentService,
-            UserRepository userRepository
+            UserRepository userRepository,
+            NotificationService notificationService
     ) {
         this.service = service;
         this.commentService = commentService;
         this.userRepository = userRepository;
+        this.notificationService = notificationService;
     }
 
     /**
@@ -111,9 +115,11 @@ public class CommunityApiController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(service.create(request, loginUserId, isAdmin(httpRequest)));
+        CommunityPostResponseDto created = service.create(request, loginUserId, isAdmin(httpRequest));
+        if ("요청".equals(created.getCategory()) && !isAdmin(httpRequest)) {
+            notificationService.onCommunityRequest(created.getPostId(), loginUserId, created.getTitle());
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     /**

@@ -28,6 +28,9 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
     @Query("select u.userId from User u")
     List<Long> findAllUserIds();
 
+    @Query("select u.userId from User u where u.role in ('ADMIN', 'MANAGER')")
+    List<Long> findAdminAndManagerUserIds();
+
     @Query("select u.nickname from User u where u.userId = :userId")
     Optional<String> findNickname(@Param("userId") Long userId);
 

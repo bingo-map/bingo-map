@@ -282,13 +282,23 @@ DB 접속 정보와 실행 환경은 프로젝트 설정에 맞게 구성해야 
 
 BinGo Map은 **5명이 함께 개발한 Java · Spring Boot 팀 프로젝트**입니다. 기능별로 구현한 뒤 GitHub 브랜치와 Pull Request를 통해 통합했습니다. 아래는 팀원별 주요 담당과 기여입니다.
 
-| 팀원 · 담당 영역 | 주요 기여 |
-|---|---|
-| **[곽동곤](https://github.com/kdk4905)**<br>프로젝트 구조 · 통합 | Spring Boot 초기 구조 · Controller 골격 · 도메인 중심 패키지 개편 · Oracle 스키마 기준 DB·ERD 정리 · 즐겨찾기 · 리뷰 탭 · 메인 인기 맛집 · 기능 통합 · 문서화 |
-| **[박주호](https://github.com/dnflwngh9087-prog)**<br>지도 · 경로 안내 | Oracle 쓰레기통 데이터·식당 지도 연동 · 도보·자전거·자동차 경로 안내 · 쓰레기통 위치 제보·즐겨찾기 지도 연동 |
-| **[장준환](https://github.com/sgnq008-tech)**<br>주변 맛집 | 지역별 맛집 목록 · 검색·필터 · 상세 정보·메뉴·사진 · 주변 맛집 추천 · 지도·길찾기 연결 · 즐겨찾기 · 공개 상태 관리 |
-| **[유해성](https://github.com/Hyesung1122)**<br>리뷰 · 커뮤니티 | 리뷰 CRUD · 사진 첨부 · 도움 기능 · 게시글·댓글·좋아요·검색 · 로그인 사용자 권한 처리 |
-| **[안태건](https://github.com/dksxorjs1359)**<br>회원 · 서비스 운영 | 회원가입·로그인 · 마이페이지 · 관리자 기능 · 쓰레기통 제보 접수·검수 · 공지사항 관리 · 알림 |
+<table>
+  <colgroup>
+    <col width="16%">
+    <col width="20%">
+    <col width="64%">
+  </colgroup>
+  <thead>
+    <tr><th>팀원</th><th>담당</th><th>수행</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><a href="https://github.com/kdk4905">곽동곤</a></td><td>프로젝트 구조 · 통합</td><td>Spring Boot 초기 구조 · Controller 골격 · 도메인 중심 패키지 개편 · Oracle 스키마 기준 DB·ERD 정리 · 즐겨찾기 · 리뷰 탭 · 메인 인기 맛집 · 기능 통합 · 문서화</td></tr>
+    <tr><td><a href="https://github.com/dnflwngh9087-prog">박주호</a></td><td>지도 · 경로 안내</td><td>Oracle 쓰레기통 데이터·식당 지도 연동 · 도보·자전거·자동차 경로 안내 · 쓰레기통 위치 제보·즐겨찾기 지도 연동</td></tr>
+    <tr><td><a href="https://github.com/sgnq008-tech">장준환</a></td><td>주변 맛집</td><td>지역별 맛집 목록 · 검색·필터 · 상세 정보·메뉴·사진 · 주변 맛집 추천 · 지도·길찾기 연결 · 즐겨찾기 · 공개 상태 관리</td></tr>
+    <tr><td><a href="https://github.com/Hyesung1122">유해성</a></td><td>리뷰 · 커뮤니티</td><td>리뷰 CRUD · 사진 첨부 · 도움 기능 · 게시글·댓글·좋아요·검색 · 로그인 사용자 권한 처리</td></tr>
+    <tr><td><a href="https://github.com/dksxorjs1359">안태건</a></td><td>회원 · 서비스 운영</td><td>회원가입·로그인 · 마이페이지 · 관리자 기능 · 쓰레기통 제보 접수·검수 · 공지사항 관리 · 알림</td></tr>
+  </tbody>
+</table>
 
 ---
 

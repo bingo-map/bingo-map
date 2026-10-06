@@ -274,19 +274,21 @@ DB 접속 정보와 실행 환경은 프로젝트 설정에 맞게 구성해야 
 
 프로젝트 설계와 개발 관련 자료는 다음 위치에 정리되어 있습니다.
 
-- [`document/프로젝트 작업 사양서 & 설계서.txt`](./document/프로젝트%20작업%20사양서%20%26%20설계서.txt)
-- [`document/BinGoMap_개발프로세스_학습가이드 (1).md`](./document/BinGoMap_개발프로세스_학습가이드%20%281%29.md)
-- [`document/AI_REBUILD_NOTES.md`](./document/AI_REBUILD_NOTES.md)
+- [`document/BinGo Map 프로젝트 사양·설계 및 개발 프로세스.txt`](./document/BinGo%20Map%20프로젝트%20사양·설계%20및%20개발%20프로세스.txt)
 
 ---
 
 ## 👥 Team
 
-BinGo Map은 **지도 · 맛집 · 리뷰 · 커뮤니티 · 회원 기능을 하나의 서비스로 통합하는 팀 프로젝트**입니다.
+BinGo Map은 **5명이 함께 개발한 Java · Spring Boot 팀 프로젝트**입니다. 기능별로 구현한 뒤 GitHub 브랜치와 Pull Request를 통해 통합했습니다. 아래는 팀원별 주요 담당과 기여입니다.
 
-GitHub에서 각자의 브랜치와 커밋을 통해 기능을 분리 개발하고, Pull Request를 통해 기능을 통합하는 방식으로 협업하고 있습니다.
-
-> 팀원별 역할과 GitHub 계정은 프로젝트 종료 시 최종 정리 예정입니다.
+| 팀원 | 담당 영역 | 주요 기여 |
+|---|---|---|
+| [곽동곤](https://github.com/kdk4905) | 프로젝트 구조 · 통합 | Spring Boot 초기 구조 · Controller 골격 · 도메인 중심 패키지 개편 · Oracle 스키마 기준 DB·ERD 정리 · 즐겨찾기 · 리뷰 탭 · 메인 인기 맛집 · 기능 통합 · 문서화 |
+| [박주호](https://github.com/dnflwngh9087-prog) | 지도 · 경로 안내 | Oracle 쓰레기통 데이터·식당 지도 연동 · 도보·자전거·자동차 경로 안내 · 쓰레기통 위치 제보·즐겨찾기 지도 연동 |
+| [장준환](https://github.com/sgnq008-tech) | 주변 맛집 | 지역별 맛집 목록 · 검색·필터 · 상세 정보·메뉴·사진 · 주변 맛집 추천 · 지도·길찾기 연결 · 즐겨찾기 · 공개 상태 관리 |
+| [유해성](https://github.com/Hyesung1122) | 리뷰 · 커뮤니티 | 리뷰 CRUD · 사진 첨부 · 도움 기능 · 게시글·댓글·좋아요·검색 · 로그인 사용자 권한 처리 |
+| [안태건](https://github.com/dksxorjs1359) | 회원 · 서비스 운영 | 회원가입·로그인 · 마이페이지 · 관리자 기능 · 쓰레기통 제보 접수·검수 · 공지사항 관리 · 알림 |
 
 ---
 
